@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "583505813118",
+    "firebase_url": "https://wamp-firebase-with-messa-42752.firebaseio.com",
+    "project_id": "wamp-firebase-with-messa-42752",
+    "storage_bucket": "wamp-firebase-with-messa-42752.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:583505813118:android:174e76a8cccde23b",
+        "android_client_info": {
+          "package_name": "jlee.app.cal.wampfirebasemessaging"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "583505813118-f15ivr64m2b85e7nvtjin46g804es1gv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "jlee.app.cal.wampfirebasemessaging",
+            "certificate_hash": "84da48e1879aae13dc5be426f9c5144e08856e4f"
+          }
+        },
+        {
+          "client_id": "583505813118-eomue0tqo0ni2divj87naun72ierq81q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZEXDO3hRqcNt03_jDZoZjhgz_RJ1kUoE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "583505813118-eomue0tqo0ni2divj87naun72ierq81q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
