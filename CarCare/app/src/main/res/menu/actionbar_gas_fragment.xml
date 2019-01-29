@@ -1,0 +1,18 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item
+        android:id="@+id/SortByMPG"
+        android:title="Sort By MPG">
+    </item>
+    <item
+        android:id="@+id/SortByCost"
+        android:title="Sort By Cost">
+    </item>
+    <item
+        android:id="@+id/SortByMiles"
+        android:title="Sort By Miles">
+    </item>
+    <item
+        android:id="@+id/SortByGallons"
+        android:title="Sort By Gallons">
+    </item>
+</menu>

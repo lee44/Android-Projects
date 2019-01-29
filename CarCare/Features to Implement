@@ -1,0 +1,9 @@
+Features to Implement:
+
+1. Notification replacement for oil, brakes, wheels, wheel aligment, rotating tires, battery, ac filter. For each of these, put a bar that fills up indicating how much time is left before notification appears.
+
+2. Line graph of MPG, Miles, Gallons, and Cost using date of gas refill as the x-axis. Allow graphs to be plotted separately or together. Compare month to month or year to year.
+
+3. Add number of days driven on each tank of gas.
+
+4. Add white icons for gas, miles, gallons

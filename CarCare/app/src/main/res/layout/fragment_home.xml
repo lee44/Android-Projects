@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="Cost Graph"
+            android:textColor="@android:color/black"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/chart"
+            android:layout_width="match_parent"
+            android:layout_height="500dp"
+            android:layout_centerHorizontal="false"
+            android:layout_centerInParent="false"
+            android:layout_marginBottom="25dp" />
+
+        <TextView
+            android:id="@+id/replacementTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/chart"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="25dp"
+            android:text="Replacement Progress"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/oil"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/replacementTitle"
+            android:textSize="20sp"
+            android:text="Oil"/>
+
+        <ProgressBar
+            android:id="@+id/oilPB"
+            style="@android:style/Widget.Holo.Light.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/oil"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp" />
+
+        <TextView
+            android:id="@+id/brakes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/oilPB"
+            android:layout_marginTop="5dp"
+            android:text="Brake"
+            android:textSize="20sp" />
+
+        <ProgressBar
+            android:id="@+id/brakesPB"
+            style="@android:style/Widget.Holo.Light.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/brakes"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp" />
+
+        <TextView
+            android:id="@+id/wheels"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/brakesPB"
+            android:layout_marginTop="5dp"
+            android:text="Wheel"
+            android:textSize="20sp" />
+
+        <ProgressBar
+            android:id="@+id/wheelsPB"
+            style="@android:style/Widget.Holo.Light.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/wheels"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp" />
+
+        <TextView
+            android:id="@+id/battery"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/wheelsPB"
+            android:layout_marginTop="5dp"
+            android:text="Battery"
+            android:textSize="20sp" />
+
+        <ProgressBar
+            android:id="@+id/batteryPB"
+            style="@android:style/Widget.Holo.Light.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/battery"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp" />
+
+        <TextView
+            android:id="@+id/timingBelt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/batteryPB"
+            android:layout_marginTop="5dp"
+            android:text="Timing Belt"
+            android:textSize="20sp" />
+
+        <ProgressBar
+            android:id="@+id/timingBeltPB"
+            style="@android:style/Widget.Holo.Light.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/timingBelt"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp" />
+
+    </RelativeLayout>
+
+</ScrollView >
