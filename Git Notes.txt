@@ -20,4 +20,6 @@ https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-s
 After key is generated and set in github, need to set the remote url(https or ssh). The remote url is the link to your remote repo on github.
 https://help.github.com/articles/changing-a-remote-s-url/
 
-git remote set-url origin <ssh url>
+git pull origin master --allow-unrelated-histories
+=======
+git remote set-url origin <ssh url> 
