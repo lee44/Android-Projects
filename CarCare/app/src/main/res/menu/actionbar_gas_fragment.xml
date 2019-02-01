@@ -15,4 +15,8 @@
         android:id="@+id/SortByGallons"
         android:title="Sort By Gallons">
     </item>
+    <item
+        android:id="@+id/generateDummyData"
+        android:title="Generate Dummy Data">
+    </item>
 </menu>

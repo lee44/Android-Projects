@@ -104,6 +104,7 @@ public class GasFragment extends Fragment
                    g.setMiles(Double.parseDouble(milesValue));
                    g.setAmount(Double.parseDouble(gallonsValue));
                    g.setCost(Double.parseDouble(cost));
+
                    g.setDateRefilled(new SimpleDateFormat(dbDateFormat).format(date));
                    db.addEntry(g);
 
@@ -229,6 +230,12 @@ public class GasFragment extends Fragment
             adapter.notifyDataSetChanged();
             return true;
         }
+        else
+        {
+            arrayList.clear();
+            generateGasEntries();
+            loadGasEntries();
+        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -265,8 +272,20 @@ public class GasFragment extends Fragment
 
     public void generateGasEntries()
     {
-        db.addEntry(new Gas((int)db.getProfilesCount(new Gas())+1,(double)(new Random().nextInt(20)+45),(double)(new Random().nextInt(6)+10),(double)(new Random().nextInt(100)+400),"Mon Nov 26 15:24:54 PST 2018"));
-        db.addEntry(new Gas((int)db.getProfilesCount(new Gas())+1,(double)(new Random().nextInt(20)+45),(double)(new Random().nextInt(6)+10),(double)(new Random().nextInt(100)+400),"Fri Nov 30 15:24:54 PST 2018"));
+        HashMap<String,String> hashMap = new HashMap<>();
+        Calendar cal = Calendar.getInstance();
+        Double cost,gallons,miles;
+        int id;
+
+        for(int i = 4; i < 8; i++)
+        {
+            id = (int)db.getProfilesCount(new Gas())+1;
+            cal.set(Calendar.MONTH,2); cal.set(Calendar.DAY_OF_MONTH, i*2); cal.set(Calendar.YEAR, 2019);
+            cost = Double.parseDouble(String.format("%.2f",(new Random().nextInt(10)+45) + new Random().nextDouble()));
+            gallons = Double.parseDouble(String.format("%.2f",(new Random().nextInt(6)+10) + new Random().nextDouble()));
+            miles = Double.parseDouble(String.format("%.2f",(new Random().nextInt(115)+400) + new Random().nextDouble()));
+            db.addEntry(new Gas(id,cost,gallons,miles,new SimpleDateFormat(dbDateFormat).format(cal.getTime())));
+        }
     }
 
     public void updateProgressBar()

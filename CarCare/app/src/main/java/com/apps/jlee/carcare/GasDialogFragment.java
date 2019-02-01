@@ -17,6 +17,9 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -146,7 +149,10 @@ public class GasDialogFragment extends DialogFragment
                     if(costValue.equals(""))
                         costValue = "0.00";
 
-                    listener.onClick(milesValue,gallonsValue,costValue,myCalendar.getTime());
+                    listener.onClick(new BigDecimal(Double.parseDouble(milesValue)).setScale(2, RoundingMode.HALF_UP).toString(),
+                                     new BigDecimal(Double.parseDouble(gallonsValue)).setScale(2, RoundingMode.HALF_UP).toString(),
+                                     new BigDecimal(Double.parseDouble(costValue)).setScale(2, RoundingMode.HALF_UP).toString(),
+                                     myCalendar.getTime());
                     getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
                     dialog.dismiss();
                 }

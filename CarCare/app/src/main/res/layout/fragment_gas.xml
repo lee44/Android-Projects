@@ -10,7 +10,6 @@
         android:id="@+id/gasListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/fab"
         android:divider="@color/white"
         android:dividerHeight="1dp">
     </ListView>
