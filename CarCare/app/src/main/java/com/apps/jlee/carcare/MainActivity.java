@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity
         gas = new GasFragment();
         oil = new OilFragment();
 
-        setFragment(gas);
+        setFragment(home);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener()
         {

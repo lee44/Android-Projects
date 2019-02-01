@@ -208,6 +208,9 @@ public class HomeFragment extends Fragment
 
         chart.setData(lineData);
         chart.invalidate();
+
+        chart.setVisibleXRangeMaximum(8);/*Set Maximum x values being displayed*/
+        chart.moveViewToX(list.size());
     }
 
     public void loadProgressBar()
