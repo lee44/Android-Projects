@@ -29,7 +29,7 @@ public class GasDialogFragment extends DialogFragment
 {
     String milesValue,gallonsValue,costValue,displayDateFormat = "MM/dd/yy";
     EditText miles,gallons,cost,date;
-    TextInputLayout milestextInputLayout, gallonstextInputLayout;
+    TextInputLayout costtextInputLayout, milestextInputLayout, gallonstextInputLayout;
     TextView mpgTextView;
     Button OK,Cancel;
     private GasInterface listener;
@@ -66,6 +66,7 @@ public class GasDialogFragment extends DialogFragment
 
         date = dialogView.findViewById(R.id.date);
         cost = dialogView.findViewById(R.id.costEditText);
+        costtextInputLayout = dialogView.findViewById(R.id.cost_error);
         miles = dialogView.findViewById(R.id.milesEditText);
         milestextInputLayout = dialogView.findViewById(R.id.miles_error);
         gallons = dialogView.findViewById(R.id.gallonsEditText);
@@ -134,7 +135,12 @@ public class GasDialogFragment extends DialogFragment
             @Override
             public void onClick(View view)
             {
-                if(miles.getText().toString().matches(""))
+                if(cost.getText().toString().matches(""))
+                {
+                    costtextInputLayout.setErrorEnabled(true);
+                    costtextInputLayout.setError("Can't Leave Cost Blank");
+                }
+                else if(miles.getText().toString().matches(""))
                 {
                     milestextInputLayout.setErrorEnabled(true);
                     milestextInputLayout.setError("Can't Leave Miles Blank");
@@ -146,9 +152,6 @@ public class GasDialogFragment extends DialogFragment
                 }
                 else
                 {
-                    if(costValue.equals(""))
-                        costValue = "0.00";
-
                     listener.onClick(new BigDecimal(Double.parseDouble(milesValue)).setScale(2, RoundingMode.HALF_UP).toString(),
                                      new BigDecimal(Double.parseDouble(gallonsValue)).setScale(2, RoundingMode.HALF_UP).toString(),
                                      new BigDecimal(Double.parseDouble(costValue)).setScale(2, RoundingMode.HALF_UP).toString(),
@@ -186,9 +189,6 @@ public class GasDialogFragment extends DialogFragment
                 if(milestextInputLayout.isErrorEnabled())
                     milestextInputLayout.setErrorEnabled(false);
 
-                if(gallonstextInputLayout.isErrorEnabled())
-                    gallonstextInputLayout.setErrorEnabled(false);
-
                 milesValue = editable.toString();
                 calculateMPG();
             }
@@ -204,6 +204,9 @@ public class GasDialogFragment extends DialogFragment
             @Override
             public void afterTextChanged(Editable editable)
             {
+                if(gallonstextInputLayout.isErrorEnabled())
+                    gallonstextInputLayout.setErrorEnabled(false);
+
                 gallonsValue = editable.toString();
                 calculateMPG();
             }
@@ -219,6 +222,9 @@ public class GasDialogFragment extends DialogFragment
             @Override
             public void afterTextChanged(Editable editable)
             {
+                if(costtextInputLayout.isErrorEnabled())
+                    costtextInputLayout.setErrorEnabled(false);
+
                 costValue = editable.toString();
             }
         });

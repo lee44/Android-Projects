@@ -11,7 +11,8 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".MainActivity">
+            android:name=".MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -20,12 +21,14 @@
 
         <activity
             android:name=".YesNotificationActivity"
+            android:screenOrientation="portrait"
             android:taskAffinity=""
             android:excludeFromRecents="true">
         </activity>
 
         <activity
             android:name=".NoNotificationActivity"
+            android:screenOrientation="portrait"
             android:taskAffinity=""
             android:excludeFromRecents="true">
         </activity>

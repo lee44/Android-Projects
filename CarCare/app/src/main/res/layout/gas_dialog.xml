@@ -19,8 +19,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_column="1"
-                android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
+                android:layout_marginTop="9dp"
                 android:text="Date"
                 android:textColor="@android:color/black"
                 android:textSize="20sp"
@@ -31,12 +31,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_column="2"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:gravity="center"
+                android:layout_marginLeft="2dp"
+                android:layout_marginTop="2dp"
                 android:clickable="true"
                 android:editable="false"
                 android:focusable="false"
+                android:gravity="center"
                 android:hint="Enter Date" />
 
         </TableRow>
@@ -49,26 +49,32 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_column="1"
-                android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
+                android:layout_marginTop="12dp"
                 android:text="Cost"
                 android:textColor="@android:color/black"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/cost_error"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            app:errorTextAppearance="@style/error_appearance"
+            app:hintEnabled="false">
             <EditText
                 android:id="@+id/costEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_column="2"
                 android:maxLength="6"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="2dp"
                 android:layout_marginTop="10dp"
                 android:gravity="center"
                 android:hint="Enter Cost"
                 android:imeOptions="actionDone"
                 android:inputType="numberDecimal|numberSigned" />
-
+        </android.support.design.widget.TextInputLayout>
         </TableRow>
 
         <TableRow
@@ -79,10 +85,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_column="1"
-                android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
-                android:textColor="@android:color/black"
+                android:layout_marginTop="12dp"
                 android:text="Miles"
+                android:textColor="@android:color/black"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -100,7 +106,7 @@
                     android:layout_below="@+id/costEditText"
                     android:layout_column="2"
                     android:maxLength="6"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="2dp"
                     android:layout_marginTop="10dp"
                     android:gravity="center"
                     android:hint="Enter Miles"
@@ -118,10 +124,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_column="1"
-                android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
-                android:textColor="@android:color/black"
+                android:layout_marginTop="12dp"
                 android:text="Gallons"
+                android:textColor="@android:color/black"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -131,19 +137,20 @@
                 android:layout_height="wrap_content"
                 app:hintEnabled="false"
                 app:errorTextAppearance="@style/error_appearance">
+
                 <EditText
                     android:id="@+id/gallonsEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_column="2"
-                    android:maxLength="6"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="10dp"
                     android:layout_below="@+id/milesEditText"
+                    android:layout_column="2"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginTop="2dp"
                     android:gravity="center"
-                    android:inputType="numberDecimal|numberSigned"
+                    android:hint="Enter Gallons"
                     android:imeOptions="actionDone"
-                    android:hint="Enter Gallons"/>
+                    android:inputType="numberDecimal|numberSigned"
+                    android:maxLength="6" />
             </android.support.design.widget.TextInputLayout>
         </TableRow>
 
@@ -156,7 +163,7 @@
         android:layout_below="@+id/Table"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="30dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:text="0 MPG"
         android:textColor="#000000"
         android:textSize="37sp"
