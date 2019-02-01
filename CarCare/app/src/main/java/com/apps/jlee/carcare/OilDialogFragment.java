@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -25,7 +27,7 @@ public class OilDialogFragment extends DialogFragment
 {
     private EditText oil_name_editText,oil_amount_editText,mileage_editText,date;
     private Button OK,Cancel;
-    private TextInputLayout oil_amount_textInputLayout, mileage_textInputLayout;
+    private TextInputLayout oil_textInputLayout, oil_amount_textInputLayout, mileage_textInputLayout;
     private AlertDialog dialog;
     private OilInterface listener;
     final Calendar myCalendar = Calendar.getInstance();
@@ -60,8 +62,9 @@ public class OilDialogFragment extends DialogFragment
         OK = dialogView.findViewById(R.id.OK);
         Cancel = dialogView.findViewById(R.id.Cancel);
 
+        oil_textInputLayout = dialogView.findViewById(R.id.oil_error);
         oil_amount_textInputLayout = dialogView.findViewById(R.id.oilAmount_error);
-        mileage_textInputLayout = dialogView.findViewById(R.id.miles_error);
+        mileage_textInputLayout = dialogView.findViewById(R.id.mileage_error);
 
         if(getArguments() != null)
         {
@@ -118,7 +121,12 @@ public class OilDialogFragment extends DialogFragment
             @Override
             public void onClick(View view)
             {
-                if(oil_name_editText.getText().equals(""))
+                if(oil_name_editText.getText().toString().equals(""))
+                {
+                    oil_textInputLayout.setErrorEnabled(true);
+                    oil_textInputLayout.setError("Can't Leave Oil Name Blank");
+                }
+                else if(oil_amount_editText.getText().toString().equals(""))
                 {
                     oil_amount_textInputLayout.setErrorEnabled(true);
                     oil_amount_textInputLayout.setError("Can't Leave Oil Amount Blank");
@@ -130,10 +138,7 @@ public class OilDialogFragment extends DialogFragment
                 }
                 else
                 {
-                    if(oil_name_editText.getText().toString().equals(""))
-                        listener.onClick("",Double.valueOf(oil_amount_editText.getText().toString()),Double.valueOf(mileage_editText.getText().toString()),myCalendar.getTime());
-                    else
-                        listener.onClick(oil_name_editText.getText().toString(),Double.valueOf(oil_amount_editText.getText().toString()),Double.valueOf(mileage_editText.getText().toString()),myCalendar.getTime());
+                    listener.onClick(oil_name_editText.getText().toString(),Double.valueOf(oil_amount_editText.getText().toString()),Double.valueOf(mileage_editText.getText().toString()),myCalendar.getTime());
 
                     getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
                     dialog.dismiss();
@@ -151,6 +156,72 @@ public class OilDialogFragment extends DialogFragment
                 mileage_editText.setText("");
                 getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
                 dialog.dismiss();
+            }
+        });
+
+        oil_name_editText.addTextChangedListener(new TextWatcher()
+        {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2)
+            {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2)
+            {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable)
+            {
+                if(oil_textInputLayout.isErrorEnabled())
+                    oil_textInputLayout.setErrorEnabled(false);
+            }
+        });
+
+        oil_amount_editText.addTextChangedListener(new TextWatcher()
+        {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2)
+            {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2)
+            {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable)
+            {
+                if(oil_amount_textInputLayout.isErrorEnabled())
+                    oil_amount_textInputLayout.setErrorEnabled(false);
+            }
+        });
+
+        mileage_editText.addTextChangedListener(new TextWatcher()
+        {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2)
+            {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2)
+            {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable)
+            {
+                if(mileage_textInputLayout.isErrorEnabled())
+                    mileage_textInputLayout.setErrorEnabled(false);
             }
         });
 

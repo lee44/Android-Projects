@@ -57,7 +57,12 @@
                 android:textColor="@android:color/black"
                 android:textSize="20sp"
                 android:textStyle="bold" />
-
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/oil_error"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            app:errorTextAppearance="@style/error_appearance"
+            app:hintEnabled="false">
             <EditText
                 android:id="@+id/oilEditText"
                 android:layout_width="match_parent"
@@ -70,6 +75,7 @@
                 android:scrollHorizontally="true"
                 android:hint="Enter Oil Name"
                 android:imeOptions="actionDone" />
+        </android.support.design.widget.TextInputLayout>
 
         </TableRow>
 
