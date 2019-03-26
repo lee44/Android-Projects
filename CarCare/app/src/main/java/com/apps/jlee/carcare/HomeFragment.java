@@ -221,7 +221,7 @@ public class HomeFragment extends Fragment
             public void run()
             {
                 SharedPreferences sharedpreferences = getContext().getSharedPreferences("Replacement Values", Context.MODE_PRIVATE);
-                oilPB.setProgress(sharedpreferences.getInt("oil",0));
+                oilPB.setProgress((int)sharedpreferences.getFloat("oil",0));
             }
         });
 

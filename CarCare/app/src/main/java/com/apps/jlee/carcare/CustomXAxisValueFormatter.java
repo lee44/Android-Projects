@@ -16,7 +16,14 @@ public class CustomXAxisValueFormatter implements IAxisValueFormatter
     public String getFormattedValue(float value, AxisBase axis)
     {
         // "value" represents the position of the label on the axis (x or y)
-        return mValues[(int) value];
+        if (value >= 0) {
+            if (mValues.length > (int) value) {
+                return mValues[(int) value];
+            } else return "";
+        } else {
+            return "";
+        }
+
     }
 
     /** this is only needed if numbers are returned, else return 0 */

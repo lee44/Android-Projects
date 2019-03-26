@@ -290,38 +290,46 @@ public class GasFragment extends Fragment
 
     public void updateProgressBar()
     {
-        int total = 0;
+        int previoustotal = 0;
         List<Object> list = db.getAllEntries(new Gas());
         SharedPreferences sharedpreferences = getContext().getSharedPreferences("Replacement Values", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedpreferences.edit();
 
-        for (int i = 0; i < list.size(); i++)
-            total += ((Gas) (list.get(i))).getMiles();
+        if(sharedpreferences.getInt("oil",-1) == -1)
+            editor.putFloat("oil",(float)((Gas) (list.get(0))).getMiles());
 
-        if ((total % 3001) - sharedpreferences.getInt("oil",0) + sharedpreferences.getInt("oil",0) <= 3000)
-            editor.putInt("oil", total % 3001);
-        else
-            editor.putInt("oil", 3000);
+        //for (int i = 0; i < list.size()-1; i++)
+        //    previoustotal += ((Gas) (list.get(i))).getMiles();
 
-        if ((total % 50001) - sharedpreferences.getInt("brakes",0) + sharedpreferences.getInt("brakes",0) <= 50000)
-            editor.putInt("brakes", total % 50001);
-        else
-            editor.putInt("brakes", 50000);
+        Log.v("Dodgers", sharedpreferences.getFloat("oil",0)+"");
 
-        if ((total % 15001) - sharedpreferences.getInt("wheels",0) + sharedpreferences.getInt("wheels",0) <= 15000)
-            editor.putInt("wheels", total % 15001);
-        else
-            editor.putInt("wheels", 15000);
-
-        if ((total % 30001) - sharedpreferences.getInt("battery",0) + sharedpreferences.getInt("battery",0) <= 30000)
-            editor.putInt("battery", total % 30001);
-        else
-            editor.putInt("battery", 30000);
-
-        if ((total % 100001) - sharedpreferences.getInt("timingbelt",0) + sharedpreferences.getInt("timingbelt",0) <= 100000)
-            editor.putInt("timingbelt", total % 100001);
-        else
-            editor.putInt("timingbelt", 100000);
+        //if ((sharedpreferences.getFloat("oil",0) % 3000) + (float)(((Gas) (list.get(list.size()-1))).getMiles()) < 3000.00)
+        //    editor.putFloat("oil", sharedpreferences.getFloat("oil",0) % 3000 + (float)(((Gas) (list.get(list.size()-1))).getMiles()));
+        //else
+        //{
+        //    editor.putInt("oil", 3000);
+        //    scheduleNotification("Oil Replacement","You have driven more than 3000 miles since your last oil change. Have you replaced your oil?");
+        //}
+        //
+        //if ((total % 50001) - sharedpreferences.getInt("brakes",0) + sharedpreferences.getInt("brakes",0) <= 50000)
+        //    editor.putInt("brakes", total % 50001);
+        //else
+        //    editor.putInt("brakes", 50000);
+        //
+        //if ((total % 15001) - sharedpreferences.getInt("wheels",0) + sharedpreferences.getInt("wheels",0) <= 15000)
+        //    editor.putInt("wheels", total % 15001);
+        //else
+        //    editor.putInt("wheels", 15000);
+        //
+        //if ((total % 30001) - sharedpreferences.getInt("battery",0) + sharedpreferences.getInt("battery",0) <= 30000)
+        //    editor.putInt("battery", total % 30001);
+        //else
+        //    editor.putInt("battery", 30000);
+        //
+        //if ((total % 100001) - sharedpreferences.getInt("timingbelt",0) + sharedpreferences.getInt("timingbelt",0) <= 100000)
+        //    editor.putInt("timingbelt", total % 100001);
+        //else
+        //    editor.putInt("timingbelt", 100000);
 
         editor.apply();
     }
@@ -336,8 +344,8 @@ public class GasFragment extends Fragment
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, 16);
-        calendar.set(Calendar.MINUTE, 30);
+        calendar.set(Calendar.HOUR_OF_DAY, 17);
+        calendar.set(Calendar.MINUTE, 00);
 
         alarmMgr.set(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(), alarmIntent);
     }

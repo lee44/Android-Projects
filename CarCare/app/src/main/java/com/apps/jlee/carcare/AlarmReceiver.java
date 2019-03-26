@@ -26,7 +26,7 @@ public class AlarmReceiver extends BroadcastReceiver
         PendingIntent noPendingIntent = PendingIntent.getBroadcast(context,0,noIntent,PendingIntent.FLAG_CANCEL_CURRENT);
 
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context,"1")
-                .setSmallIcon(R.drawable.baseline_warning_black_18dp)
+                .setSmallIcon(R.drawable.warning_icon)
                 .setContentTitle(intent.getStringExtra("title"))
                 .setContentText(intent.getStringExtra("message"))
                 .addAction(0,"Yes",yesPendingIntent)
