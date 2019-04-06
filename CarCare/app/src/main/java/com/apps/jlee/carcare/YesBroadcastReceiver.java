@@ -15,7 +15,7 @@ public class YesBroadcastReceiver extends BroadcastReceiver
 
         SharedPreferences sharedpreferences = context.getSharedPreferences("Replacement Values", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedpreferences.edit();
-        editor.putInt("oil",0);
+        editor.putFloat("oil",0);
         editor.apply();
 
         NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
