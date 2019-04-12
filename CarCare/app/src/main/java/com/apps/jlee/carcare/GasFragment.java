@@ -107,8 +107,7 @@ public class GasFragment extends Fragment
                    g.setMiles(Double.parseDouble(milesValue));
                    g.setAmount(Double.parseDouble(gallonsValue));
                    g.setCost(Double.parseDouble(cost));
-
-                   g.setDateRefilled(new SimpleDateFormat(dbDateFormat).format(date));
+                   g.setDateRefilled(date.getTime());
                    db.addEntry(g);
 
                    HashMap<String, String> hashMap = new HashMap<>();
@@ -117,8 +116,8 @@ public class GasFragment extends Fragment
                    hashMap.put("Miles", milesValue);
                    hashMap.put("Gallons", gallonsValue);
                    hashMap.put("Date", new SimpleDateFormat("MM/dd/yyyy").format(date));
+                   hashMap.put("Date Long",Long.toString(date.getTime()));
                    hashMap.put("MPG", String.format("%.2f", (Double.parseDouble(milesValue) / Double.parseDouble(gallonsValue)))+ " MPG");
-                   //hashMap.put("Details", "Cost: $" + cost + "\nMiles: " + milesValue + "\nGallons: " + gallonsValue);
                    hashMap.put("Details"," " + cost + "\n " + milesValue + " mi\n " + gallonsValue + " gal");
                    arrayList.add(0,hashMap);
                }
@@ -131,15 +130,14 @@ public class GasFragment extends Fragment
                    hashMap.put("Miles", milesValue);
                    hashMap.put("Gallons", gallonsValue);
                    hashMap.put("Date",new SimpleDateFormat("MM/dd/yyyy").format(date));
+                   hashMap.put("Date Long",Long.toString(date.getTime()));
                    hashMap.put("MPG", String.format("%.2f", (Double.parseDouble(milesValue) / Double.parseDouble(gallonsValue)))+ " MPG");
-                   //hashMap.put("Details", "Cost: $" + cost + "\nMiles: " + milesValue + "\nGallons: " + gallonsValue);
                    hashMap.put("Details"," " + cost + "\n " + milesValue + " mi\n " + gallonsValue + " gal");
 
-                   db.updateEntry(new Gas(Integer.valueOf(hashMap.get("ID")),Double.valueOf(cost),Double.valueOf(gallonsValue),Double.valueOf(milesValue),new SimpleDateFormat(dbDateFormat).format(date)));
+                   db.updateEntry(new Gas(Integer.valueOf(hashMap.get("ID")),Double.valueOf(cost),Double.valueOf(gallonsValue),Double.valueOf(milesValue),date.getTime()));
                }
                Collections.sort(arrayList, new MapComparator("Date"));
                adapter.notifyDataSetChanged();
-               updateProgressBar();
            }
        });
        return view;
@@ -166,7 +164,7 @@ public class GasFragment extends Fragment
             //getItem will get a reference to data stored in the ArrayList. This data is a HashMap. We cast it below because
             //getItem is returning a plain object. By casting, we are telling the compiler that the object is a HashMap object.
             hashMap = (HashMap<String,String>) adapter.getItem(index);
-            db.deleteEntry(new Gas(Integer.valueOf(hashMap.get("ID")),0,0,0,""));
+            db.deleteEntry(new Gas(Integer.valueOf(hashMap.get("ID")),0,0,0,0));
             arrayList.remove(adapter.getItem(index));
             adapter.notifyDataSetChanged();
             updateProgressBar();
@@ -233,6 +231,12 @@ public class GasFragment extends Fragment
             adapter.notifyDataSetChanged();
             return true;
         }
+        else if(id == R.id.SortByDate)
+        {
+            Collections.sort(arrayList, new MapComparator("Date"));
+            adapter.notifyDataSetChanged();
+            return true;
+        }
         else
         {
             arrayList.clear();
@@ -258,18 +262,13 @@ public class GasFragment extends Fragment
                 hashMap.put("Cost", String.valueOf(((Gas)(list.get(i))).getCost()));
                 hashMap.put("Miles",String.valueOf(((Gas)(list.get(i))).getMiles()));
                 hashMap.put("Gallons",String.valueOf(((Gas)(list.get(i))).getAmount()));
-
-                try {
-                    date = new SimpleDateFormat(dbDateFormat).parse(((Gas)(list.get(i))).getDateRefilled());
-                } catch (ParseException e) { e.printStackTrace();}
-
+                date = new Date(((Gas)(list.get(i))).getDateRefilled());
                 hashMap.put("Date", new SimpleDateFormat("MM/dd/yyyy").format(date));
+                hashMap.put("Date Long",Long.toString(date.getTime()));
                 hashMap.put("MPG",String.format("%.2f", (((Gas)(list.get(i))).getMiles()) / (((Gas)(list.get(i))).getAmount()))+" MPG");
-                //hashMap.put("Details", "Cost: $" + (((Gas)(list.get(i))).getCost() + "\nMiles: " + (((Gas)(list.get(i))).getMiles() + "\nGallons: " + (((Gas)(list.get(i))).getAmount()))));
                 hashMap.put("Details"," " + (((Gas)(list.get(i))).getCost() + "\n " + (((Gas)(list.get(i))).getMiles() + " mi\n " + (((Gas)(list.get(i))).getAmount()))) + " gal");
                 arrayList.add(0,hashMap);
             }
-            adapter.notifyDataSetChanged();
         }
     }
 
@@ -287,7 +286,7 @@ public class GasFragment extends Fragment
             cost = Double.parseDouble(String.format("%.2f",(new Random().nextInt(10)+45) + new Random().nextDouble()));
             gallons = Double.parseDouble(String.format("%.2f",(new Random().nextInt(6)+10) + new Random().nextDouble()));
             miles = Double.parseDouble(String.format("%.2f",(new Random().nextInt(115)+400) + new Random().nextDouble()));
-            db.addEntry(new Gas(id,cost,gallons,miles,new SimpleDateFormat(dbDateFormat).format(cal.getTime())));
+            //db.addEntry(new Gas(id,cost,gallons,miles,new SimpleDateFormat(dbDateFormat).format(cal.getTime())));
         }
     }
 
@@ -370,20 +369,8 @@ public class GasFragment extends Fragment
         {
             String firstValue = "", secondValue = "";
 
-            if(key == "Date")
-            {
-                try
-                {
-                    Date d1 = new SimpleDateFormat("MM/dd/yyyy").parse(first.get(key));
-                    Date d2 = new SimpleDateFormat("MM/dd/yyyy").parse(second.get(key));
-                    return d2.compareTo(d1);
-                }catch(ParseException e){}
-            }
-            else
-            {
-                firstValue = String.valueOf(first.get(key));
-                secondValue = String.valueOf(second.get(key));
-            }
+            firstValue = String.valueOf(first.get(key));
+            secondValue = String.valueOf(second.get(key));
 
             return secondValue.compareTo(firstValue);
         }

@@ -15,7 +15,7 @@ public class SQLiteDatabaseHandler extends SQLiteOpenHelper
 {
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "CarCareDB";
-    private static final String CREATION_TABLE_GAS = "CREATE TABLE IF NOT EXISTS Gas ( " + "id INTEGER PRIMARY KEY AUTOINCREMENT, " + "cost DOUBLE, " + "amount DOUBLE, " + "miles DOUBLE, " + "date DATE )";
+    private static final String CREATION_TABLE_GAS = "CREATE TABLE IF NOT EXISTS Gas ( " + "id INTEGER PRIMARY KEY AUTOINCREMENT, " + "cost DOUBLE, " + "amount DOUBLE, " + "miles DOUBLE, " + "date INTEGER )";
     private static final String CREATION_TABLE_OIL = "CREATE TABLE IF NOT EXISTS Oil ( " + "id INTEGER PRIMARY KEY AUTOINCREMENT, " + "name TEXT, " + "amount DOUBLE, " + "mileage DOUBLE, " + "date DATE )";
     private static final String TABLE_NAME = "Gas", KEY_ID = "id", KEY_COST = "cost", KEY_AMOUNT = "amount", KEY_MILES = "miles", KEY_DATE = "date";
     private static final String[] COLUMNS = {KEY_ID, KEY_COST, KEY_AMOUNT, KEY_MILES, KEY_DATE};
@@ -34,6 +34,7 @@ public class SQLiteDatabaseHandler extends SQLiteOpenHelper
         db.execSQL(CREATION_TABLE_GAS);
         db.execSQL(CREATION_TABLE_OIL);
     }
+
     public void addEntry(Object o)
     {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -57,6 +58,7 @@ public class SQLiteDatabaseHandler extends SQLiteOpenHelper
         }
         db.close();
     }
+
     public List<Object> getAllEntries(Object o)
     {
         List<Object> list = new LinkedList<>();
@@ -64,7 +66,7 @@ public class SQLiteDatabaseHandler extends SQLiteOpenHelper
 
         if(o instanceof Gas)
         {
-            String query = "SELECT  * FROM " + TABLE_NAME + " ORDER BY " + KEY_DATE;
+            String query = "SELECT  * FROM " + TABLE_NAME + " ORDER BY " + KEY_DATE + " ASC";
             Cursor cursor = db.rawQuery(query, null);
 
             if (cursor.moveToFirst())
@@ -76,7 +78,7 @@ public class SQLiteDatabaseHandler extends SQLiteOpenHelper
                     gas.setCost(Double.parseDouble(cursor.getString(1)));
                     gas.setAmount(Double.parseDouble(cursor.getString(2)));
                     gas.setMiles(Double.parseDouble(cursor.getString(3)));
-                    gas.setDateRefilled(cursor.getString(4));
+                    gas.setDateRefilled(Long.parseLong(cursor.getString(4)));
                     list.add(gas);
                 } while (cursor.moveToNext());
             }
@@ -102,6 +104,7 @@ public class SQLiteDatabaseHandler extends SQLiteOpenHelper
         }
         return list;
     }
+
     public int updateEntry(Object o)
     {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -113,7 +116,7 @@ public class SQLiteDatabaseHandler extends SQLiteOpenHelper
             values.put(KEY_COST, ((Gas)o).getCost());
             values.put(KEY_AMOUNT, ((Gas)o).getAmount());
             values.put(KEY_MILES, ((Gas)o).getMiles());
-            values.put(KEY_DATE, ((Gas)o).getDateRefilled().toString());
+            values.put(KEY_DATE, ((Gas)o).getDateRefilled());
 
             i = db.update(
                 TABLE_NAME, // table
@@ -186,10 +189,11 @@ public class SQLiteDatabaseHandler extends SQLiteOpenHelper
         gas.setCost(Double.parseDouble(cursor.getString(1)));
         gas.setAmount(Double.parseDouble(cursor.getString(2)));
         gas.setMiles(Double.parseDouble(cursor.getString(3)));
-        gas.setDateRefilled(cursor.getString(4));
+        gas.setDateRefilled(Integer.parseInt(cursor.getString(4)));
 
         return gas;
     }
+
     public void deleteTable(Object o)
     {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -201,6 +205,7 @@ public class SQLiteDatabaseHandler extends SQLiteOpenHelper
 
         this.onCreate(db);
     }
+
     public List<Gas> sortEntries(String condition)
     {
         List<Gas> gasList = new LinkedList<Gas>();
@@ -218,12 +223,13 @@ public class SQLiteDatabaseHandler extends SQLiteOpenHelper
                 gas.setCost(Double.parseDouble(cursor.getString(1)));
                 gas.setAmount(Double.parseDouble(cursor.getString(2)));
                 gas.setMiles(Double.parseDouble(cursor.getString(3)));
-                gas.setDateRefilled(cursor.getString(4));
+                gas.setDateRefilled(Integer.parseInt(cursor.getString(4)));
                 gasList.add(gas);
             } while (cursor.moveToNext());
         }
         return gasList;
     }
+
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
     {

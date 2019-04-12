@@ -4,10 +4,10 @@ public class Gas
 {
     private int id;
     private double cost, amount, miles;
-    private String dateRefilled;
+    private long dateRefilled;
 
     public Gas() {}
-    public Gas(int id, double cost, double amount, double miles, String dateRefilled)
+    public Gas(int id, double cost, double amount, double miles, long dateRefilled)
     {
         this.id = id;
         this.cost = cost;
@@ -56,12 +56,12 @@ public class Gas
         this.miles = miles;
     }
 
-    public String getDateRefilled()
+    public long getDateRefilled()
     {
         return dateRefilled;
     }
 
-    public void setDateRefilled(String dateRefilled)
+    public void setDateRefilled(long dateRefilled)
     {
         this.dateRefilled = dateRefilled;
     }

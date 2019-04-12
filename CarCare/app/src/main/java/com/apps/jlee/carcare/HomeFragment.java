@@ -120,9 +120,7 @@ public class HomeFragment extends Fragment
             case 1:
                 for (int i = 0; i < list.size(); i++)
                 {
-                    Date date = null;
-                    try { date = format.parse(((Gas)(list.get(i))).getDateRefilled()); }
-                    catch (ParseException e) { e.printStackTrace();}
+                    Date date = new Date(((Gas)(list.get(i))).getDateRefilled());
 
                     entries.add(new Entry(i,(float)((Gas)(list.get(i))).getCost()));
                     values[i] = (String) DateFormat.format("MM",date) + "/" + (String) DateFormat.format("dd",date);
@@ -132,10 +130,7 @@ public class HomeFragment extends Fragment
             case 2:
                 for (int i = 0; i < list.size(); i++)
                 {
-                    Date date = null;
-                    try
-                    { date = format.parse(((Gas) (list.get(i))).getDateRefilled());}
-                    catch (ParseException e) {e.printStackTrace();}
+                    Date date = new Date(((Gas)(list.get(i))).getDateRefilled());
 
                     entries.add(new Entry(i, (float) ((Gas) (list.get(i))).getAmount()));
                     values[i] = (String) DateFormat.format("MM", date) + "/" + (String) DateFormat.format("dd", date);
@@ -144,10 +139,7 @@ public class HomeFragment extends Fragment
             case 3:
                 for (int i = 0; i < list.size(); i++)
                 {
-                    Date date = null;
-                    try
-                    { date = format.parse(((Gas) (list.get(i))).getDateRefilled());}
-                    catch (ParseException e) {e.printStackTrace();}
+                    Date date = new Date(((Gas)(list.get(i))).getDateRefilled());
 
                     entries.add(new Entry(i, (float) ((Gas) (list.get(i))).getMiles()));
                     values[i] = (String) DateFormat.format("MM", date) + "/" + (String) DateFormat.format("dd", date);
@@ -156,10 +148,7 @@ public class HomeFragment extends Fragment
             case 4:
                 for (int i = 0; i < list.size(); i++)
                 {
-                    Date date = null;
-                    try
-                    { date = format.parse(((Gas) (list.get(i))).getDateRefilled());}
-                    catch (ParseException e) {e.printStackTrace();}
+                    Date date = new Date(((Gas)(list.get(i))).getDateRefilled());
 
                     entries.add(new Entry(i, (float) ((Gas) (list.get(i))).getMiles() / (float) ((Gas) (list.get(i))).getAmount()));
                     values[i] = (String) DateFormat.format("MM", date) + "/" + (String) DateFormat.format("dd", date);
@@ -171,8 +160,6 @@ public class HomeFragment extends Fragment
 
     public void drawGraph()
     {
-        SimpleDateFormat format = new SimpleDateFormat(dbDateFormat);
-
         LineDataSet dataSet = new LineDataSet(entries, "Label");
         dataSet.setLineWidth(3);
         dataSet.setDrawValues(false);
