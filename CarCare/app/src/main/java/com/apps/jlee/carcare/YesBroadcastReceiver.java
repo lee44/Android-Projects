@@ -6,8 +6,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
+import java.util.Calendar;
+
 public class YesBroadcastReceiver extends BroadcastReceiver
 {
+    Calendar myCalendar = Calendar.getInstance();
+
     @Override
     public void onReceive(Context context, Intent intent)
     {
@@ -16,6 +20,7 @@ public class YesBroadcastReceiver extends BroadcastReceiver
         SharedPreferences sharedpreferences = context.getSharedPreferences("Replacement Values", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedpreferences.edit();
         editor.putFloat("oil",0);
+        editor.putLong("Checkpoint",myCalendar.getTime().getTime());
         editor.apply();
 
         NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);

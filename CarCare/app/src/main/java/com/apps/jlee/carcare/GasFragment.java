@@ -136,6 +136,7 @@ public class GasFragment extends Fragment
 
                    db.updateEntry(new Gas(Integer.valueOf(hashMap.get("ID")),Double.valueOf(cost),Double.valueOf(gallonsValue),Double.valueOf(milesValue),date.getTime()));
                }
+               updateProgressBar();
                Collections.sort(arrayList, new MapComparator("Date"));
                adapter.notifyDataSetChanged();
            }
@@ -297,44 +298,56 @@ public class GasFragment extends Fragment
         SharedPreferences sharedpreferences = getContext().getSharedPreferences("Replacement Values", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedpreferences.edit();
 
-        /*Handles first gas entry*/
-        if(sharedpreferences.getFloat("oil",-1) == -1)
-            editor.putFloat("oil",(float)((Gas) (list.get(0))).getMiles());
+        if(list.size() == 1)
+            editor.putLong("Checkpoint",((Gas) (list.get(0))).getDateRefilled());
 
-        //for (int i = 0; i < list.size()-1; i++)
-        //    previoustotal += ((Gas) (list.get(i))).getMiles();
-
-        //Log.v("Dodgers", sharedpreferences.getFloat("oil",0)+"");
+        for (int i = 0; i < list.size()-1; i++)
+        {
+            if(((Gas) (list.get(i))).getDateRefilled() > sharedpreferences.getLong("Checkpoint",0))
+                previoustotal += ((Gas) (list.get(i))).getMiles();
+        }
 
         if(list.size() > 0)
         {
-            if (sharedpreferences.getFloat("oil", 0) + ((Gas)(list.get(list.size() - 1))).getMiles() < 3000)
-                editor.putFloat("oil", (float)(sharedpreferences.getFloat("oil", 0) + ((Gas)(list.get(list.size() - 1))).getMiles()));
+            if (previoustotal < 3000)
+                editor.putFloat("oil", previoustotal);
             else
             {
                 editor.putFloat("oil", 3000);
-                scheduleNotification("Oil Replacement", "You have driven more than 3000 miles since your last oil change. Have you replaced your oil?");
+                scheduleNotification("Oil Replacement", "You have driven more than 3000 miles and your oil needs to be replaced. Have you replaced your oil?");
             }
 
-            //if ((total % 50001) - sharedpreferences.getInt("brakes",0) + sharedpreferences.getInt("brakes",0) <= 50000)
-            //    editor.putInt("brakes", total % 50001);
-            //else
-            //    editor.putInt("brakes", 50000);
-            //
-            //if ((total % 15001) - sharedpreferences.getInt("wheels",0) + sharedpreferences.getInt("wheels",0) <= 15000)
-            //    editor.putInt("wheels", total % 15001);
-            //else
-            //    editor.putInt("wheels", 15000);
-            //
-            //if ((total % 30001) - sharedpreferences.getInt("battery",0) + sharedpreferences.getInt("battery",0) <= 30000)
-            //    editor.putInt("battery", total % 30001);
-            //else
-            //    editor.putInt("battery", 30000);
-            //
-            //if ((total % 100001) - sharedpreferences.getInt("timingbelt",0) + sharedpreferences.getInt("timingbelt",0) <= 100000)
-            //    editor.putInt("timingbelt", total % 100001);
-            //else
-            //    editor.putInt("timingbelt", 100000);
+            if (previoustotal < 50000)
+                editor.putFloat("brakes", previoustotal);
+            else
+            {
+                editor.putFloat("brakes", 50000);
+                scheduleNotification("Brake Replacement", "You have driven more than 50000 miles and your brakes needs to be replaced. Have you replaced your brakes?");
+            }
+
+            if (previoustotal < 15000)
+                editor.putFloat("wheels", previoustotal);
+            else
+            {
+                editor.putFloat("wheels", 15000);
+                scheduleNotification("Tire Replacement", "You have driven more than 15000 miles and your tires needs to be replaced. Have you replaced your tires?");
+            }
+
+            if (previoustotal < 30000)
+                editor.putFloat("battery", previoustotal);
+            else
+            {
+                editor.putFloat("battery", 30000);
+                scheduleNotification("Battery Replacement", "You have driven more than 30000 miles and your battery needs to be replaced. Have you replaced your battery?");
+            }
+
+            if (previoustotal < 100000)
+                editor.putFloat("timingbelt", previoustotal);
+            else
+            {
+                editor.putFloat("timingbelt", 100000);
+                scheduleNotification("Timing Belt Replacement", "You have driven more than 100000 miles and your timing belt needs to be replaced. Have you replaced your timing belt?");
+            }
         }
         editor.apply();
     }
@@ -349,8 +362,8 @@ public class GasFragment extends Fragment
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, 15);
-        calendar.set(Calendar.MINUTE, 55);
+        calendar.set(Calendar.HOUR_OF_DAY, 17);
+        calendar.set(Calendar.MINUTE, 40);
 
         alarmMgr.set(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(), alarmIntent);
     }
