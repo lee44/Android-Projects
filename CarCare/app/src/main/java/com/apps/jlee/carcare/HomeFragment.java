@@ -218,7 +218,7 @@ public class HomeFragment extends Fragment
             public void run()
             {
                 SharedPreferences sharedpreferences = getContext().getSharedPreferences("Replacement Values", Context.MODE_PRIVATE);
-                brakesPB.setProgress(sharedpreferences.getInt("brakes",0));
+                brakesPB.setProgress((int)sharedpreferences.getFloat("brakes",0));
             }
         });
 
@@ -228,7 +228,7 @@ public class HomeFragment extends Fragment
             public void run()
             {
                 SharedPreferences sharedpreferences = getContext().getSharedPreferences("Replacement Values", Context.MODE_PRIVATE);
-                wheelsPB.setProgress(sharedpreferences.getInt("wheels",0));
+                wheelsPB.setProgress((int)sharedpreferences.getFloat("wheels",0));
             }
         });
 
@@ -238,7 +238,7 @@ public class HomeFragment extends Fragment
             public void run()
             {
                 SharedPreferences sharedpreferences = getContext().getSharedPreferences("Replacement Values", Context.MODE_PRIVATE);
-                batteryPB.setProgress(sharedpreferences.getInt("battery",0));
+                batteryPB.setProgress((int)sharedpreferences.getFloat("battery",0));
             }
         });
 
@@ -248,7 +248,7 @@ public class HomeFragment extends Fragment
             public void run()
             {
                 SharedPreferences sharedpreferences = getContext().getSharedPreferences("Replacement Values", Context.MODE_PRIVATE);
-                timingBeltPB.setProgress(sharedpreferences.getInt("timingbelt",0));
+                timingBeltPB.setProgress((int)sharedpreferences.getFloat("timingbelt",0));
             }
         });
     }

@@ -299,14 +299,17 @@ public class GasFragment extends Fragment
         SharedPreferences.Editor editor = sharedpreferences.edit();
 
         if(list.size() == 1)
-            editor.putLong("Checkpoint",((Gas) (list.get(0))).getDateRefilled());
+            editor.putLong("CarCareCheckpoint",((Gas) (list.get(0))).getDateRefilled());
 
-        for (int i = 0; i < list.size()-1; i++)
+        for (int i = 0; i < list.size(); i++)
         {
-            if(((Gas) (list.get(i))).getDateRefilled() > sharedpreferences.getLong("Checkpoint",0))
+            if(((Gas) (list.get(i))).getDateRefilled() >= sharedpreferences.getLong("CarCareCheckpoint",0))
                 previoustotal += ((Gas) (list.get(i))).getMiles();
-        }
 
+            Log.v("Dodgers",previoustotal+"");
+            Log.v("Dodgers",((Gas) (list.get(i))).getDateRefilled()+"");
+            Log.v("Dodgers",sharedpreferences.getLong("CarCareCheckpoint",0)+"");
+        }
         if(list.size() > 0)
         {
             if (previoustotal < 3000)
@@ -362,8 +365,8 @@ public class GasFragment extends Fragment
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, 17);
-        calendar.set(Calendar.MINUTE, 40);
+        calendar.set(Calendar.HOUR_OF_DAY, 15);
+        calendar.set(Calendar.MINUTE, 30);
 
         alarmMgr.set(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(), alarmIntent);
     }

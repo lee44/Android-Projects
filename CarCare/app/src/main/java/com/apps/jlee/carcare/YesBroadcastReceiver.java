@@ -20,7 +20,7 @@ public class YesBroadcastReceiver extends BroadcastReceiver
         SharedPreferences sharedpreferences = context.getSharedPreferences("Replacement Values", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedpreferences.edit();
         editor.putFloat("oil",0);
-        editor.putLong("Checkpoint",myCalendar.getTime().getTime());
+        editor.putLong("CarCareCheckpoint",myCalendar.getTime().getTime());
         editor.apply();
 
         NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
