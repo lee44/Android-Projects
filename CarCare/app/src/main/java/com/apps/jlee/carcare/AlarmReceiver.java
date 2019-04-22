@@ -23,6 +23,9 @@ public class AlarmReceiver extends BroadcastReceiver
 
         Intent yesIntent = new Intent(context,YesBroadcastReceiver.class);
         yesIntent.putExtra("notification_id",notificationId);
+        yesIntent.putExtra("title",intent.getStringExtra("title"));
+        yesIntent.putExtra("message",intent.getStringExtra("message"));
+
         Intent noIntent = new Intent(context,NoBroadCastReceiver.class);
         noIntent.putExtra("notification_id",notificationId);
 

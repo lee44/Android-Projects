@@ -301,14 +301,13 @@ public class GasFragment extends Fragment
         if(list.size() == 1)
             editor.putLong("CarCareCheckpoint",((Gas) (list.get(0))).getDateRefilled());
 
+        Log.v("Dodgers","Check Point: " + sharedpreferences.getLong("CarCareCheckpoint",0)+"");
         for (int i = 0; i < list.size(); i++)
         {
             if(((Gas) (list.get(i))).getDateRefilled() >= sharedpreferences.getLong("CarCareCheckpoint",0))
                 previoustotal += ((Gas) (list.get(i))).getMiles();
 
-            Log.v("Dodgers",previoustotal+"");
-            Log.v("Dodgers",((Gas) (list.get(i))).getDateRefilled()+"");
-            Log.v("Dodgers",sharedpreferences.getLong("CarCareCheckpoint",0)+"");
+            Log.v("Dodgers","Previous Total: "+previoustotal+", Date Refilled: "+((Gas) (list.get(i))).getDateRefilled());
         }
         if(list.size() > 0)
         {
@@ -365,10 +364,10 @@ public class GasFragment extends Fragment
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, 15);
-        calendar.set(Calendar.MINUTE, 30);
+        calendar.set(Calendar.HOUR_OF_DAY, 16);
+        calendar.set(Calendar.MINUTE, 35);
 
-        alarmMgr.set(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(), alarmIntent);
+        alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),1000 * 60 * 2, alarmIntent);
     }
 
     //Defines the rules for comparisons that is used in Collection.sort method
