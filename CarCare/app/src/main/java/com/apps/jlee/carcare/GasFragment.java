@@ -97,6 +97,8 @@ public class GasFragment extends Fragment
            @Override
            public void onClick(String milesValue, String gallonsValue, String cost, Date date)
            {
+               //Log.v("Dodgers","Miles: "+Double.parseDouble(milesValue)+ " Gallons: "+Double.parseDouble(gallonsValue)+ " Cost: "+Double.parseDouble(cost)+ " Date: "+date.toString());
+
                int dbCount = (int)db.getProfilesCount(new Gas())+1;
 
                //Insert new Gas Entry
@@ -258,6 +260,11 @@ public class GasFragment extends Fragment
         {
             for (int i = 0; i < list.size(); i++)
             {
+                DecimalFormat number = new DecimalFormat("0.00");
+                Double cost = Double.valueOf((((Gas)(list.get(i))).getCost()));
+                Double miles = Double.valueOf((((Gas)(list.get(i))).getMiles()));
+                Double gallons = Double.valueOf((((Gas)(list.get(i))).getAmount()));
+
                 HashMap<String,String> hashMap = new HashMap<>();
                 hashMap.put("ID",String.valueOf(((Gas)(list.get(i))).getID()));
                 hashMap.put("Cost", String.valueOf(((Gas)(list.get(i))).getCost()));
@@ -267,7 +274,7 @@ public class GasFragment extends Fragment
                 hashMap.put("Date", new SimpleDateFormat("MM/dd/yyyy").format(date));
                 hashMap.put("Date Long",Long.toString(date.getTime()));
                 hashMap.put("MPG",String.format("%.2f", (((Gas)(list.get(i))).getMiles()) / (((Gas)(list.get(i))).getAmount()))+" MPG");
-                hashMap.put("Details"," " + (((Gas)(list.get(i))).getCost() + "\n " + (((Gas)(list.get(i))).getMiles() + " mi\n " + (((Gas)(list.get(i))).getAmount()))) + " gal");
+                hashMap.put("Details"," " + number.format(cost) + "\n " + number.format(miles) + " mi\n " + number.format(gallons) + " gal");
                 arrayList.add(0,hashMap);
             }
         }
@@ -301,13 +308,13 @@ public class GasFragment extends Fragment
         if(list.size() == 1)
             editor.putLong("CarCareCheckpoint",((Gas) (list.get(0))).getDateRefilled());
 
-        Log.v("Dodgers","Check Point: " + sharedpreferences.getLong("CarCareCheckpoint",0)+"");
+        //Log.v("Dodgers","Check Point: " + sharedpreferences.getLong("CarCareCheckpoint",0)+"");
         for (int i = 0; i < list.size(); i++)
         {
             if(((Gas) (list.get(i))).getDateRefilled() >= sharedpreferences.getLong("CarCareCheckpoint",0))
                 previoustotal += ((Gas) (list.get(i))).getMiles();
 
-            Log.v("Dodgers","Previous Total: "+previoustotal+", Date Refilled: "+((Gas) (list.get(i))).getDateRefilled());
+            //Log.v("Dodgers","Previous Total: "+previoustotal+", Date Refilled: "+((Gas) (list.get(i))).getDateRefilled());
         }
         if(list.size() > 0)
         {
@@ -317,6 +324,8 @@ public class GasFragment extends Fragment
             {
                 editor.putFloat("oil", 3000);
                 scheduleNotification("Oil Replacement", "You have driven more than 3000 miles and your oil needs to be replaced. Have you replaced your oil?");
+                editor.putString("notification_title","Oil Replacement");
+                editor.putString("notification_message","You have driven more than 3000 miles and your oil needs to be replaced. Have you replaced your oil?");
             }
 
             if (previoustotal < 50000)
@@ -325,6 +334,8 @@ public class GasFragment extends Fragment
             {
                 editor.putFloat("brakes", 50000);
                 scheduleNotification("Brake Replacement", "You have driven more than 50000 miles and your brakes needs to be replaced. Have you replaced your brakes?");
+                editor.putString("notification_title","Brake Replacement");
+                editor.putString("notification_message","You have driven more than 50000 miles and your brakes needs to be replaced. Have you replaced your brakes?");
             }
 
             if (previoustotal < 15000)
@@ -333,6 +344,8 @@ public class GasFragment extends Fragment
             {
                 editor.putFloat("wheels", 15000);
                 scheduleNotification("Tire Replacement", "You have driven more than 15000 miles and your tires needs to be replaced. Have you replaced your tires?");
+                editor.putString("notification_title","Tire Replacement");
+                editor.putString("notification_message","You have driven more than 15000 miles and your tires needs to be replaced. Have you replaced your tires?");
             }
 
             if (previoustotal < 30000)
@@ -341,6 +354,8 @@ public class GasFragment extends Fragment
             {
                 editor.putFloat("battery", 30000);
                 scheduleNotification("Battery Replacement", "You have driven more than 30000 miles and your battery needs to be replaced. Have you replaced your battery?");
+                editor.putString("notification_title","Battery Replacement");
+                editor.putString("notification_message","You have driven more than 30000 miles and your battery needs to be replaced. Have you replaced your battery?");
             }
 
             if (previoustotal < 100000)
@@ -349,6 +364,8 @@ public class GasFragment extends Fragment
             {
                 editor.putFloat("timingbelt", 100000);
                 scheduleNotification("Timing Belt Replacement", "You have driven more than 100000 miles and your timing belt needs to be replaced. Have you replaced your timing belt?");
+                editor.putString("notification_title","Timing Belt Replacement");
+                editor.putString("notification_message","You have driven more than 100000 miles and your timing belt needs to be replaced. Have you replaced your timing belt?");
             }
         }
         editor.apply();

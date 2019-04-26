@@ -37,11 +37,6 @@ public class YesBroadcastReceiver extends BroadcastReceiver
         intent.putExtra("message",intent.getStringExtra("message"));
         PendingIntent pintent = PendingIntent.getBroadcast(context, 0, intent2, 0);
 
-        try {
-            alarmManager.cancel(pintent);
-            Log.e(TAG, "Cancelling all pending intents");
-        } catch (Exception e) {
-            Log.e(TAG, "AlarmManager update was not canceled. " + e.toString());
-        }
+        try { alarmManager.cancel(pintent);} catch (Exception e) { Log.e(TAG, "AlarmManager update was not canceled. " + e.toString());}
     }
 }

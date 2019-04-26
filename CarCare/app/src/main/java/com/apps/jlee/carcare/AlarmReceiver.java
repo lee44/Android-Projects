@@ -11,6 +11,8 @@ import android.support.v4.app.NotificationCompat;
 
 import java.util.Random;
 
+/*Broadcast receiver is a component of the app that listens for an event made by the system i.e an alarm set off by the system. Once this alarm sets off, the broadcast receiver will build
+  a notification.*/
 public class AlarmReceiver extends BroadcastReceiver
 {
     final String CHANNEL_ID = "1";
@@ -33,7 +35,7 @@ public class AlarmReceiver extends BroadcastReceiver
         PendingIntent noPendingIntent = PendingIntent.getBroadcast(context,0,noIntent,PendingIntent.FLAG_CANCEL_CURRENT);
 
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context,"1")
-                .setSmallIcon(R.drawable.warning)
+                .setSmallIcon(R.drawable.ic_stat_drive_eta)
                 .setContentTitle(intent.getStringExtra("title"))
                 .setContentText(intent.getStringExtra("message"))
                 .addAction(0,"Yes",yesPendingIntent)

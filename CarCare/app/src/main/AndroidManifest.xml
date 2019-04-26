@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.apps.jlee.carcare">
 
+<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/white_gas_icon"
@@ -48,6 +50,14 @@
         <receiver android:name=".AlarmReceiver">
             <intent-filter>
                 <action android:name="Alarm"/>
+            </intent-filter>
+        </receiver>
+
+<!-- Intent Filter specifies what type of intent this receiver will listen to. On boot completed, the system will transmit a broadcast with an intent that has an action of BOOT_COMPLETED-->
+        <receiver android:name=".RebootReceiver"
+            android:enabled="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"></action>
             </intent-filter>
         </receiver>
 

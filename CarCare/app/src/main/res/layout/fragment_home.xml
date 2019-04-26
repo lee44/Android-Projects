@@ -44,8 +44,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/replacementTitle"
-            android:textSize="20sp"
-            android:text="Oil"/>
+            android:layout_marginLeft="5dp"
+            android:text="Oil"
+            android:textSize="20sp" />
 
         <ProgressBar
             android:id="@+id/oilPB"
@@ -61,6 +62,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/oilPB"
+            android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
             android:text="Brake"
             android:textSize="20sp" />
@@ -79,6 +81,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/brakesPB"
+            android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
             android:text="Wheel"
             android:textSize="20sp" />
@@ -97,6 +100,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/wheelsPB"
+            android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
             android:text="Battery"
             android:textSize="20sp" />
@@ -115,6 +119,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/batteryPB"
+            android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
             android:text="Timing Belt"
             android:textSize="20sp" />

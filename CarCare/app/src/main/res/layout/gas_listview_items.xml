@@ -21,28 +21,37 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_marginBottom="2.5dp"
+                android:layout_marginLeft="5dp"
                 android:background="@drawable/cash" />
+
             <ImageView
                 android:id="@+id/miles_icon"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:layout_marginBottom="2.5dp"
                 android:layout_below="@id/cash_icon"
+                android:layout_marginBottom="2.5dp"
+                android:layout_marginLeft="5dp"
                 android:background="@drawable/road_icon" />
+
             <ImageView
                 android:id="@+id/gallons_icon"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_below="@id/miles_icon"
+                android:layout_marginLeft="5dp"
                 android:background="@drawable/gallon" />
+
             <TextView
                 android:id="@+id/Details"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/cash_icon"
-                android:text="Cost: $57.45 Miles: 497.63 Gallons: 15.23"
+                android:elevation="0dp"
+                android:text="Cost: $57.45 Miles: 497.63 Gal: 15.23"
                 android:textColor="@color/white"
-                android:textSize="@dimen/Default" />
+                android:textSize="@dimen/Default"
+                android:translationX="0dp"
+                android:translationY="-2.5dp" />
         </RelativeLayout>
 
     </RelativeLayout>
