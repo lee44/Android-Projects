@@ -23,16 +23,19 @@ public class AlarmReceiver extends BroadcastReceiver
         //Generate a random ID for the nofication. With this unique id, we can cancel the notification.
         int notificationId = new Random().nextInt();
 
+        //getStringExtra "title" and "message" are being passed to another Intent because in the YesBrodacastReceiver, we need this info to cancel the notification
         Intent yesIntent = new Intent(context,YesBroadcastReceiver.class);
         yesIntent.putExtra("notification_id",notificationId);
         yesIntent.putExtra("title",intent.getStringExtra("title"));
         yesIntent.putExtra("message",intent.getStringExtra("message"));
+        yesIntent.putExtra("id",intent.getIntExtra("id",0));
 
         Intent noIntent = new Intent(context,NoBroadCastReceiver.class);
         noIntent.putExtra("notification_id",notificationId);
+        noIntent.putExtra("id",intent.getIntExtra("id",0));
 
-        PendingIntent yesPendingIntent = PendingIntent.getBroadcast(context,0,yesIntent,PendingIntent.FLAG_CANCEL_CURRENT);
-        PendingIntent noPendingIntent = PendingIntent.getBroadcast(context,0,noIntent,PendingIntent.FLAG_CANCEL_CURRENT);
+        PendingIntent yesPendingIntent = PendingIntent.getBroadcast(context,intent.getIntExtra("id",0),yesIntent,PendingIntent.FLAG_CANCEL_CURRENT);
+        PendingIntent noPendingIntent = PendingIntent.getBroadcast(context,intent.getIntExtra("id",0),noIntent,PendingIntent.FLAG_CANCEL_CURRENT);
 
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context,"1")
                 .setSmallIcon(R.drawable.ic_stat_drive_eta)

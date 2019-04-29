@@ -300,91 +300,97 @@ public class GasFragment extends Fragment
 
     public void updateProgressBar()
     {
-        int previoustotal = 0;
+        int previous_oil_total = 0, previous_brakes_total = 0, previous_wheels_total = 0, previous_battery_total = 0, previous_timingbelt_total = 0;
         List<Object> list = db.getAllEntries(new Gas());
         SharedPreferences sharedpreferences = getContext().getSharedPreferences("Replacement Values", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedpreferences.edit();
 
         if(list.size() == 1)
-            editor.putLong("CarCareCheckpoint",((Gas) (list.get(0))).getDateRefilled());
+        {
+            editor.putLong("oil_checkpoint",((Gas) (list.get(0))).getDateRefilled());
+            editor.putLong("brakes_checkpoint",((Gas) (list.get(0))).getDateRefilled());
+            editor.putLong("wheels_checkpoint",((Gas) (list.get(0))).getDateRefilled());
+            editor.putLong("battery_checkpoint",((Gas) (list.get(0))).getDateRefilled());
+            editor.putLong("timingbelt_checkpoint",((Gas) (list.get(0))).getDateRefilled());
+        }
 
-        //Log.v("Dodgers","Check Point: " + sharedpreferences.getLong("CarCareCheckpoint",0)+"");
         for (int i = 0; i < list.size(); i++)
         {
-            if(((Gas) (list.get(i))).getDateRefilled() >= sharedpreferences.getLong("CarCareCheckpoint",0))
-                previoustotal += ((Gas) (list.get(i))).getMiles();
+            double miles = ((Gas) (list.get(i))).getMiles();
 
-            //Log.v("Dodgers","Previous Total: "+previoustotal+", Date Refilled: "+((Gas) (list.get(i))).getDateRefilled());
+            if(((Gas) (list.get(i))).getDateRefilled() >= sharedpreferences.getLong("oil_checkpoint",0))
+                previous_oil_total += miles;
+            if(((Gas) (list.get(i))).getDateRefilled() >= sharedpreferences.getLong("brakes_checkpoint",0))
+                previous_brakes_total += miles;
+            if(((Gas) (list.get(i))).getDateRefilled() >= sharedpreferences.getLong("wheels_checkpoint",0))
+                previous_wheels_total += miles;
+            if(((Gas) (list.get(i))).getDateRefilled() >= sharedpreferences.getLong("battery_checkpoint",0))
+                previous_battery_total += miles;
+            if(((Gas) (list.get(i))).getDateRefilled() >= sharedpreferences.getLong("timingbelt_checkpoint",0))
+                previous_timingbelt_total += miles;
         }
         if(list.size() > 0)
         {
-            if (previoustotal < 3000)
-                editor.putFloat("oil", previoustotal);
+            if (previous_oil_total < 3000)
+                editor.putFloat("oil", previous_oil_total);
             else
             {
                 editor.putFloat("oil", 3000);
-                scheduleNotification("Oil Replacement", "You have driven more than 3000 miles and your oil needs to be replaced. Have you replaced your oil?");
-                editor.putString("notification_title","Oil Replacement");
-                editor.putString("notification_message","You have driven more than 3000 miles and your oil needs to be replaced. Have you replaced your oil?");
+                scheduleNotification("Oil Replacement", "You have driven more than 3000 miles and your oil needs to be replaced. Have you replaced your oil?",1);
             }
 
-            if (previoustotal < 50000)
-                editor.putFloat("brakes", previoustotal);
+            if (previous_brakes_total < 50000)
+                editor.putFloat("brakes", previous_brakes_total);
             else
             {
                 editor.putFloat("brakes", 50000);
-                scheduleNotification("Brake Replacement", "You have driven more than 50000 miles and your brakes needs to be replaced. Have you replaced your brakes?");
-                editor.putString("notification_title","Brake Replacement");
-                editor.putString("notification_message","You have driven more than 50000 miles and your brakes needs to be replaced. Have you replaced your brakes?");
+                scheduleNotification("Brake Replacement", "You have driven more than 50000 miles and your brakes needs to be replaced. Have you replaced your brakes?",2);
             }
 
-            if (previoustotal < 15000)
-                editor.putFloat("wheels", previoustotal);
+            if (previous_wheels_total < 15000)
+                editor.putFloat("wheels", previous_wheels_total);
             else
             {
                 editor.putFloat("wheels", 15000);
-                scheduleNotification("Tire Replacement", "You have driven more than 15000 miles and your tires needs to be replaced. Have you replaced your tires?");
-                editor.putString("notification_title","Tire Replacement");
-                editor.putString("notification_message","You have driven more than 15000 miles and your tires needs to be replaced. Have you replaced your tires?");
+                scheduleNotification("Tire Replacement", "You have driven more than 15000 miles and your tires needs to be replaced. Have you replaced your tires?",3);
             }
 
-            if (previoustotal < 30000)
-                editor.putFloat("battery", previoustotal);
+            if (previous_battery_total < 30000)
+                editor.putFloat("battery", previous_battery_total);
             else
             {
                 editor.putFloat("battery", 30000);
-                scheduleNotification("Battery Replacement", "You have driven more than 30000 miles and your battery needs to be replaced. Have you replaced your battery?");
-                editor.putString("notification_title","Battery Replacement");
-                editor.putString("notification_message","You have driven more than 30000 miles and your battery needs to be replaced. Have you replaced your battery?");
+                scheduleNotification("Battery Replacement", "You have driven more than 30000 miles and your battery needs to be replaced. Have you replaced your battery?",4);
             }
 
-            if (previoustotal < 100000)
-                editor.putFloat("timingbelt", previoustotal);
+            if (previous_timingbelt_total < 100000)
+                editor.putFloat("timingbelt", previous_timingbelt_total);
             else
             {
                 editor.putFloat("timingbelt", 100000);
-                scheduleNotification("Timing Belt Replacement", "You have driven more than 100000 miles and your timing belt needs to be replaced. Have you replaced your timing belt?");
-                editor.putString("notification_title","Timing Belt Replacement");
-                editor.putString("notification_message","You have driven more than 100000 miles and your timing belt needs to be replaced. Have you replaced your timing belt?");
+                scheduleNotification("Timing Belt Replacement", "You have driven more than 100000 miles and your timing belt needs to be replaced. Have you replaced your timing belt?",5);
             }
         }
         editor.apply();
     }
 
-    public void scheduleNotification(String title, String message)
+    public void scheduleNotification(String title, String message, int id)
     {
         AlarmManager alarmMgr = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(getContext(), AlarmReceiver.class);
         intent.putExtra("title",title);
         intent.putExtra("message",message);
-        PendingIntent alarmIntent = PendingIntent.getBroadcast(getContext(), 0, intent, 0);
+        intent.putExtra("id",id);
+        PendingIntent alarmIntent = PendingIntent.getBroadcast(getContext(), id, intent, 0);
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, 12);
+        calendar.set(Calendar.HOUR_OF_DAY, 16);
         calendar.set(Calendar.MINUTE, 00);
 
-        alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),1000 * 60 * 60 * 24, alarmIntent);
+        //alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),1000 * 60 * 60 * 24, alarmIntent);
+        //alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),1000 * 60 * 1, alarmIntent);
+        alarmMgr.set(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(), alarmIntent);
     }
 
     //Defines the rules for comparisons that is used in Collection.sort method

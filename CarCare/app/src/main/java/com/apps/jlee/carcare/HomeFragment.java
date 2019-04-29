@@ -253,28 +253,6 @@ public class HomeFragment extends Fragment
         });
     }
 
-    //This uses an activity to either reset a value for progress bar or cancel the notification
-    private void sendNotification(String message, String title)
-    {
-        //Generate a random ID for the nofication. With this unique id, we can cancel the notification.
-        int notificationId = new Random().nextInt();
-        PendingIntent yesPendingIntent = YesNotificationActivity.getDismissIntent("Yes",notificationId,getContext());
-
-        PendingIntent noPendingIntent = NoNotificationActivity.getDismissIntent("No",notificationId,getContext());
-
-        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(getContext(),"1")
-        .setSmallIcon(R.drawable.oil)
-        .setContentTitle(title)
-        .setContentText(message)
-        .setPriority(Notification.PRIORITY_MAX)
-        .setWhen(0)
-        .addAction(0,"Yes",yesPendingIntent)
-        .addAction(0,"No",noPendingIntent);
-
-        NotificationManager mNotificationManager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
-        mNotificationManager.notify(notificationId, notificationBuilder.build());
-    }
-
     //This uses broadcast receiver to either reset a value for progress bar or cancel notification
     private void sendNotificationUsingBroadcastReceiver(String message, String title)
     {
