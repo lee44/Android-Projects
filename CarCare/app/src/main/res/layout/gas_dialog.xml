@@ -23,7 +23,7 @@
                 android:layout_marginTop="9dp"
                 android:text="Date"
                 android:textColor="@android:color/black"
-                android:textSize="20sp"
+                android:textSize="@dimen/textview"
                 android:textStyle="bold" />
 
             <EditText
@@ -37,7 +37,8 @@
                 android:editable="false"
                 android:focusable="false"
                 android:gravity="center"
-                android:hint="Enter Date" />
+                android:hint="Enter Date"
+                android:textSize="@dimen/edittext"/>
 
         </TableRow>
 
@@ -53,7 +54,7 @@
                 android:layout_marginTop="12dp"
                 android:text="Cost"
                 android:textColor="@android:color/black"
-                android:textSize="20sp"
+                android:textSize="@dimen/textview"
                 android:textStyle="bold" />
 
         <android.support.design.widget.TextInputLayout
@@ -73,7 +74,8 @@
                 android:gravity="center"
                 android:hint="Enter Cost"
                 android:imeOptions="actionDone"
-                android:inputType="numberDecimal|numberSigned" />
+                android:inputType="numberDecimal|numberSigned"
+                android:textSize="@dimen/edittext"/>
         </android.support.design.widget.TextInputLayout>
         </TableRow>
 
@@ -89,7 +91,7 @@
                 android:layout_marginTop="12dp"
                 android:text="Miles"
                 android:textColor="@android:color/black"
-                android:textSize="20sp"
+                android:textSize="@dimen/textview"
                 android:textStyle="bold" />
 
             <android.support.design.widget.TextInputLayout
@@ -111,7 +113,8 @@
                     android:gravity="center"
                     android:hint="Enter Miles"
                     android:imeOptions="actionDone"
-                    android:inputType="numberDecimal|numberSigned" />
+                    android:inputType="numberDecimal|numberSigned"
+                    android:textSize="@dimen/edittext"/>
             </android.support.design.widget.TextInputLayout>
 
         </TableRow>
@@ -128,7 +131,7 @@
                 android:layout_marginTop="12dp"
                 android:text="Gallons"
                 android:textColor="@android:color/black"
-                android:textSize="20sp"
+                android:textSize="@dimen/textview"
                 android:textStyle="bold" />
 
             <android.support.design.widget.TextInputLayout
@@ -150,7 +153,8 @@
                     android:hint="Enter Gallons"
                     android:imeOptions="actionDone"
                     android:inputType="numberDecimal|numberSigned"
-                    android:maxLength="6" />
+                    android:maxLength="6"
+                    android:textSize="@dimen/edittext"/>
             </android.support.design.widget.TextInputLayout>
         </TableRow>
 
@@ -162,31 +166,29 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/Table"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="30dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp"
         android:text="0 MPG"
         android:textColor="#000000"
-        android:textSize="37sp"
+        android:textSize="38dp"
         android:textStyle="bold" />
 
     <Button
         android:id="@+id/OK"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="false"
+        android:layout_width="100dp"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/mpgTextView"
         android:text="OK"
-        android:textSize="16sp" />
+        android:textSize="18sp" />
 
     <Button
         android:id="@+id/Cancel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="false"
-        android:layout_below="@+id/mpgTextView"
+        android:layout_width="100dp"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
         android:layout_toLeftOf="@+id/OK"
         android:text="Cancel"
-        android:textSize="16sp" />
+        android:textSize="18sp" />
 
 </RelativeLayout>
