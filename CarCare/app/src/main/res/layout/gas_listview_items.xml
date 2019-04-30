@@ -3,80 +3,117 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:background="@color/black">
-
-    <RelativeLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_weight="1">
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:id="@+id/cash_icon"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_marginBottom="2.5dp"
-                android:layout_marginLeft="5dp"
-                android:background="@drawable/cash" />
-
-            <ImageView
-                android:id="@+id/miles_icon"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_below="@id/cash_icon"
-                android:layout_marginBottom="2.5dp"
-                android:layout_marginLeft="5dp"
-                android:background="@drawable/road_icon" />
-
-            <ImageView
-                android:id="@+id/gallons_icon"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_below="@id/miles_icon"
-                android:layout_marginLeft="5dp"
-                android:background="@drawable/gallon" />
-
-            <TextView
-                android:id="@+id/Details"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/cash_icon"
-                android:elevation="0dp"
-                android:text="Cost: $57.45 Miles: 497.63 Gal: 15.23"
-                android:textColor="@color/white"
-                android:textSize="@dimen/Default"
-                android:translationX="0dp"
-                android:translationY="-2.5dp" />
-        </RelativeLayout>
-
-    </RelativeLayout>
 
     <TextView
         android:id="@+id/Date"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:text="10/24/2018"
+        android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="@dimen/Date"
         android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/MPG"
-        android:layout_width="0dp"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:gravity="center_horizontal"
-        android:layout_weight="1"
-        android:layout_marginTop="5dp"
-        android:text="34 MPG"
-        android:textColor="@color/red"
-        android:textSize="@dimen/MPGorMiles"
-        android:textStyle="bold" />
+        android:orientation="horizontal">
 
+        <LinearLayout
+            android:id="@+id/Details"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".60"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/cash_icon"
+                    android:layout_width="25dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="0dp"
+                    android:layout_marginLeft="5dp"
+                    android:background="@drawable/cash" />
+
+                <TextView
+                    android:id="@+id/cost"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="Cost"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/Default" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/miles_icon"
+                    android:layout_width="25dp"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/cash_icon"
+                    android:layout_marginBottom="0dp"
+                    android:layout_marginLeft="5dp"
+                    android:background="@drawable/road_icon" />
+
+                <TextView
+                    android:id="@+id/miles"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="Miles"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/Default" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/gallons_icon"
+                    android:layout_width="25dp"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/miles_icon"
+                    android:layout_marginLeft="5dp"
+                    android:background="@drawable/gallon" />
+
+                <TextView
+                    android:id="@+id/gallons"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="Gallons"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/Default" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".40">
+
+            <TextView
+                android:id="@+id/MPG"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:text="34.30 MPG"
+                android:textColor="@color/red"
+                android:textSize="@dimen/MPGorMiles"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+    </LinearLayout>
 </LinearLayout>

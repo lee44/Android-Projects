@@ -69,7 +69,7 @@ public class GasFragment extends Fragment
        db = new SQLiteDatabaseHandler(getContext());
        listView = view.findViewById(R.id.gasListView);
        arrayList = new ArrayList<>();
-       adapter = new SimpleAdapter(getContext(),arrayList,R.layout.gas_listview_items, new String[]{"Date","Details","MPG"},new int[]{R.id.Date,R.id.Details,R.id.MPG});
+       adapter = new SimpleAdapter(getContext(),arrayList,R.layout.gas_listview_items, new String[]{"Date","Cost","Miles","Gallons","MPG"},new int[]{R.id.Date,R.id.cost,R.id.miles,R.id.gallons,R.id.MPG});
        listView.setAdapter(adapter);
 
        loadGasEntries();
@@ -120,7 +120,6 @@ public class GasFragment extends Fragment
                    hashMap.put("Date", new SimpleDateFormat("MM/dd/yyyy").format(date));
                    hashMap.put("Date Long",Long.toString(date.getTime()));
                    hashMap.put("MPG", String.format("%.2f", (Double.parseDouble(milesValue) / Double.parseDouble(gallonsValue)))+ " MPG");
-                   hashMap.put("Details"," " + cost + "\n " + milesValue + " mi\n " + gallonsValue + " gal");
                    arrayList.add(0,hashMap);
                }
                //Update existing Gas Entry
@@ -134,8 +133,6 @@ public class GasFragment extends Fragment
                    hashMap.put("Date",new SimpleDateFormat("MM/dd/yyyy").format(date));
                    hashMap.put("Date Long",Long.toString(date.getTime()));
                    hashMap.put("MPG", String.format("%.2f", (Double.parseDouble(milesValue) / Double.parseDouble(gallonsValue)))+ " MPG");
-                   hashMap.put("Details"," " + cost + "\n " + milesValue + " mi\n " + gallonsValue + " gal");
-
                    db.updateEntry(new Gas(Integer.valueOf(hashMap.get("ID")),Double.valueOf(cost),Double.valueOf(gallonsValue),Double.valueOf(milesValue),date.getTime()));
                }
                updateProgressBar();
@@ -267,14 +264,13 @@ public class GasFragment extends Fragment
 
                 HashMap<String,String> hashMap = new HashMap<>();
                 hashMap.put("ID",String.valueOf(((Gas)(list.get(i))).getID()));
-                hashMap.put("Cost", String.valueOf(((Gas)(list.get(i))).getCost()));
-                hashMap.put("Miles",String.valueOf(((Gas)(list.get(i))).getMiles()));
-                hashMap.put("Gallons",String.valueOf(((Gas)(list.get(i))).getAmount()));
+                hashMap.put("Cost", number.format(cost));
+                hashMap.put("Miles",number.format(miles)+" mi");
+                hashMap.put("Gallons",number.format(gallons)+" gal");
                 date = new Date(((Gas)(list.get(i))).getDateRefilled());
                 hashMap.put("Date", new SimpleDateFormat("MM/dd/yyyy").format(date));
                 hashMap.put("Date Long",Long.toString(date.getTime()));
                 hashMap.put("MPG",String.format("%.2f", (((Gas)(list.get(i))).getMiles()) / (((Gas)(list.get(i))).getAmount()))+" MPG");
-                hashMap.put("Details"," " + number.format(cost) + "\n " + number.format(miles) + " mi\n " + number.format(gallons) + " gal");
                 arrayList.add(0,hashMap);
             }
         }
