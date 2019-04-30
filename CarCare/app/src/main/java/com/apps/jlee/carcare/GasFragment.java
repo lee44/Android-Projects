@@ -115,8 +115,8 @@ public class GasFragment extends Fragment
                    HashMap<String, String> hashMap = new HashMap<>();
                    hashMap.put("ID", dbCount + "");
                    hashMap.put("Cost", cost);
-                   hashMap.put("Miles", milesValue);
-                   hashMap.put("Gallons", gallonsValue);
+                   hashMap.put("Miles", milesValue+" mi");
+                   hashMap.put("Gallons", gallonsValue+" gal");
                    hashMap.put("Date", new SimpleDateFormat("MM/dd/yyyy").format(date));
                    hashMap.put("Date Long",Long.toString(date.getTime()));
                    hashMap.put("MPG", String.format("%.2f", (Double.parseDouble(milesValue) / Double.parseDouble(gallonsValue)))+ " MPG");
@@ -128,8 +128,8 @@ public class GasFragment extends Fragment
                    HashMap<String, String> hashMap = new HashMap<>();
                    hashMap = (HashMap<String,String>) adapter.getItem(editPosition);
                    hashMap.put("Cost", cost);
-                   hashMap.put("Miles", milesValue);
-                   hashMap.put("Gallons", gallonsValue);
+                   hashMap.put("Miles", milesValue+" mi");
+                   hashMap.put("Gallons", gallonsValue+" gal");
                    hashMap.put("Date",new SimpleDateFormat("MM/dd/yyyy").format(date));
                    hashMap.put("Date Long",Long.toString(date.getTime()));
                    hashMap.put("MPG", String.format("%.2f", (Double.parseDouble(milesValue) / Double.parseDouble(gallonsValue)))+ " MPG");
@@ -165,16 +165,15 @@ public class GasFragment extends Fragment
             //getItem is returning a plain object. By casting, we are telling the compiler that the object is a HashMap object.
             hashMap = (HashMap<String,String>) adapter.getItem(index);
             db.deleteEntry(new Gas(Integer.valueOf(hashMap.get("ID")),0,0,0,0));
+            updateProgressBar();
             arrayList.remove(adapter.getItem(index));
             adapter.notifyDataSetChanged();
-            updateProgressBar();
         }
         else if(item.getItemId() == R.id.Edit)
         {
             AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
             int index = info.position;
-            HashMap<String,String> hashMap = new HashMap<>();
-            hashMap = (HashMap<String,String>) adapter.getItem(index);
+            HashMap<String,String> hashMap = (HashMap<String,String>) adapter.getItem(index);
 
             updateFlag = 1;
             editPosition = index;
@@ -367,6 +366,14 @@ public class GasFragment extends Fragment
                 scheduleNotification("Timing Belt Replacement", "You have driven more than 100000 miles and your timing belt needs to be replaced. Have you replaced your timing belt?",5);
             }
         }
+        else
+        {
+            editor.putFloat("oil", previous_oil_total);
+            editor.putFloat("brakes", previous_brakes_total);
+            editor.putFloat("wheels", previous_wheels_total);
+            editor.putFloat("battery", previous_battery_total);
+            editor.putFloat("timingbelt", previous_timingbelt_total);
+        }
         editor.apply();
     }
 
@@ -381,12 +388,12 @@ public class GasFragment extends Fragment
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, 16);
+        calendar.set(Calendar.HOUR_OF_DAY, 12);
         calendar.set(Calendar.MINUTE, 00);
 
-        //alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),1000 * 60 * 60 * 24, alarmIntent);
+        alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),1000 * 60 * 60 * 24, alarmIntent);
         //alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),1000 * 60 * 1, alarmIntent);
-        alarmMgr.set(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(), alarmIntent);
+        //alarmMgr.set(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(), alarmIntent);
     }
 
     //Defines the rules for comparisons that is used in Collection.sort method

@@ -81,8 +81,12 @@ public class GasDialogFragment extends DialogFragment
         if(getArguments() != null)
         {
             cost.setText((String)getArguments().get("Cost"));
-            miles.setText((String)getArguments().get("Miles"));
-            gallons.setText((String)getArguments().get("Gallons"));
+
+            String [] str1 = ((String)getArguments().get("Miles")).split(" mi");
+            miles.setText(str1[0]);
+
+            String [] str2 = ((String)getArguments().get("Gallons")).split(" gal");
+            gallons.setText(str2[0]);
 
             SimpleDateFormat sdf = new SimpleDateFormat(displayDateFormat, Locale.US);
             if(((String)getArguments().get("Date")).equals(""))
@@ -97,8 +101,8 @@ public class GasDialogFragment extends DialogFragment
                 myCalendar.set(Calendar.YEAR,Integer.parseInt(str[2]));
             }
 
-            milesValue = (String)getArguments().get("Miles");
-            gallonsValue = (String)getArguments().get("Gallons");
+            milesValue = str1[0];
+            gallonsValue = str2[0];
             costValue = (String)getArguments().get("Cost");
             calculateMPG();
         }
