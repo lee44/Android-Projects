@@ -2,6 +2,7 @@ package com.apps.jlee.carcare;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,6 +16,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.WindowManager;
 
 import android.widget.Button;
@@ -50,12 +52,15 @@ public class GasDialogFragment extends DialogFragment
         this.listener = null;
     }
 
-    @Override
-    public void onStart()
+    public void onResume()
     {
-        super.onStart();
-        getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
-        getDialog().getWindow().setGravity(Gravity.CENTER_HORIZONTAL | Gravity.TOP);
+        super.onResume();
+        //Gets the window of the Dialog
+        Window window = getDialog().getWindow();
+        window.setLayout((int)(Resources.getSystem().getDisplayMetrics().widthPixels *.9), (int)(Resources.getSystem().getDisplayMetrics().heightPixels * .55));
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        window.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.TOP);
+        window.setGravity(Gravity.CENTER);
         getDialog().setCanceledOnTouchOutside(true);
     }
 
