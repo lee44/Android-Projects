@@ -3,14 +3,18 @@ package com.apps.jlee.carcare;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 
 import android.widget.Button;
@@ -51,6 +55,8 @@ public class GasDialogFragment extends DialogFragment
     {
         super.onStart();
         getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        getDialog().getWindow().setGravity(Gravity.CENTER_HORIZONTAL | Gravity.TOP);
+        getDialog().setCanceledOnTouchOutside(true);
     }
 
     public void setListener(GasInterface listener)
@@ -235,6 +241,7 @@ public class GasDialogFragment extends DialogFragment
 
         return dialog;
     }
+
     public void calculateMPG()
     {
         if(milesValue != null && gallonsValue != null)
