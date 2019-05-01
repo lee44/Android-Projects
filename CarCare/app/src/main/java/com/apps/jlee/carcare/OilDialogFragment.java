@@ -2,13 +2,15 @@ package com.apps.jlee.carcare;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.graphics.Rect;
+import android.content.res.Resources;
+
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -16,8 +18,9 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.TextView;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -35,16 +38,20 @@ public class OilDialogFragment extends DialogFragment
 
     public interface OilInterface
     {
-        public void onClick(String oil_name, double oil_amount, double mileage, Date date);
+        public void onClick(String oil_name, String oil_amount, String mileage, Date date);
     }
 
     public OilDialogFragment(){this.listener = null;}
 
-    @Override
-    public void onStart()
+    public void onResume()
     {
-        super.onStart();
-        getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        super.onResume();
+        //Gets the window of the Dialog
+        Window window = getDialog().getWindow();
+        window.setLayout((int)(Resources.getSystem().getDisplayMetrics().widthPixels *.9), (int)(Resources.getSystem().getDisplayMetrics().heightPixels * .45));
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        window.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.TOP);
+        getDialog().setCanceledOnTouchOutside(true);
     }
 
     public void setListener(OilInterface listener){this.listener = listener;}
@@ -65,6 +72,8 @@ public class OilDialogFragment extends DialogFragment
         oil_textInputLayout = dialogView.findViewById(R.id.oil_error);
         oil_amount_textInputLayout = dialogView.findViewById(R.id.oilAmount_error);
         mileage_textInputLayout = dialogView.findViewById(R.id.mileage_error);
+
+        oil_name_editText.requestFocus();
 
         if(getArguments() != null)
         {
@@ -111,11 +120,6 @@ public class OilDialogFragment extends DialogFragment
             }
         });
 
-        //Rect displayRectangle = new Rect();
-        //Window window = getActivity().getWindow();
-        //window.getDecorView().getWindowVisibleDisplayFrame(displayRectangle);
-        //dialog.getWindow().setLayout((int)(displayRectangle.width()), (int)(displayRectangle.height() * 0.4f));
-
         OK.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -138,7 +142,10 @@ public class OilDialogFragment extends DialogFragment
                 }
                 else
                 {
-                    listener.onClick(oil_name_editText.getText().toString(),Double.valueOf(oil_amount_editText.getText().toString()),Double.valueOf(mileage_editText.getText().toString()),myCalendar.getTime());
+                    listener.onClick(oil_name_editText.getText().toString(),
+                                     new BigDecimal(Double.parseDouble(oil_amount_editText.getText().toString())).setScale(2, RoundingMode.HALF_UP).toString(),
+                                     new BigDecimal(Double.parseDouble(mileage_editText.getText().toString())).setScale(2, RoundingMode.HALF_UP).toString(),
+                                     myCalendar.getTime());
 
                     getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
                     dialog.dismiss();

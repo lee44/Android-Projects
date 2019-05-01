@@ -25,7 +25,7 @@
                 android:layout_marginLeft="10dp"
                 android:text="Date"
                 android:textColor="@android:color/black"
-                android:textSize="20sp"
+                android:textSize="@dimen/textview"
                 android:textStyle="bold" />
 
             <EditText
@@ -39,7 +39,8 @@
                 android:clickable="true"
                 android:editable="false"
                 android:focusable="false"
-                android:hint="Enter Date" />
+                android:hint="Enter Date"
+                android:textSize="@dimen/edittext"/>
 
         </TableRow>
 
@@ -55,8 +56,9 @@
                 android:layout_marginLeft="10dp"
                 android:text="Oil"
                 android:textColor="@android:color/black"
-                android:textSize="20sp"
+                android:textSize="@dimen/textview"
                 android:textStyle="bold" />
+
         <android.support.design.widget.TextInputLayout
             android:id="@+id/oil_error"
             android:layout_width="fill_parent"
@@ -73,8 +75,10 @@
                 android:gravity="center"
                 android:singleLine="true"
                 android:scrollHorizontally="true"
-                android:hint="Enter Oil Name"
-                android:imeOptions="actionDone" />
+                android:hint="Name"
+                android:maxLength="20"
+                android:imeOptions="actionDone"
+                android:textSize="@dimen/edittext"/>
         </android.support.design.widget.TextInputLayout>
 
         </TableRow>
@@ -90,8 +94,8 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
                 android:textColor="@android:color/black"
-                android:text="Oil Amount"
-                android:textSize="20sp"
+                android:text="Amount"
+                android:textSize="@dimen/textview"
                 android:textStyle="bold" />
 
             <android.support.design.widget.TextInputLayout
@@ -110,9 +114,11 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
                     android:gravity="center"
-                    android:hint="Oil Amount (Quarts)"
+                    android:hint="(Quarts)"
                     android:imeOptions="actionDone"
-                    android:inputType="numberDecimal|numberSigned" />
+                    android:maxLength="6"
+                    android:inputType="numberDecimal|numberSigned"
+                    android:textSize="@dimen/edittext"/>
             </android.support.design.widget.TextInputLayout>
 
         </TableRow>
@@ -129,7 +135,7 @@
                 android:layout_marginLeft="10dp"
                 android:textColor="@android:color/black"
                 android:text="Mileage"
-                android:textSize="20sp"
+                android:textSize="@dimen/textview"
                 android:textStyle="bold" />
 
             <android.support.design.widget.TextInputLayout
@@ -148,7 +154,9 @@
                     android:gravity="center"
                     android:inputType="numberDecimal|numberSigned"
                     android:imeOptions="actionDone"
-                    android:hint="Enter Mileage"/>
+                    android:hint="Miles"
+                    android:maxLength="9"
+                    android:textSize="@dimen/edittext"/>
             </android.support.design.widget.TextInputLayout>
         </TableRow>
 
@@ -156,22 +164,20 @@
 
     <Button
         android:id="@+id/OK"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="false"
+        android:layout_width="100dp"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/Table"
         android:text="OK"
-        android:textSize="16sp" />
+        android:textSize="18sp" />
 
     <Button
         android:id="@+id/Cancel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="false"
-        android:layout_below="@+id/Table"
+        android:layout_width="100dp"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
         android:layout_toLeftOf="@+id/OK"
         android:text="Cancel"
-        android:textSize="16sp" />
+        android:textSize="18sp" />
 
 </RelativeLayout>

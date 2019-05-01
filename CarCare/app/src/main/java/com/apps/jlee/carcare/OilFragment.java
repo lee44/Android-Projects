@@ -48,7 +48,7 @@ public class OilFragment extends Fragment
         db = new SQLiteDatabaseHandler(getContext());
         listView = view.findViewById(R.id.oilListView);
         arrayList = new ArrayList<>();
-        adapter = new SimpleAdapter(getContext(),arrayList,R.layout.oil_listview_items, new String[]{"Date","Details","Mileage"},new int[]{R.id.Date,R.id.Details,R.id.Mileage});
+        adapter = new SimpleAdapter(getContext(),arrayList,R.layout.oil_listview_items, new String[]{"Date","Oil_Name","Oil_Amount","Mileage"},new int[]{R.id.Date,R.id.oil_name,R.id.oil_amount,R.id.Mileage});
         listView.setAdapter(adapter);
 
         loadOilEntries();
@@ -73,7 +73,7 @@ public class OilFragment extends Fragment
         d.setListener(new OilDialogFragment.OilInterface()
         {
             @Override
-            public void onClick(String oil_name, double oil_amount, double mileage, Date date)
+            public void onClick(String oil_name, String oil_amount, String mileage, Date date)
             {
                 int dbCount = (int)db.getProfilesCount(new Oil())+1;
 
@@ -82,32 +82,31 @@ public class OilFragment extends Fragment
                     Oil o = new Oil();
                     o.setID(dbCount);
                     o.setOilName(oil_name);
-                    o.setOilAmount(oil_amount);
-                    o.setMileage(mileage);
+                    o.setOilAmount(Double.parseDouble(oil_amount));
+                    o.setMileage(Double.parseDouble(mileage));
                     o.setDate(new SimpleDateFormat(dbDateFormat).format(date));
                     db.addEntry(o);
 
                     HashMap<String, String> hashMap = new HashMap<>();
                     hashMap.put("ID", String.valueOf(dbCount));
-                    hashMap.put("oil_name", oil_name);
-                    hashMap.put("oil_amount", String.valueOf(oil_amount));
-                    DecimalFormat formatter = new DecimalFormat("#,###,###.##");
-                    hashMap.put("Mileage", formatter.format(mileage) + " mi");
+                    hashMap.put("Oil_Name", oil_name);
+                    hashMap.put("Oil_Amount", String.valueOf(oil_amount));
+                    hashMap.put("Miles",mileage+"");
+                    DecimalFormat formatter = new DecimalFormat("#,###,##0.00");
+                    hashMap.put("Mileage", formatter.format(Double.valueOf(mileage)) + " MI");
                     hashMap.put("Date", new SimpleDateFormat("MM/dd/yyyy").format(date));
-                    hashMap.put("Details"," " + oil_name + "\n " + oil_amount + " quarts");
                     arrayList.add(0, hashMap);
                 }
                 else
                 {
                     HashMap<String, String> hashMap = (HashMap<String,String>) adapter.getItem(editPosition);
-                    hashMap.put("oil_name", oil_name);
-                    hashMap.put("oil_amount", String.valueOf(oil_amount));
-                    DecimalFormat formatter = new DecimalFormat("#,###,###.##");
-                    hashMap.put("Mileage", formatter.format(mileage) + " mi");
+                    hashMap.put("Oil_Name", oil_name);
+                    hashMap.put("Oil_Amount", String.valueOf(oil_amount));
+                    hashMap.put("Miles",mileage+"");
+                    DecimalFormat formatter = new DecimalFormat("#,###,##0.00");
+                    hashMap.put("Mileage", formatter.format(Double.valueOf(mileage)) + " MI");
                     hashMap.put("Date",new SimpleDateFormat("MM/dd/yyyy").format(date));
-                    hashMap.put("Details"," " + oil_name + "\n " + oil_amount + " quarts");
-
-                    db.updateEntry(new Oil(Integer.valueOf(hashMap.get("ID")),oil_name,oil_amount,mileage,new SimpleDateFormat(dbDateFormat).format(date)));
+                    db.updateEntry(new Oil(Integer.valueOf(hashMap.get("ID")),oil_name,Double.parseDouble(oil_amount),Double.parseDouble(mileage),new SimpleDateFormat(dbDateFormat).format(date)));
                 }
                 adapter.notifyDataSetChanged();
             }
@@ -121,6 +120,7 @@ public class OilFragment extends Fragment
     {
         getActivity().getMenuInflater().inflate(R.menu.context_menu, menu);
     }
+
     //Called when an item inside context menu is selected
     public boolean onContextItemSelected(MenuItem item)
     {
@@ -144,16 +144,9 @@ public class OilFragment extends Fragment
             editPosition = index;
 
             Bundle b = new Bundle();
-            b.putString("oil_name",hashMap.get("oil_name"));
-            b.putString("oil_amount",hashMap.get("oil_amount"));
-            StringTokenizer tokenizer = new StringTokenizer(hashMap.get("Mileage"),", mil");
-
-            String s = "";
-            while(tokenizer.hasMoreTokens())
-            {
-                s = s+tokenizer.nextToken();
-            }
-            b.putString("Mileage",s);
+            b.putString("oil_name",hashMap.get("Oil_Name"));
+            b.putString("oil_amount",hashMap.get("Oil_Amount"));
+            b.putString("Mileage",hashMap.get("Miles"));
             b.putString("Date",hashMap.get("Date"));
             d.setArguments(b);
             d.show(getFragmentManager(), "fragment_oil");
@@ -173,18 +166,23 @@ public class OilFragment extends Fragment
         {
             for (int i = 0; i < list.size(); i++)
             {
+                DecimalFormat number = new DecimalFormat("0.00");
+                Double oil_Amount = Double.valueOf(((Oil)(list.get(i))).getOilAmount());
+
                 HashMap<String,String> hashMap = new HashMap<>();
                 hashMap.put("ID",String.valueOf(((Oil)(list.get(i))).getID()));
-                hashMap.put("oil_name", String.valueOf(((Oil)(list.get(i))).getOilName()));
-                hashMap.put("oil_amount",String.valueOf(((Oil)(list.get(i))).getOilAmount()));
-                DecimalFormat formatter = new DecimalFormat("#,###,###.##");
-                hashMap.put("Mileage",formatter.format(((Oil)(list.get(i))).getMileage())+" mi");
+                hashMap.put("Oil_Name", String.valueOf(((Oil)(list.get(i))).getOilName()));
+                hashMap.put("Oil_Amount", number.format(oil_Amount));
+                DecimalFormat formatter = new DecimalFormat("#,###,##0.00");
+                Double mileage = Double.valueOf(((Oil)(list.get(i))).getMileage());
+                hashMap.put("Miles",mileage+"");
+                hashMap.put("Mileage",formatter.format(mileage)+" MI");
 
                 try{ date = new SimpleDateFormat(dbDateFormat).parse(((Oil)(list.get(i))).getDate());
                 } catch (ParseException e) { e.printStackTrace();}
 
                 hashMap.put("Date", new SimpleDateFormat("MM/dd/yyyy").format(date));
-                hashMap.put("Details"," " + ((Oil)(list.get(i))).getOilName()+"\n "+((Oil)(list.get(i))).getOilAmount() + " quarts");
+                //hashMap.put("Details"," " + ((Oil)(list.get(i))).getOilName()+"\n "+((Oil)(list.get(i))).getOilAmount() + " quarts");
                 arrayList.add(0,hashMap);
             }
             adapter.notifyDataSetChanged();

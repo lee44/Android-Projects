@@ -4,18 +4,17 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
+
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
+
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -60,7 +59,6 @@ public class GasDialogFragment extends DialogFragment
         window.setLayout((int)(Resources.getSystem().getDisplayMetrics().widthPixels *.9), (int)(Resources.getSystem().getDisplayMetrics().heightPixels * .55));
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         window.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.TOP);
-        window.setGravity(Gravity.CENTER);
         getDialog().setCanceledOnTouchOutside(true);
     }
 

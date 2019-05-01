@@ -1,47 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:orientation="vertical"
     android:background="@color/black">
 
     <TextView
         android:id="@+id/Date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
+        android:layout_centerHorizontal="false"
+        android:layout_gravity="center_horizontal"
         android:text="10/24/2018"
         android:textColor="@color/white"
         android:textSize="@dimen/Date"
         android:textStyle="bold" />
 
     <LinearLayout
-        android:id="@+id/DetailsandMilage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/Date"
-        android:gravity="center"
         android:orientation="horizontal">
 
-        <TextView
+        <LinearLayout
             android:id="@+id/Details"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textColor="@color/white"
-            android:textSize="@dimen/Default"
-            android:text="Oil: Royal Purple HMX Max Oil"/>
+            android:layout_weight=".60"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/Mileage"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/gallon_icon"
+                    android:layout_width="25dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="0dp"
+                    android:layout_marginLeft="5dp"
+                    android:background="@drawable/gallon" />
+
+                <TextView
+                    android:id="@+id/oil_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="Texxon Oil"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/Default" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="0dp"
+                    android:layout_marginLeft="5dp"
+                    android:background="@drawable/road_icon" />
+
+                <TextView
+                    android:id="@+id/oil_amount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="15 qt"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/Default" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:text="455,334 mi"
-            android:textColor="@color/red"
-            android:textSize="@dimen/MPGorMiles"
-            android:textStyle="bold" />
-    </LinearLayout>
+            android:layout_height="match_parent"
+            android:layout_weight=".40">
 
-</RelativeLayout>
+            <TextView
+                android:id="@+id/Mileage"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:text="455,334.99 MI"
+                android:textColor="@color/red"
+                android:textSize="@dimen/MPGorMiles"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>
+
