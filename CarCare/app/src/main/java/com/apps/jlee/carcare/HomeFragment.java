@@ -174,7 +174,7 @@ public class HomeFragment extends Fragment
         XAxis xAxis = chart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setTextSize(15f);
-        xAxis.setTextColor(Color.BLACK);
+        xAxis.setTextColor(Color.WHITE);
         xAxis.setDrawAxisLine(true);
         xAxis.setDrawGridLines(true);
         xAxis.setValueFormatter(new CustomXAxisValueFormatter(values));
@@ -183,7 +183,7 @@ public class HomeFragment extends Fragment
 
         YAxis leftAxis = chart.getAxisLeft();
         leftAxis.setTextSize(15f);
-        leftAxis.setTextColor(Color.BLACK);
+        leftAxis.setTextColor(Color.WHITE);
         leftAxis.setDrawZeroLine(true);
 
         chart.getAxisRight().setEnabled(false);

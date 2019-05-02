@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true">
+    android:fillViewport="true"
+    android:background="@color/background">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -15,7 +16,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:text="Cost Graph"
-            android:textColor="@android:color/black"
+            android:textColor="@android:color/white"
             android:textSize="24sp"
             android:textStyle="bold" />
 
@@ -35,7 +36,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="25dp"
             android:text="Replacement Progress"
-            android:textColor="@android:color/black"
+            android:textColor="@android:color/white"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -46,6 +47,7 @@
             android:layout_below="@id/replacementTitle"
             android:layout_marginLeft="5dp"
             android:text="Oil"
+            android:textColor="@android:color/white"
             android:textSize="20sp" />
 
         <ProgressBar
@@ -65,6 +67,7 @@
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
             android:text="Brake"
+            android:textColor="@android:color/white"
             android:textSize="20sp" />
 
         <ProgressBar
@@ -84,6 +87,7 @@
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
             android:text="Wheel"
+            android:textColor="@android:color/white"
             android:textSize="20sp" />
 
         <ProgressBar
@@ -103,6 +107,7 @@
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
             android:text="Battery"
+            android:textColor="@android:color/white"
             android:textSize="20sp" />
 
         <ProgressBar
@@ -122,6 +127,7 @@
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
             android:text="Timing Belt"
+            android:textColor="@android:color/white"
             android:textSize="20sp" />
 
         <ProgressBar
