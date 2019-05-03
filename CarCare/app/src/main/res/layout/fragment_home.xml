@@ -52,12 +52,15 @@
 
         <ProgressBar
             android:id="@+id/oilPB"
-            style="@android:style/Widget.Holo.Light.ProgressBar.Horizontal"
+            style="@android:style/Widget.ProgressBar.Horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="5dp"
             android:layout_below="@id/oil"
             android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp" />
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp"
+            android:progressDrawable="@drawable/custom_progress_bar"
+            />
 
         <TextView
             android:id="@+id/brakes"
@@ -72,12 +75,14 @@
 
         <ProgressBar
             android:id="@+id/brakesPB"
-            style="@android:style/Widget.Holo.Light.ProgressBar.Horizontal"
+            style="@android:style/Widget.ProgressBar.Horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="5dp"
             android:layout_below="@id/brakes"
             android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp" />
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp"
+            android:progressDrawable="@drawable/custom_progress_bar"/>
 
         <TextView
             android:id="@+id/wheels"
@@ -92,12 +97,14 @@
 
         <ProgressBar
             android:id="@+id/wheelsPB"
-            style="@android:style/Widget.Holo.Light.ProgressBar.Horizontal"
+            style="@android:style/Widget.ProgressBar.Horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="5dp"
             android:layout_below="@id/wheels"
             android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp" />
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp"
+            android:progressDrawable="@drawable/custom_progress_bar"/>
 
         <TextView
             android:id="@+id/battery"
@@ -112,12 +119,14 @@
 
         <ProgressBar
             android:id="@+id/batteryPB"
-            style="@android:style/Widget.Holo.Light.ProgressBar.Horizontal"
+            style="@android:style/Widget.ProgressBar.Horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="5dp"
             android:layout_below="@id/battery"
             android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp" />
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp"
+            android:progressDrawable="@drawable/custom_progress_bar"/>
 
         <TextView
             android:id="@+id/timingBelt"
@@ -132,12 +141,14 @@
 
         <ProgressBar
             android:id="@+id/timingBeltPB"
-            style="@android:style/Widget.Holo.Light.ProgressBar.Horizontal"
+            style="@android:style/Widget.ProgressBar.Horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="5dp"
             android:layout_below="@id/timingBelt"
             android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp" />
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp"
+            android:progressDrawable="@drawable/custom_progress_bar"/>
 
     </RelativeLayout>
 

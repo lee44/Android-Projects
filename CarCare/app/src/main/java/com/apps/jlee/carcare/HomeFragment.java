@@ -163,7 +163,7 @@ public class HomeFragment extends Fragment
         LineDataSet dataSet = new LineDataSet(entries, "Label");
         dataSet.setLineWidth(3);
         dataSet.setDrawValues(false);
-        dataSet.setColor(Color.BLUE);
+        dataSet.setColor(Color.rgb(0,255,47));
         dataSet.setCircleHoleColor(Color.BLUE);
         dataSet.setCircleColor(Color.BLUE);
         dataSet.setCircleHoleRadius(5f);
