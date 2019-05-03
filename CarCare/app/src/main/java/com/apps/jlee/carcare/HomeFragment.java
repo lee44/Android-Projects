@@ -194,7 +194,6 @@ public class HomeFragment extends Fragment
                 }
                 else
                     return "";
-
             }
         });
 

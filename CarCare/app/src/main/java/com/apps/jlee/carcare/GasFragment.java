@@ -238,9 +238,7 @@ public class GasFragment extends Fragment
         }
         else
         {
-            arrayList.clear();
             generateGasEntries();
-            loadGasEntries();
         }
 
         return super.onOptionsItemSelected(item);
@@ -282,14 +280,16 @@ public class GasFragment extends Fragment
         Double cost,gallons,miles;
         int id;
 
-        for(int i = 4; i < 8; i++)
+        for(int i = 1; i < 14; i++)
         {
             id = (int)db.getProfilesCount(new Gas())+1;
-            cal.set(Calendar.MONTH,2); cal.set(Calendar.DAY_OF_MONTH, i*2); cal.set(Calendar.YEAR, 2019);
+            cal.set(Calendar.MONTH,6); cal.set(Calendar.DAY_OF_MONTH, i*2); cal.set(Calendar.YEAR, 2019);
+
             cost = Double.parseDouble(String.format("%.2f",(new Random().nextInt(10)+45) + new Random().nextDouble()));
             gallons = Double.parseDouble(String.format("%.2f",(new Random().nextInt(6)+10) + new Random().nextDouble()));
             miles = Double.parseDouble(String.format("%.2f",(new Random().nextInt(115)+400) + new Random().nextDouble()));
-            //db.addEntry(new Gas(id,cost,gallons,miles,new SimpleDateFormat(dbDateFormat).format(cal.getTime())));
+
+            db.addEntry(new Gas(id,cost,gallons,miles,cal.getTime().getTime()));
         }
     }
 
@@ -391,8 +391,11 @@ public class GasFragment extends Fragment
         calendar.set(Calendar.HOUR_OF_DAY, 12);
         calendar.set(Calendar.MINUTE, 00);
 
+        //Schedule a repeating alarm that runs every 24 hours
         alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),1000 * 60 * 60 * 24, alarmIntent);
-        //alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),1000 * 60 * 1, alarmIntent);
+        // Schedule a repeating alarm that runs every minute
+        // alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),1000 * 60 * 1, alarmIntent);
+        // Schedule alarm that runs once at the given time
         //alarmMgr.set(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(), alarmIntent);
     }
 
