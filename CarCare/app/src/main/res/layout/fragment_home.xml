@@ -6,18 +6,20 @@
     android:fillViewport="true"
     android:background="@color/background">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
+            android:layout_centerHorizontal="false"
+            android:layout_gravity="center_horizontal"
             android:text="Cost Graph"
             android:textColor="@android:color/white"
-            android:textSize="24sp"
+            android:textSize="@dimen/title"
             android:textStyle="bold" />
 
         <com.github.mikephil.charting.charts.LineChart
@@ -37,7 +39,7 @@
             android:layout_marginBottom="25dp"
             android:text="Replacement Progress"
             android:textColor="@android:color/white"
-            android:textSize="20sp"
+            android:textSize="@dimen/title"
             android:textStyle="bold" />
 
         <TextView
@@ -48,7 +50,7 @@
             android:layout_marginLeft="5dp"
             android:text="Oil"
             android:textColor="@android:color/white"
-            android:textSize="20sp" />
+            android:textSize="@dimen/progressbar" />
 
         <ProgressBar
             android:id="@+id/oilPB"
@@ -71,7 +73,7 @@
             android:layout_marginTop="5dp"
             android:text="Brake"
             android:textColor="@android:color/white"
-            android:textSize="20sp" />
+            android:textSize="@dimen/progressbar" />
 
         <ProgressBar
             android:id="@+id/brakesPB"
@@ -93,7 +95,7 @@
             android:layout_marginTop="5dp"
             android:text="Wheel"
             android:textColor="@android:color/white"
-            android:textSize="20sp" />
+            android:textSize="@dimen/progressbar" />
 
         <ProgressBar
             android:id="@+id/wheelsPB"
@@ -115,7 +117,7 @@
             android:layout_marginTop="5dp"
             android:text="Battery"
             android:textColor="@android:color/white"
-            android:textSize="20sp" />
+            android:textSize="@dimen/progressbar" />
 
         <ProgressBar
             android:id="@+id/batteryPB"
@@ -137,7 +139,7 @@
             android:layout_marginTop="5dp"
             android:text="Timing Belt"
             android:textColor="@android:color/white"
-            android:textSize="20sp" />
+            android:textSize="@dimen/progressbar" />
 
         <ProgressBar
             android:id="@+id/timingBeltPB"
@@ -150,6 +152,6 @@
             android:layout_marginBottom="5dp"
             android:progressDrawable="@drawable/custom_progress_bar"/>
 
-    </RelativeLayout>
+    </LinearLayout>
 
 </ScrollView >
