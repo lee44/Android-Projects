@@ -23,11 +23,14 @@ import android.widget.TextView;
 
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -123,7 +126,7 @@ public class HomeFragment extends Fragment
                     Date date = new Date(((Gas)(list.get(i))).getDateRefilled());
 
                     entries.add(new Entry(i,(float)((Gas)(list.get(i))).getCost()));
-                    values[i] = (String) DateFormat.format("MM",date) + "/" + (String) DateFormat.format("dd",date);
+                    values[i] = (String) DateFormat.format("M",date) + "/" + (String) DateFormat.format("dd",date);
                 }
                 break;
 
@@ -133,7 +136,7 @@ public class HomeFragment extends Fragment
                     Date date = new Date(((Gas)(list.get(i))).getDateRefilled());
 
                     entries.add(new Entry(i, (float) ((Gas) (list.get(i))).getAmount()));
-                    values[i] = (String) DateFormat.format("MM", date) + "/" + (String) DateFormat.format("dd", date);
+                    values[i] = (String) DateFormat.format("M", date) + "/" + (String) DateFormat.format("dd", date);
                 }
                 break;
             case 3:
@@ -142,7 +145,7 @@ public class HomeFragment extends Fragment
                     Date date = new Date(((Gas)(list.get(i))).getDateRefilled());
 
                     entries.add(new Entry(i, (float) ((Gas) (list.get(i))).getMiles()));
-                    values[i] = (String) DateFormat.format("MM", date) + "/" + (String) DateFormat.format("dd", date);
+                    values[i] = (String) DateFormat.format("M", date) + "/" + (String) DateFormat.format("dd", date);
                 }
                 break;
             case 4:
@@ -151,7 +154,7 @@ public class HomeFragment extends Fragment
                     Date date = new Date(((Gas)(list.get(i))).getDateRefilled());
 
                     entries.add(new Entry(i, (float) ((Gas) (list.get(i))).getMiles() / (float) ((Gas) (list.get(i))).getAmount()));
-                    values[i] = (String) DateFormat.format("MM", date) + "/" + (String) DateFormat.format("dd", date);
+                    values[i] = (String) DateFormat.format("M", date) + "/" + (String) DateFormat.format("dd", date);
                 }
                 break;
         }
@@ -177,7 +180,24 @@ public class HomeFragment extends Fragment
         xAxis.setTextColor(Color.WHITE);
         xAxis.setDrawAxisLine(true);
         xAxis.setDrawGridLines(true);
-        xAxis.setValueFormatter(new CustomXAxisValueFormatter(values));
+        xAxis.setValueFormatter(new IndexAxisValueFormatter()
+        {
+            // "value" represents the position of the label on the axis (x or y) which is why we need to store the values into a string array.
+            public String getFormattedValue(float value, AxisBase axis)
+            {
+                if (value >= 0)
+                {
+                    if (values.length > (int) value)//This prevents IndexOutofArray Exception
+                        return values[(int)value];
+                    else
+                        return "";
+                }
+                else
+                    return "";
+
+            }
+        });
+
         xAxis.setLabelRotationAngle(45);
         xAxis.setGranularity(1f);
 
