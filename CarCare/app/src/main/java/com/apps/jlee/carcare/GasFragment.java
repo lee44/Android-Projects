@@ -7,6 +7,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -48,8 +49,6 @@ public class GasFragment extends Fragment
     private SimpleAdapter adapter;
     private SQLiteDatabaseHandler db;
     private int updateFlag = 0, editPosition;
-    private String dbDateFormat = "yyyy-MM-dd HH:mm:ss";
-    final String CHANNEL_ID = "1";
 
     public GasFragment(){}
 
@@ -72,7 +71,7 @@ public class GasFragment extends Fragment
        adapter = new SimpleAdapter(getContext(),arrayList,R.layout.gas_listview_items, new String[]{"Date","Cost","Miles","Gallons","MPG"},new int[]{R.id.Date,R.id.cost,R.id.miles,R.id.gallons,R.id.MPG});
        listView.setAdapter(adapter);
 
-       loadGasEntries();
+        new AsyncDBTask(db,new Gas(),"Fetch").execute();
 
        //registers the context menu for to be shown for our listview
        registerForContextMenu(listView);
@@ -97,8 +96,6 @@ public class GasFragment extends Fragment
            @Override
            public void onClick(String milesValue, String gallonsValue, String cost, Date date)
            {
-               //Log.v("Dodgers","Miles: "+Double.parseDouble(milesValue)+ " Gallons: "+Double.parseDouble(gallonsValue)+ " Cost: "+Double.parseDouble(cost)+ " Date: "+date.toString());
-
                int dbCount = (int)db.getProfilesCount(new Gas())+1;
 
                //Insert new Gas Entry
@@ -110,7 +107,7 @@ public class GasFragment extends Fragment
                    g.setAmount(Double.parseDouble(gallonsValue));
                    g.setCost(Double.parseDouble(cost));
                    g.setDateRefilled(date.getTime());
-                   db.addEntry(g);
+                   new AsyncDBTask(db,g,"Add").execute();
 
                    HashMap<String, String> hashMap = new HashMap<>();
                    hashMap.put("ID", dbCount + "");
@@ -125,15 +122,14 @@ public class GasFragment extends Fragment
                //Update existing Gas Entry
                else
                {
-                   HashMap<String, String> hashMap = new HashMap<>();
-                   hashMap = (HashMap<String,String>) adapter.getItem(editPosition);
+                   HashMap<String, String> hashMap = (HashMap<String,String>) adapter.getItem(editPosition);
                    hashMap.put("Cost", cost);
                    hashMap.put("Miles", milesValue+" mi");
                    hashMap.put("Gallons", gallonsValue+" gal");
                    hashMap.put("Date",new SimpleDateFormat("MM/dd/yyyy").format(date));
                    hashMap.put("Date Long",Long.toString(date.getTime()));
                    hashMap.put("MPG", String.format("%.2f", (Double.parseDouble(milesValue) / Double.parseDouble(gallonsValue)))+ " MPG");
-                   db.updateEntry(new Gas(Integer.valueOf(hashMap.get("ID")),Double.valueOf(cost),Double.valueOf(gallonsValue),Double.valueOf(milesValue),date.getTime()));
+                   new AsyncDBTask(db,new Gas(Integer.valueOf(hashMap.get("ID")),Double.parseDouble(cost),Double.parseDouble(gallonsValue),Double.parseDouble(milesValue),date.getTime()),"Update").execute();
                }
                updateProgressBar();
                Collections.sort(arrayList, new MapComparator("Date"));
@@ -164,7 +160,8 @@ public class GasFragment extends Fragment
             //getItem will get a reference to data stored in the ArrayList. This data is a HashMap. We cast it below because
             //getItem is returning a plain object. By casting, we are telling the compiler that the object is a HashMap object.
             hashMap = (HashMap<String,String>) adapter.getItem(index);
-            db.deleteEntry(new Gas(Integer.valueOf(hashMap.get("ID")),0,0,0,0));
+            //db.deleteEntry(new Gas(Integer.valueOf(hashMap.get("ID")),0,0,0,0));
+            new AsyncDBTask(db,new Gas(Integer.valueOf(hashMap.get("ID")),0,0,0,0),"Delete");
             updateProgressBar();
             arrayList.remove(adapter.getItem(index));
             adapter.notifyDataSetChanged();
@@ -242,35 +239,6 @@ public class GasFragment extends Fragment
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    //Load saved Gas entries
-    public void loadGasEntries()
-    {
-        List<Object> list = db.getAllEntries(new Gas());
-        Date date = null;
-
-        if(list != null)
-        {
-            for (int i = 0; i < list.size(); i++)
-            {
-                DecimalFormat number = new DecimalFormat("0.00");
-                Double cost = Double.valueOf((((Gas)(list.get(i))).getCost()));
-                Double miles = Double.valueOf((((Gas)(list.get(i))).getMiles()));
-                Double gallons = Double.valueOf((((Gas)(list.get(i))).getAmount()));
-
-                HashMap<String,String> hashMap = new HashMap<>();
-                hashMap.put("ID",String.valueOf(((Gas)(list.get(i))).getID()));
-                hashMap.put("Cost", number.format(cost));
-                hashMap.put("Miles",number.format(miles)+" mi");
-                hashMap.put("Gallons",number.format(gallons)+" gal");
-                date = new Date(((Gas)(list.get(i))).getDateRefilled());
-                hashMap.put("Date", new SimpleDateFormat("MM/dd/yyyy").format(date));
-                hashMap.put("Date Long",Long.toString(date.getTime()));
-                hashMap.put("MPG",String.format("%.2f", (((Gas)(list.get(i))).getMiles()) / (((Gas)(list.get(i))).getAmount()))+" MPG");
-                arrayList.add(0,hashMap);
-            }
-        }
     }
 
     public void generateGasEntries()
@@ -392,11 +360,75 @@ public class GasFragment extends Fragment
         calendar.set(Calendar.MINUTE, 00);
 
         //Schedule a repeating alarm that runs every 24 hours
-        alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),1000 * 60 * 60 * 24, alarmIntent);
+        //alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),1000 * 60 * 60 * 24, alarmIntent);
         // Schedule a repeating alarm that runs every minute
         // alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),1000 * 60 * 1, alarmIntent);
         // Schedule alarm that runs once at the given time
         //alarmMgr.set(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(), alarmIntent);
+    }
+
+    private class AsyncDBTask extends AsyncTask<Void,Void,List<Object>>
+    {
+        private SQLiteDatabaseHandler handler;
+        private Gas g;
+        private String operation;
+
+        public AsyncDBTask(SQLiteDatabaseHandler handler,Gas g,String operation)
+        {
+            this.handler = handler;
+            this.g = g;
+            this.operation = operation;
+        }
+        @Override
+        protected List<Object> doInBackground(Void... voids)
+        {
+            if(operation.equals("Add"))
+            {
+                handler.addEntry(g);
+            }
+            else if(operation.equals("Update"))
+            {
+                handler.updateEntry(g);
+            }
+            else if(operation.equals("Delete"))
+            {
+                handler.deleteEntry(g);
+            }
+            else if(operation.equals("Fetch"))
+            {
+                return handler.getAllEntries(new Gas());
+            }
+            return null;
+        }
+        @Override
+        protected void onPostExecute(List<Object> list)
+        {
+            super.onPostExecute(list);
+            Date date = null;
+
+            if(list != null)
+            {
+                for (int i = 0; i < list.size(); i++)
+                {
+                    DecimalFormat number = new DecimalFormat("0.00");
+                    Double cost = Double.valueOf((((Gas)(list.get(i))).getCost()));
+                    Double miles = Double.valueOf((((Gas)(list.get(i))).getMiles()));
+                    Double gallons = Double.valueOf((((Gas)(list.get(i))).getAmount()));
+
+                    HashMap<String,String> hashMap = new HashMap<>();
+                    hashMap.put("ID",String.valueOf(((Gas)(list.get(i))).getID()));
+                    hashMap.put("Cost", number.format(cost));
+                    hashMap.put("Miles",number.format(miles)+" mi");
+                    hashMap.put("Gallons",number.format(gallons)+" gal");
+                    date = new Date(((Gas)(list.get(i))).getDateRefilled());
+                    hashMap.put("Date", new SimpleDateFormat("MM/dd/yyyy").format(date));
+                    hashMap.put("Date Long",Long.toString(date.getTime()));
+                    hashMap.put("MPG",String.format("%.2f", (((Gas)(list.get(i))).getMiles()) / (((Gas)(list.get(i))).getAmount()))+" MPG");
+                    arrayList.add(0,hashMap);
+                }
+                adapter.notifyDataSetChanged();
+            }
+        }
     }
 
     //Defines the rules for comparisons that is used in Collection.sort method
