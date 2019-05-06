@@ -160,8 +160,9 @@ public class GasFragment extends Fragment
             //getItem will get a reference to data stored in the ArrayList. This data is a HashMap. We cast it below because
             //getItem is returning a plain object. By casting, we are telling the compiler that the object is a HashMap object.
             hashMap = (HashMap<String,String>) adapter.getItem(index);
-            //db.deleteEntry(new Gas(Integer.valueOf(hashMap.get("ID")),0,0,0,0));
-            new AsyncDBTask(db,new Gas(Integer.valueOf(hashMap.get("ID")),0,0,0,0),"Delete");
+
+            db.deleteEntry(new Gas(Integer.valueOf(hashMap.get("ID")),0,0,0,0));
+            //new AsyncDBTask(db,new Gas(Integer.parseInt(hashMap.get("ID")),0,0,0,0),"Delete");
             updateProgressBar();
             arrayList.remove(adapter.getItem(index));
             adapter.notifyDataSetChanged();
@@ -389,10 +390,6 @@ public class GasFragment extends Fragment
             else if(operation.equals("Update"))
             {
                 handler.updateEntry(g);
-            }
-            else if(operation.equals("Delete"))
-            {
-                handler.deleteEntry(g);
             }
             else if(operation.equals("Fetch"))
             {
