@@ -71,7 +71,7 @@ public class GasFragment extends Fragment
        adapter = new SimpleAdapter(getContext(),arrayList,R.layout.gas_listview_items, new String[]{"Date","Cost","Miles","Gallons","MPG"},new int[]{R.id.Date,R.id.cost,R.id.miles,R.id.gallons,R.id.MPG});
        listView.setAdapter(adapter);
 
-        new AsyncDBTask(db,new Gas(),"Fetch").execute();
+        new AsyncDBTask(db).execute();
 
        //registers the context menu for to be shown for our listview
        registerForContextMenu(listView);
@@ -107,7 +107,8 @@ public class GasFragment extends Fragment
                    g.setAmount(Double.parseDouble(gallonsValue));
                    g.setCost(Double.parseDouble(cost));
                    g.setDateRefilled(date.getTime());
-                   new AsyncDBTask(db,g,"Add").execute();
+                   db.addEntry(g);
+                   //new AsyncDBTask(db,g,"Add").execute();
 
                    HashMap<String, String> hashMap = new HashMap<>();
                    hashMap.put("ID", dbCount + "");
@@ -129,7 +130,8 @@ public class GasFragment extends Fragment
                    hashMap.put("Date",new SimpleDateFormat("MM/dd/yyyy").format(date));
                    hashMap.put("Date Long",Long.toString(date.getTime()));
                    hashMap.put("MPG", String.format("%.2f", (Double.parseDouble(milesValue) / Double.parseDouble(gallonsValue)))+ " MPG");
-                   new AsyncDBTask(db,new Gas(Integer.valueOf(hashMap.get("ID")),Double.parseDouble(cost),Double.parseDouble(gallonsValue),Double.parseDouble(milesValue),date.getTime()),"Update").execute();
+                   db.updateEntry(new Gas(Integer.valueOf(hashMap.get("ID")),Double.valueOf(cost),Double.valueOf(gallonsValue),Double.valueOf(milesValue),date.getTime()));
+                   //new AsyncDBTask(db,new Gas(Integer.valueOf(hashMap.get("ID")),Double.parseDouble(cost),Double.parseDouble(gallonsValue),Double.parseDouble(milesValue),date.getTime()),"Update").execute();
                }
                updateProgressBar();
                Collections.sort(arrayList, new MapComparator("Date"));
@@ -371,31 +373,15 @@ public class GasFragment extends Fragment
     private class AsyncDBTask extends AsyncTask<Void,Void,List<Object>>
     {
         private SQLiteDatabaseHandler handler;
-        private Gas g;
-        private String operation;
 
-        public AsyncDBTask(SQLiteDatabaseHandler handler,Gas g,String operation)
+        public AsyncDBTask(SQLiteDatabaseHandler handler)
         {
             this.handler = handler;
-            this.g = g;
-            this.operation = operation;
         }
         @Override
         protected List<Object> doInBackground(Void... voids)
         {
-            if(operation.equals("Add"))
-            {
-                handler.addEntry(g);
-            }
-            else if(operation.equals("Update"))
-            {
-                handler.updateEntry(g);
-            }
-            else if(operation.equals("Fetch"))
-            {
-                return handler.getAllEntries(new Gas());
-            }
-            return null;
+            return handler.getAllEntries(new Gas());
         }
         @Override
         protected void onPostExecute(List<Object> list)
