@@ -1,24 +1,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
     <item
-        android:id="@+id/SortByDate"
-        android:title="Sort By Date">
+        android:id="@+id/Filter"
+        android:title="Filter">
     </item>
-    <item
-        android:id="@+id/SortByMPG"
-        android:title="Sort By MPG">
-    </item>
-    <item
-        android:id="@+id/SortByCost"
-        android:title="Sort By Cost">
-    </item>
-    <item
-        android:id="@+id/SortByMiles"
-        android:title="Sort By Miles">
-    </item>
-    <item
-        android:id="@+id/SortByGallons"
-        android:title="Sort By Gallons">
-    </item>
+
     <item
         android:id="@+id/generateDummyData"
         android:title="Generate Dummy Data">

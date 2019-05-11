@@ -32,7 +32,7 @@ import java.util.Locale;
 
 public class GasDialogFragment extends DialogFragment
 {
-    String milesValue,gallonsValue,costValue,displayDateFormat = "MM/dd/yy";
+    String milesValue,gallonsValue,costValue, DateFormat = "M/dd/yy";
     EditText miles,gallons,cost,date;
     TextInputLayout costtextInputLayout, milestextInputLayout, gallonstextInputLayout;
     TextView mpgTextView;
@@ -97,7 +97,7 @@ public class GasDialogFragment extends DialogFragment
             String [] str2 = ((String)getArguments().get("Gallons")).split(" gal");
             gallons.setText(str2[0]);
 
-            SimpleDateFormat sdf = new SimpleDateFormat(displayDateFormat, Locale.US);
+            SimpleDateFormat sdf = new SimpleDateFormat(DateFormat, Locale.US);
             if(((String)getArguments().get("Date")).equals(""))
                 date.setText(sdf.format(Calendar.getInstance().getTime()));
             else
@@ -254,7 +254,7 @@ public class GasDialogFragment extends DialogFragment
 
     private void updateDateEditText()
     {
-        SimpleDateFormat sdf = new SimpleDateFormat(displayDateFormat, Locale.US);
+        SimpleDateFormat sdf = new SimpleDateFormat(DateFormat, Locale.US);
         date.setText(sdf.format(myCalendar.getTime()));
     }
 }

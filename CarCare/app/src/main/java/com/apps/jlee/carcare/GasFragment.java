@@ -44,11 +44,13 @@ import java.util.Random;
 public class GasFragment extends Fragment
 {
     GasDialogFragment d;
+    FilterDialogFragment f;
     private ListView listView;
     private ArrayList<HashMap<String,String>> arrayList;
     private SimpleAdapter adapter;
     private SQLiteDatabaseHandler db;
     private int updateFlag = 0, editPosition;
+    private String DateFormat = "M/dd/yy";
 
     public GasFragment(){}
 
@@ -65,6 +67,7 @@ public class GasFragment extends Fragment
        View view = inflater.inflate(R.layout.fragment_gas, container, false);
        FloatingActionButton fab = view.findViewById(R.id.fab);
        d = new GasDialogFragment();
+       f = new FilterDialogFragment();
        db = new SQLiteDatabaseHandler(getContext());
        listView = view.findViewById(R.id.gasListView);
        arrayList = new ArrayList<>();
@@ -108,14 +111,13 @@ public class GasFragment extends Fragment
                    g.setCost(Double.parseDouble(cost));
                    g.setDateRefilled(date.getTime());
                    db.addEntry(g);
-                   //new AsyncDBTask(db,g,"Add").execute();
 
                    HashMap<String, String> hashMap = new HashMap<>();
                    hashMap.put("ID", dbCount + "");
                    hashMap.put("Cost", cost);
                    hashMap.put("Miles", milesValue+" mi");
                    hashMap.put("Gallons", gallonsValue+" gal");
-                   hashMap.put("Date", new SimpleDateFormat("MM/dd/yyyy").format(date));
+                   hashMap.put("Date", new SimpleDateFormat(DateFormat).format(date));
                    hashMap.put("Date Long",Long.toString(date.getTime()));
                    hashMap.put("MPG", String.format("%.2f", (Double.parseDouble(milesValue) / Double.parseDouble(gallonsValue)))+ " MPG");
                    arrayList.add(0,hashMap);
@@ -127,14 +129,12 @@ public class GasFragment extends Fragment
                    hashMap.put("Cost", cost);
                    hashMap.put("Miles", milesValue+" mi");
                    hashMap.put("Gallons", gallonsValue+" gal");
-                   hashMap.put("Date",new SimpleDateFormat("MM/dd/yyyy").format(date));
+                   hashMap.put("Date",new SimpleDateFormat(DateFormat).format(date));
                    hashMap.put("Date Long",Long.toString(date.getTime()));
                    hashMap.put("MPG", String.format("%.2f", (Double.parseDouble(milesValue) / Double.parseDouble(gallonsValue)))+ " MPG");
                    db.updateEntry(new Gas(Integer.valueOf(hashMap.get("ID")),Double.valueOf(cost),Double.valueOf(gallonsValue),Double.valueOf(milesValue),date.getTime()));
-                   //new AsyncDBTask(db,new Gas(Integer.valueOf(hashMap.get("ID")),Double.parseDouble(cost),Double.parseDouble(gallonsValue),Double.parseDouble(milesValue),date.getTime()),"Update").execute();
                }
                updateProgressBar();
-               Collections.sort(arrayList, new MapComparator("Date"));
                adapter.notifyDataSetChanged();
            }
        });
@@ -206,35 +206,9 @@ public class GasFragment extends Fragment
     {
         int id = item.getItemId();
 
-        if(id == R.id.SortByCost)
+        if(id == R.id.Filter)
         {
-            Collections.sort(arrayList, new MapComparator("Cost"));
-            adapter.notifyDataSetChanged();
-            return true;
-        }
-        else if(id == R.id.SortByMiles)
-        {
-            Collections.sort(arrayList, new MapComparator("Miles"));
-            adapter.notifyDataSetChanged();
-            return true;
-        }
-        else if(id == R.id.SortByGallons)
-        {
-            Collections.sort(arrayList, new MapComparator("Gallons"));
-            adapter.notifyDataSetChanged();
-            return true;
-        }
-        else if(id == R.id.SortByMPG)
-        {
-            Collections.sort(arrayList, new MapComparator("MPG"));
-            adapter.notifyDataSetChanged();
-            return true;
-        }
-        else if(id == R.id.SortByDate)
-        {
-            Collections.sort(arrayList, new MapComparator("Date"));
-            adapter.notifyDataSetChanged();
-            return true;
+            f.show(getFragmentManager(), "fragment_filter");
         }
         else
         {
@@ -404,7 +378,7 @@ public class GasFragment extends Fragment
                     hashMap.put("Miles",number.format(miles)+" mi");
                     hashMap.put("Gallons",number.format(gallons)+" gal");
                     date = new Date(((Gas)(list.get(i))).getDateRefilled());
-                    hashMap.put("Date", new SimpleDateFormat("MM/dd/yyyy").format(date));
+                    hashMap.put("Date", new SimpleDateFormat(DateFormat).format(date));
                     hashMap.put("Date Long",Long.toString(date.getTime()));
                     hashMap.put("MPG",String.format("%.2f", (((Gas)(list.get(i))).getMiles()) / (((Gas)(list.get(i))).getAmount()))+" MPG");
                     arrayList.add(0,hashMap);
