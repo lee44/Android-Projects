@@ -18,6 +18,7 @@ import android.widget.Spinner;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class FilterDialogFragment extends DialogFragment
 {
@@ -27,6 +28,12 @@ public class FilterDialogFragment extends DialogFragment
     final Calendar startingCalendar = Calendar.getInstance(), endingCalendar = Calendar.getInstance();
     private String DateFormat = "M/dd/yy";
     private Button OK,Cancel;
+    private FilterInterface listener;
+
+    public interface FilterInterface {public void onClick(Date starting_date, Date ending_date, String sortBy);}
+
+    public FilterDialogFragment() {this.listener = null;}
+    public void setListener (FilterInterface listener) {this.listener = listener;}
 
     public void onResume()
     {
@@ -118,6 +125,7 @@ public class FilterDialogFragment extends DialogFragment
             @Override
             public void onClick(View view)
             {
+                listener.onClick(startingCalendar.getTime(),endingCalendar.getTime(),dropdown.getSelectedItem().toString());
                 dialog.dismiss();
             }
         });

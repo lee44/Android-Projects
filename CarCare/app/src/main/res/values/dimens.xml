@@ -3,9 +3,9 @@
     <dimen name="title">24sp</dimen>
     <dimen name="progressbar">20sp</dimen>
 
-    <dimen name="Default">18dp</dimen>
-    <dimen name="MPGorMiles">22dp</dimen>
-    <dimen name="Date">20dp</dimen>
-    <dimen name="textview">22dp</dimen>
-    <dimen name="edittext">21dp</dimen>
+    <dimen name="Default">18sp</dimen>
+    <dimen name="MPGorMiles">22sp</dimen>
+    <dimen name="Date">20sp</dimen>
+    <dimen name="textview">22sp</dimen>
+    <dimen name="edittext">21sp</dimen>
 </resources>

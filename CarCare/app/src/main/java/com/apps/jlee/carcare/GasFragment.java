@@ -43,8 +43,8 @@ import java.util.Random;
 
 public class GasFragment extends Fragment
 {
-    GasDialogFragment d;
-    FilterDialogFragment f;
+    private GasDialogFragment d;
+    private FilterDialogFragment f;
     private ListView listView;
     private ArrayList<HashMap<String,String>> arrayList;
     private SimpleAdapter adapter;
@@ -138,6 +138,16 @@ public class GasFragment extends Fragment
                adapter.notifyDataSetChanged();
            }
        });
+
+       f.setListener(new FilterDialogFragment.FilterInterface()
+       {
+           @Override
+           public void onClick(Date starting_date, Date ending_date, String sortBy)
+           {
+
+           }
+       });
+
        return view;
     }
 

@@ -35,7 +35,6 @@
                 android:editable="false"
                 android:focusable="false"
                 android:gravity="center"
-                android:hint="Starting Date"
                 android:textSize="@dimen/edittext"/>
 
         </TableRow>
@@ -66,7 +65,6 @@
                 android:editable="false"
                 android:focusable="false"
                 android:gravity="center"
-                android:hint="Ending Date"
                 android:textSize="@dimen/edittext"/>
         </TableRow>
 
