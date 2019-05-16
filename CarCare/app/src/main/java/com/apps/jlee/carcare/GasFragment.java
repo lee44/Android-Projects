@@ -193,7 +193,7 @@ public class GasFragment extends Fragment
             b.putString("Cost",hashMap.get("Cost"));
             b.putString("Miles",hashMap.get("Miles"));
             b.putString("Gallons",hashMap.get("Gallons"));
-            b.putString("Date",hashMap.get("Date"));
+            b.putString("Date",hashMap.get("Date Long"));
             d.setArguments(b);
             d.show(getFragmentManager(), "fragment_gas");
         }
@@ -451,6 +451,9 @@ public class GasFragment extends Fragment
                 }
                 Collections.sort(arrayList, new MapComparator(sortBy));
                 adapter.notifyDataSetChanged();
+
+                Log.v("Dodgers",list.toString());
+                Log.v("Dodgers","Starting Time: "+starting_date.getTime()+", Ending Time: "+ending_date.getTime());
             }
         }
     }

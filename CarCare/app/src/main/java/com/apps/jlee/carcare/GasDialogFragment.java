@@ -102,12 +102,14 @@ public class GasDialogFragment extends DialogFragment
                 date.setText(sdf.format(Calendar.getInstance().getTime()));
             else
             {
-                date.setText((String)getArguments().get("Date"));
+                Calendar c = Calendar.getInstance();
+                c.setTimeInMillis(Long.valueOf((String)getArguments().get("Date")));
 
-                String [] str = ((String)getArguments().get("Date")).split("/");
-                myCalendar.set(Calendar.MONTH,Integer.parseInt(str[0])-1);
-                myCalendar.set(Calendar.DAY_OF_MONTH,Integer.parseInt(str[1]));
-                myCalendar.set(Calendar.YEAR,Integer.parseInt(str[2]));
+                date.setText(sdf.format(c.getTime()));
+
+                myCalendar.set(Calendar.YEAR,c.get(Calendar.YEAR));
+                myCalendar.set(Calendar.MONTH,c.get(Calendar.MONTH));
+                myCalendar.set(Calendar.DAY_OF_MONTH,c.get(Calendar.DAY_OF_MONTH));
             }
 
             milesValue = str1[0];
@@ -130,6 +132,8 @@ public class GasDialogFragment extends DialogFragment
                 myCalendar.set(Calendar.YEAR, year);
                 myCalendar.set(Calendar.MONTH, monthOfYear);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                myCalendar.set(Calendar.HOUR_OF_DAY, 0);
+                myCalendar.set(Calendar.MINUTE, 0);
                 updateDateEditText();
             }
         };

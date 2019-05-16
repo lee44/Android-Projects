@@ -64,6 +64,9 @@ public class FilterDialogFragment extends DialogFragment
         SimpleDateFormat sdf = new SimpleDateFormat(DateFormat);
         startingCalendar.set(Calendar.YEAR, startingCalendar.get(Calendar.YEAR));
         startingCalendar.set(Calendar.MONTH, startingCalendar.get(Calendar.MONTH));
+        startingCalendar.set(Calendar.DAY_OF_MONTH, 1);
+        startingCalendar.set(Calendar.HOUR_OF_DAY, 0);
+        startingCalendar.set(Calendar.MINUTE, 0);
         startingDate.setText(sdf.format(startingCalendar.getTime()));
 
         endingCalendar.set(Calendar.YEAR, endingCalendar.get(Calendar.YEAR));
@@ -92,7 +95,7 @@ public class FilterDialogFragment extends DialogFragment
             @Override
             public void onClick(View v)
             {
-                new DatePickerDialog(getContext(), datePicker, startingCalendar.get(Calendar.YEAR), startingCalendar.get(Calendar.MONTH), 1).show();
+                new DatePickerDialog(getContext(), datePicker, startingCalendar.get(Calendar.YEAR), startingCalendar.get(Calendar.MONTH), startingCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
 
