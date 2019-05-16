@@ -144,7 +144,7 @@ public class GasFragment extends Fragment
            @Override
            public void onClick(Date starting_date, Date ending_date, String sortBy)
            {
-
+               new AsyncDBFilterTask(db,starting_date,ending_date,sortBy).execute();
            }
        });
 
@@ -357,6 +357,7 @@ public class GasFragment extends Fragment
     private class AsyncDBTask extends AsyncTask<Void,Void,List<Object>>
     {
         private SQLiteDatabaseHandler handler;
+        private Date starting_date,ending_date;
 
         public AsyncDBTask(SQLiteDatabaseHandler handler)
         {
@@ -393,6 +394,62 @@ public class GasFragment extends Fragment
                     hashMap.put("MPG",String.format("%.2f", (((Gas)(list.get(i))).getMiles()) / (((Gas)(list.get(i))).getAmount()))+" MPG");
                     arrayList.add(0,hashMap);
                 }
+                adapter.notifyDataSetChanged();
+            }
+        }
+    }
+
+    private class AsyncDBFilterTask extends AsyncTask<Void,Void,List<Object>>
+    {
+        private SQLiteDatabaseHandler handler;
+        private Date starting_date, ending_date;
+        private String sortBy;
+
+        public AsyncDBFilterTask(SQLiteDatabaseHandler handler, Date starting_date, Date ending_date, String sortBy)
+        {
+            this.handler = handler;
+            this.starting_date = starting_date;
+            this.ending_date = ending_date;
+            this.sortBy = sortBy;
+        }
+
+        @Override
+        protected List<Object> doInBackground(Void... voids)
+        {
+            return handler.getAllEntries(new Gas());
+        }
+
+        @Override
+        protected void onPostExecute(List<Object> list)
+        {
+            super.onPostExecute(list);
+            Date date = null;
+
+            if (list != null)
+            {
+                arrayList.clear();
+                for (int i = 0; i < list.size(); i++)
+                {
+                    if (starting_date.getTime() <= ((Gas) (list.get(i))).getDateRefilled() && ending_date.getTime() >= ((Gas) (list.get(i))).getDateRefilled())
+                    {
+                        DecimalFormat number = new DecimalFormat("0.00");
+                        Double cost = Double.valueOf((((Gas) (list.get(i))).getCost()));
+                        Double miles = Double.valueOf((((Gas) (list.get(i))).getMiles()));
+                        Double gallons = Double.valueOf((((Gas) (list.get(i))).getAmount()));
+
+                        HashMap<String, String> hashMap = new HashMap<>();
+                        hashMap.put("ID", String.valueOf(((Gas) (list.get(i))).getID()));
+                        hashMap.put("Cost", number.format(cost));
+                        hashMap.put("Miles", number.format(miles) + " mi");
+                        hashMap.put("Gallons", number.format(gallons) + " gal");
+                        date = new Date(((Gas) (list.get(i))).getDateRefilled());
+                        hashMap.put("Date", new SimpleDateFormat(DateFormat).format(date));
+                        hashMap.put("Date Long", Long.toString(date.getTime()));
+                        hashMap.put("MPG", String.format("%.2f", (((Gas) (list.get(i))).getMiles()) / (((Gas) (list.get(i))).getAmount())) + " MPG");
+                        arrayList.add(0, hashMap);
+                    }
+                }
+                Collections.sort(arrayList, new MapComparator(sortBy));
                 adapter.notifyDataSetChanged();
             }
         }

@@ -64,8 +64,6 @@ public class FilterDialogFragment extends DialogFragment
         SimpleDateFormat sdf = new SimpleDateFormat(DateFormat);
         startingCalendar.set(Calendar.YEAR, startingCalendar.get(Calendar.YEAR));
         startingCalendar.set(Calendar.MONTH, startingCalendar.get(Calendar.MONTH));
-        startingCalendar.set(Calendar.DAY_OF_MONTH, 1);
-        startingCalendar.set(Calendar.HOUR, 0);
         startingDate.setText(sdf.format(startingCalendar.getTime()));
 
         endingCalendar.set(Calendar.YEAR, endingCalendar.get(Calendar.YEAR));
@@ -82,7 +80,8 @@ public class FilterDialogFragment extends DialogFragment
                 startingCalendar.set(Calendar.YEAR, year);
                 startingCalendar.set(Calendar.MONTH, monthOfYear);
                 startingCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                startingCalendar.set(Calendar.HOUR, 0);
+                startingCalendar.set(Calendar.HOUR_OF_DAY, 0);
+                startingCalendar.set(Calendar.MINUTE, 0);
                 SimpleDateFormat sdf = new SimpleDateFormat(DateFormat);
                 startingDate.setText(sdf.format(startingCalendar.getTime()));
             }
@@ -106,6 +105,8 @@ public class FilterDialogFragment extends DialogFragment
                 endingCalendar.set(Calendar.YEAR, year);
                 endingCalendar.set(Calendar.MONTH, monthOfYear);
                 endingCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                endingCalendar.set(Calendar.HOUR_OF_DAY, 23);
+                endingCalendar.set(Calendar.MINUTE, 59);
                 SimpleDateFormat sdf = new SimpleDateFormat(DateFormat);
                 endingDate.setText(sdf.format(endingCalendar.getTime()));
             }
