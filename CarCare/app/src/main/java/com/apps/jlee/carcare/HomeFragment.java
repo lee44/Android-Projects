@@ -84,7 +84,6 @@ public class HomeFragment extends Fragment
         {
             loadGraphData(1);
             loadProgressBar();
-            //Log.v("Dodgers",list.toString());
         }
         return v;
     }
@@ -270,30 +269,5 @@ public class HomeFragment extends Fragment
                 timingBeltPB.setProgress((int)sharedpreferences.getFloat("timingbelt",0));
             }
         });
-    }
-
-    //This uses broadcast receiver to either reset a value for progress bar or cancel notification
-    private void sendNotificationUsingBroadcastReceiver(String message, String title)
-    {
-        //Generate a random ID for the nofication. With this unique id, we can cancel the notification.
-        int notificationId = new Random().nextInt();
-
-        Intent yesIntent = new Intent(getContext(),YesBroadcastReceiver.class);
-        yesIntent.putExtra("notification_id",notificationId);
-        Intent noIntent = new Intent(getContext(),NoBroadCastReceiver.class);
-        noIntent.putExtra("notification_id",notificationId);
-
-        PendingIntent yesPendingIntent = PendingIntent.getBroadcast(getContext(),0,yesIntent,PendingIntent.FLAG_CANCEL_CURRENT);
-        PendingIntent noPendingIntent = PendingIntent.getBroadcast(getContext(),0,noIntent,PendingIntent.FLAG_CANCEL_CURRENT);
-
-        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(getContext(),"1")
-        .setSmallIcon(R.drawable.oil)
-        .setContentTitle(title)
-        .setContentText(message)
-        .addAction(0,"Yes",yesPendingIntent)
-        .addAction(0,"No",noPendingIntent);
-
-        NotificationManager mNotificationManager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
-        mNotificationManager.notify(notificationId, notificationBuilder.build());
     }
 }

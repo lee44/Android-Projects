@@ -357,7 +357,6 @@ public class GasFragment extends Fragment
     private class AsyncDBTask extends AsyncTask<Void,Void,List<Object>>
     {
         private SQLiteDatabaseHandler handler;
-        private Date starting_date,ending_date;
 
         public AsyncDBTask(SQLiteDatabaseHandler handler)
         {
