@@ -48,9 +48,9 @@ public class OilDialogFragment extends DialogFragment
         super.onResume();
         //Gets the window of the Dialog
         Window window = getDialog().getWindow();
-        window.setLayout((int)(Resources.getSystem().getDisplayMetrics().widthPixels *.9), (int)(Resources.getSystem().getDisplayMetrics().heightPixels * .45));
+        window.setLayout((int)(Resources.getSystem().getDisplayMetrics().widthPixels *.95), (int)(Resources.getSystem().getDisplayMetrics().heightPixels * .55));
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
-        window.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.TOP);
+        //window.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.TOP);
         getDialog().setCanceledOnTouchOutside(true);
     }
 
@@ -128,17 +128,17 @@ public class OilDialogFragment extends DialogFragment
                 if(oil_name_editText.getText().toString().equals(""))
                 {
                     oil_textInputLayout.setErrorEnabled(true);
-                    oil_textInputLayout.setError("Can't Leave Oil Name Blank");
+                    oil_textInputLayout.setError("Enter Oil Name");
                 }
                 else if(oil_amount_editText.getText().toString().equals(""))
                 {
                     oil_amount_textInputLayout.setErrorEnabled(true);
-                    oil_amount_textInputLayout.setError("Can't Leave Oil Amount Blank");
+                    oil_amount_textInputLayout.setError("Enter Oil Amount");
                 }
                 else if(mileage_editText.getText().toString().matches(""))
                 {
                     mileage_textInputLayout.setErrorEnabled(true);
-                    mileage_textInputLayout.setError("Can't Leave Mileage Blank");
+                    mileage_textInputLayout.setError("Enter Mileage");
                 }
                 else
                 {
