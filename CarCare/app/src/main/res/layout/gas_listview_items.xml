@@ -1,119 +1,158 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/gasFragment"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
+    android:layout_height="match_parent"
     android:background="@color/black">
 
     <TextView
         android:id="@+id/Date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="2dp"
+        android:layout_marginStart="2dp"
         android:text="10/24/2018"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="@dimen/Date"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/guideline13"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <ImageView
+        android:id="@+id/cash_icon"
+        android:layout_width="25dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="1dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="1dp"
+        android:background="@drawable/cash"
+        app:layout_constraintBottom_toTopOf="@+id/guideline14"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline13" />
+
+    <TextView
+        android:id="@+id/cost"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_marginBottom="1dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="1dp"
+        android:text="Cost"
+        android:textColor="@color/white"
+        android:textSize="@dimen/Default"
+        app:layout_constraintBottom_toTopOf="@+id/guideline14"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/cash_icon"
+        app:layout_constraintTop_toTopOf="@+id/guideline13" />
 
-        <LinearLayout
-            android:id="@+id/Details"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight=".60"
-            android:orientation="vertical">
+    <ImageView
+        android:id="@+id/miles_icon"
+        android:layout_width="25dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="1dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="1dp"
+        android:background="@drawable/road_icon"
+        app:layout_constraintBottom_toTopOf="@+id/guideline15"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline14" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/miles"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="1dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="1dp"
+        android:text="Miles"
+        android:textColor="@color/white"
+        android:textSize="@dimen/Default"
+        app:layout_constraintBottom_toTopOf="@+id/guideline15"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/miles_icon"
+        app:layout_constraintTop_toTopOf="@+id/guideline14" />
 
-                <ImageView
-                    android:id="@+id/cash_icon"
-                    android:layout_width="25dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="0dp"
-                    android:layout_marginLeft="5dp"
-                    android:background="@drawable/cash" />
+    <ImageView
+        android:id="@+id/gallons_icon"
+        android:layout_width="25dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="1dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="1dp"
+        android:background="@drawable/gallon"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline15" />
 
-                <TextView
-                    android:id="@+id/cost"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:text="Cost"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/Default" />
-            </LinearLayout>
+    <TextView
+        android:id="@+id/gallons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="1dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="1dp"
+        android:text="Gallons"
+        android:textColor="@color/white"
+        android:textSize="@dimen/Default"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/gallons_icon"
+        app:layout_constraintTop_toTopOf="@+id/guideline15" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/MPG"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="1dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginTop="1dp"
+        android:text="34.30 MPG"
+        android:textColor="@color/red"
+        android:textSize="@dimen/MPGorMiles"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/guideline15"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline14" />
 
-                <ImageView
-                    android:id="@+id/miles_icon"
-                    android:layout_width="25dp"
-                    android:layout_height="match_parent"
-                    android:layout_below="@id/cash_icon"
-                    android:layout_marginBottom="0dp"
-                    android:layout_marginLeft="5dp"
-                    android:background="@drawable/road_icon" />
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent=".25" />
 
-                <TextView
-                    android:id="@+id/miles"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:text="Miles"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/Default" />
-            </LinearLayout>
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent=".5" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent=".75" />
 
-                <ImageView
-                    android:id="@+id/gallons_icon"
-                    android:layout_width="25dp"
-                    android:layout_height="match_parent"
-                    android:layout_below="@id/miles_icon"
-                    android:layout_marginLeft="5dp"
-                    android:background="@drawable/gallon" />
 
-                <TextView
-                    android:id="@+id/gallons"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:text="Gallons"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/Default" />
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight=".40">
-
-            <TextView
-                android:id="@+id/MPG"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1"
-                android:gravity="center_horizontal"
-                android:text="34.30 MPG"
-                android:textColor="@color/red"
-                android:textSize="@dimen/MPGorMiles"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-    </LinearLayout>
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>
