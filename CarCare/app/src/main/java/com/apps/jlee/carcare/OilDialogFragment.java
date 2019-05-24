@@ -50,7 +50,7 @@ public class OilDialogFragment extends DialogFragment
         Window window = getDialog().getWindow();
         window.setLayout((int)(Resources.getSystem().getDisplayMetrics().widthPixels *.95), (int)(Resources.getSystem().getDisplayMetrics().heightPixels * .55));
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
-        //window.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.TOP);
+        window.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.TOP);
         getDialog().setCanceledOnTouchOutside(true);
     }
 

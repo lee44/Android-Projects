@@ -56,7 +56,7 @@ public class GasDialogFragment extends DialogFragment
         super.onResume();
         //Gets the window of the Dialog
         Window window = getDialog().getWindow();
-        window.setLayout((int)(Resources.getSystem().getDisplayMetrics().widthPixels *.95), (int)(Resources.getSystem().getDisplayMetrics().heightPixels * .55));
+        window.setLayout((int)(Resources.getSystem().getDisplayMetrics().widthPixels *.95), (int)(Resources.getSystem().getDisplayMetrics().heightPixels * .60));
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         //window.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.TOP);
         getDialog().setCanceledOnTouchOutside(true);
