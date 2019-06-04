@@ -4,12 +4,14 @@ import android.app.AlarmManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.SystemClock;
 import android.support.design.internal.ParcelableSparseArray;
 import android.support.design.widget.FloatingActionButton;
@@ -26,7 +28,10 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.Toast;
 
+import java.io.File;
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -38,8 +43,17 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Random;
+
+import jxl.Workbook;
+import jxl.WorkbookSettings;
+import jxl.write.Label;
+import jxl.write.WritableSheet;
+import jxl.write.WritableWorkbook;
+import jxl.write.WriteException;
+import jxl.write.biff.RowsExceededException;
 
 public class GasFragment extends Fragment
 {
@@ -219,6 +233,16 @@ public class GasFragment extends Fragment
         if(id == R.id.Filter)
         {
             f.show(getFragmentManager(), "fragment_filter");
+        }
+        else if (id == R.id.Email)
+        {
+            createExcelSheet();
+            //Log.v("Dodgers",Environment.getExternalStorageDirectory().getAbsolutePath());
+            //Log.v("Dodgers",Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS).getAbsolutePath());
+            //
+            ////Following two will give you the directory paths under the package name: Android/data/com.apps.jlee.carcare
+            //Log.v("Dodgers",getContext().getExternalCacheDir().getAbsolutePath());
+            //Log.v("Dodgers",getContext().getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS).getAbsolutePath());
         }
         else
         {
@@ -450,11 +474,71 @@ public class GasFragment extends Fragment
                 }
                 Collections.sort(arrayList, new MapComparator(sortBy));
                 adapter.notifyDataSetChanged();
-
-                Log.v("Dodgers",list.toString());
-                Log.v("Dodgers","Starting Time: "+starting_date.getTime()+", Ending Time: "+ending_date.getTime());
             }
         }
+    }
+
+    private void createExcelSheet()
+    {
+        String Fnamexls = "excelSheet"+System.currentTimeMillis()+ ".xls";
+        File sdCard = getContext().getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
+        File directory = new File(sdCard.getAbsolutePath() + "/new_folder");
+        if (!directory.mkdirs())
+        {
+            Log.v("Dodgers", "Directory not created");
+        }
+        File file = new File(directory, Fnamexls);
+
+        WorkbookSettings wbSettings = new WorkbookSettings();
+        wbSettings.setLocale(new Locale("en", "EN"));
+
+        WritableWorkbook workbook;
+        try {
+            int a = 1;
+            workbook = Workbook.createWorkbook(file, wbSettings);
+            //workbook.createSheet("Report", 0);
+            WritableSheet sheet = workbook.createSheet("First Sheet", 0);
+            Label label = new Label(0, 2, "SECOND");
+            Label label1 = new Label(0,1,"first");
+            Label label0 = new Label(0,0,"HEADING");
+            Label label3 = new Label(1,0,"Heading2");
+            Label label4 = new Label(1,1,String.valueOf(a));
+            try {
+                sheet.addCell(label);
+                sheet.addCell(label1);
+                sheet.addCell(label0);
+                sheet.addCell(label4);
+                sheet.addCell(label3);
+            } catch (RowsExceededException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (WriteException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
+            workbook.write();
+            try {
+                workbook.close();
+            } catch (WriteException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            //createExcel(excelSheet);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
+    /* Checks if external storage is available for read and write */
+    public boolean isExternalStorageWritable()
+    {
+        String state = Environment.getExternalStorageState();
+        if (Environment.MEDIA_MOUNTED.equals(state)) {
+            return true;
+        }
+        return false;
     }
 
     //Defines the rules for comparisons that is used in Collection.sort method

@@ -5,6 +5,11 @@
     </item>
 
     <item
+        android:id="@+id/Email"
+        android:title="Email">
+    </item>
+
+    <item
         android:id="@+id/generateDummyData"
         android:title="Generate Dummy Data">
     </item>
