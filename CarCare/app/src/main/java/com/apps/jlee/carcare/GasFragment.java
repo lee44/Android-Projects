@@ -236,7 +236,7 @@ public class GasFragment extends Fragment
         }
         else if (id == R.id.Email)
         {
-            createExcelSheet();
+            new AsyncExcel(db).execute();
             //Log.v("Dodgers",Environment.getExternalStorageDirectory().getAbsolutePath());
             //Log.v("Dodgers",Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS).getAbsolutePath());
             //
@@ -478,56 +478,95 @@ public class GasFragment extends Fragment
         }
     }
 
-    private void createExcelSheet()
+    private class AsyncExcel extends AsyncTask<Void,Void,List<Object>>
     {
-        String Fnamexls = "excelSheet"+System.currentTimeMillis()+ ".xls";
-        File sdCard = getContext().getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
-        File directory = new File(sdCard.getAbsolutePath() + "/new_folder");
-        if (!directory.mkdirs())
+        private SQLiteDatabaseHandler handler;
+
+        public AsyncExcel(SQLiteDatabaseHandler handler)
         {
-            Log.v("Dodgers", "Directory not created");
+            this.handler = handler;
         }
-        File file = new File(directory, Fnamexls);
 
-        WorkbookSettings wbSettings = new WorkbookSettings();
-        wbSettings.setLocale(new Locale("en", "EN"));
+        @Override
+        protected List<Object> doInBackground(Void... voids)
+        {
+            return handler.getAllEntries(new Gas());
+        }
 
-        WritableWorkbook workbook;
-        try {
-            int a = 1;
-            workbook = Workbook.createWorkbook(file, wbSettings);
-            //workbook.createSheet("Report", 0);
-            WritableSheet sheet = workbook.createSheet("First Sheet", 0);
-            Label label = new Label(0, 2, "SECOND");
-            Label label1 = new Label(0,1,"first");
-            Label label0 = new Label(0,0,"HEADING");
-            Label label3 = new Label(1,0,"Heading2");
-            Label label4 = new Label(1,1,String.valueOf(a));
-            try {
-                sheet.addCell(label);
-                sheet.addCell(label1);
-                sheet.addCell(label0);
-                sheet.addCell(label4);
-                sheet.addCell(label3);
-            } catch (RowsExceededException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (WriteException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+        @Override
+        protected void onPostExecute(List<Object> list)
+        {
+            super.onPostExecute(list);
+
+            if (list != null)
+            {
+                String Fnamexls = "excelSheet"+System.currentTimeMillis()+ ".xls";
+                File sdCard = getContext().getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
+                File directory = new File(sdCard.getAbsolutePath() + "/new_folder");
+                if (!directory.mkdirs())
+                    Log.v("Dodgers", "Directory not created");
+
+                File file = new File(directory, Fnamexls);
+
+                WorkbookSettings wbSettings = new WorkbookSettings();
+                wbSettings.setLocale(new Locale("en", "EN"));
+
+                WritableWorkbook workbook;
+                try
+                {
+                    workbook = Workbook.createWorkbook(file, wbSettings);
+                    WritableSheet sheet = workbook.createSheet("First Sheet", 0);
+
+                    Label label = new Label(0, 0, "Date");
+                    Label label1 = new Label(1,0,"Cost");
+                    Label label2 = new Label(2,0,"Miles");
+                    Label label3 = new Label(3,0,"Gallons");
+                    Label label4 = new Label(4,0,"MPG");
+
+                    try
+                    {
+                        sheet.addCell(label);
+                        sheet.addCell(label1);
+                        sheet.addCell(label2);
+                        sheet.addCell(label3);
+                        sheet.addCell(label4);
+                    }
+                    catch (RowsExceededException e) {e.printStackTrace();}
+                    catch (WriteException e) {e.printStackTrace();}
+
+                    for (int i = 0; i < list.size(); i++)
+                    {
+                        try
+                        {
+                            Date date = new Date(((Gas) (list.get(i))).getDateRefilled());
+                            Label l = new Label(0, i + 1, new SimpleDateFormat(DateFormat).format(date));
+                            Label l1 = new Label(1, i + 1, String.valueOf(((Gas) (list.get(i))).getCost()));
+                            Label l2 = new Label(2, i + 1, String.valueOf(((Gas) (list.get(i))).getMiles()));
+                            Label l3 = new Label(3, i + 1, String.valueOf(((Gas) (list.get(i))).getAmount()));
+                            Label l4 = new Label(4, i + 1, String.format("%.2f", (((Gas) (list.get(i))).getMiles()) / (((Gas) (list.get(i))).getAmount())));
+
+                            sheet.addCell(l);
+                            sheet.addCell(l1);
+                            sheet.addCell(l2);
+                            sheet.addCell(l3);
+                            sheet.addCell(l4);
+                        } catch (RowsExceededException e)
+                        {
+                            e.printStackTrace();
+                        } catch (WriteException e)
+                        {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    workbook.write();
+                    try
+                    {
+                        workbook.close();
+                    } catch (WriteException e) {e.printStackTrace();}
+
+                } catch (IOException e) {e.printStackTrace();}
             }
-
-            workbook.write();
-            try {
-                workbook.close();
-            } catch (WriteException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-            //createExcel(excelSheet);
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
         }
     }
 
