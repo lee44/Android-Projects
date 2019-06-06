@@ -500,7 +500,11 @@ public class GasFragment extends Fragment
 
             if (list != null)
             {
-                String Fnamexls = "excelSheet"+System.currentTimeMillis()+ ".xls";
+                long yourmilliseconds = System.currentTimeMillis();
+                SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy_HH_mm_ss");
+                Date resultdate = new Date(yourmilliseconds);
+
+                String Fnamexls = "excelSheet"+sdf.format(resultdate)+ ".xls";
                 File sdCard = getContext().getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
                 File directory = new File(sdCard.getAbsolutePath() + "/new_folder");
                 if (!directory.mkdirs())
@@ -568,16 +572,6 @@ public class GasFragment extends Fragment
                 } catch (IOException e) {e.printStackTrace();}
             }
         }
-    }
-
-    /* Checks if external storage is available for read and write */
-    public boolean isExternalStorageWritable()
-    {
-        String state = Environment.getExternalStorageState();
-        if (Environment.MEDIA_MOUNTED.equals(state)) {
-            return true;
-        }
-        return false;
     }
 
     //Defines the rules for comparisons that is used in Collection.sort method
