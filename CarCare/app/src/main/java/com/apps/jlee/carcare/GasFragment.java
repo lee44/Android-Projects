@@ -241,8 +241,10 @@ public class GasFragment extends Fragment
         }
         else if (id == R.id.Email)
         {
-            //new AsyncExcel(db).execute();
-            email();
+            new AsyncExcel(db).execute();
+            //email();
+
+            //For s9, we are saving excel files on the interal storage but this storage has internal and external partitions. Internal partitions are invisible while external are not.
 
             //Internal Storage:
             // Files saved to the internal storage are private to your application and other applications cannot access them. When the user uninstalls your application,
@@ -252,7 +254,6 @@ public class GasFragment extends Fragment
             //External Storage:
             //This can be a removable storage media (such as an SD card) or an internal (non-removable) storage
 
-            //For s9, we are saving excel files on the interal storage but this storage has internal and external partitions. Internal partitions are invisible while external are not.
             //The following methods give paths to the external paritition of the internal storage
             //Log.v("Dodgers",Environment.getExternalStorageDirectory().getAbsolutePath());
             //Log.v("Dodgers",Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS).getAbsolutePath());
@@ -599,41 +600,30 @@ public class GasFragment extends Fragment
 
                 //Broadcast the intent
                 Intent i = new Intent("com.action.email");
-                i.putExtra("file_path",file.getAbsolutePath());
+                i.putExtra("file_path",directory.toString());
                 i.putExtra("file_name",Fnamexls);
                 manager.sendBroadcast(i);
             }
         }
     }
+
     //This broadcastreceiver will be used locally instead of globally across the system
     class EmailBroadCastReceiver extends BroadcastReceiver
     {
         public void onReceive(Context context, Intent intent)
         {
-            //Log.v("Dodgers","content://" + intent.getStringExtra("file_path"));
+            //Log.v("Dodgers",intent.getStringExtra("file_path") + "/" + intent.getStringExtra("file_name"));
             Intent emailIntent = new Intent(Intent.ACTION_SEND);
             emailIntent.setType("application/vnd.ms-excel");
             //emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[] {"jon@example.com"}); // recipients
             emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Gas Entries");
             emailIntent.putExtra(Intent.EXTRA_TEXT, "Here are all the gas entries recorded");
-            emailIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("content://" + intent.getStringExtra("file_path")));
+            emailIntent.putExtra(Intent.EXTRA_STREAM, FileProvider.getUriForFile(getContext(),"com.mydomain.fileprovider",new File(intent.getStringExtra("file_path"),intent.getStringExtra("file_name"))));
             emailIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             startActivity(Intent.createChooser(emailIntent, "Send email..."));
         }
     }
-    public void email()
-    {
-        Intent emailIntent = new Intent(Intent.ACTION_SEND);
-        emailIntent.setType("application/vnd.ms-excel");
-        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Gas Entries");
-        emailIntent.putExtra(Intent.EXTRA_TEXT, "Here are all the gas entries recorded");
-        //emailIntent.putExtra(Intent.EXTRA_STREAM, FileProvider.getUriForFile(getContext(),"com.mydomain.fileprovider",new File("/storage/emulated/0/Android/data/com.apps.jlee.carcare/files/Documents/Gas_Entries","excelSheet06-11-2019_14_47_55.xls")));
-        //Log.v("Dodgers",FileProvider.getUriForFile(getContext(),"com.mydomain.fileprovider",new File("/storage/emulated/0/Android/data/com.apps.jlee.carcare/files/Documents/Gas_Entries","excelSheet06-11-2019_14_47_55.xls")).toString());
-        //emailIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("content://" + "/storage/emulated/0/Android/data/com.apps.jlee.carcare/files/Documents/Gas_Entries/excelSheet06-11-2019_14_47_55.xls"));
-        emailIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        startActivity(Intent.createChooser(emailIntent, "Send email..."));
-    }
-
+    
     //Defines the rules for comparisons that is used in Collection.sort method
     class MapComparator implements Comparator<Map<String, String>>
     {
