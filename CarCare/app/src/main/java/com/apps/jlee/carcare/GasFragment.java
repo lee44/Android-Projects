@@ -5,9 +5,12 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -17,6 +20,8 @@ import android.support.design.internal.ParcelableSparseArray;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.FileProvider;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -236,11 +241,23 @@ public class GasFragment extends Fragment
         }
         else if (id == R.id.Email)
         {
-            new AsyncExcel(db).execute();
+            //new AsyncExcel(db).execute();
+            email();
+
+            //Internal Storage:
+            // Files saved to the internal storage are private to your application and other applications cannot access them. When the user uninstalls your application,
+            // these files are removed/deleted. Your app user also can't access them using file manager; even after enabling "show hidden files" option in file manager. To access files in
+            // Internal Storage, you have to root your Android phone.
+
+            //External Storage:
+            //This can be a removable storage media (such as an SD card) or an internal (non-removable) storage
+
+            //For s9, we are saving excel files on the interal storage but this storage has internal and external partitions. Internal partitions are invisible while external are not.
+            //The following methods give paths to the external paritition of the internal storage
             //Log.v("Dodgers",Environment.getExternalStorageDirectory().getAbsolutePath());
             //Log.v("Dodgers",Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS).getAbsolutePath());
-            //
-            ////Following two will give you the directory paths under the package name: Android/data/com.apps.jlee.carcare
+
+            //Following two will give you the directory paths under the package name: Android/data/com.apps.jlee.carcare
             //Log.v("Dodgers",getContext().getExternalCacheDir().getAbsolutePath());
             //Log.v("Dodgers",getContext().getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS).getAbsolutePath());
         }
@@ -506,9 +523,9 @@ public class GasFragment extends Fragment
 
                 String Fnamexls = "excelSheet"+sdf.format(resultdate)+ ".xls";
                 File sdCard = getContext().getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
-                File directory = new File(sdCard.getAbsolutePath() + "/new_folder");
-                if (!directory.mkdirs())
-                    Log.v("Dodgers", "Directory not created");
+                File directory = new File(sdCard.getAbsolutePath() + "/Gas_Entries");
+                if (!directory.mkdirs()) ;
+                    //Log.v("Dodgers", "Directory not created");
 
                 File file = new File(directory, Fnamexls);
 
@@ -570,8 +587,51 @@ public class GasFragment extends Fragment
                     } catch (WriteException e) {e.printStackTrace();}
 
                 } catch (IOException e) {e.printStackTrace();}
+
+                //Initate the BroadcastReceiver
+                LocalBroadcastManager manager = LocalBroadcastManager.getInstance(getContext());
+                EmailBroadCastReceiver emailBroadCastReceiver = new EmailBroadCastReceiver();
+                //Intentfilter specify the kind of intents that the component can receive. In this case, the emailBroadCastReceiver(component) will only receive intents with the
+                // action "com.action.email"
+                IntentFilter filter = new IntentFilter();
+                filter.addAction("com.action.email");
+                manager.registerReceiver(emailBroadCastReceiver,filter);
+
+                //Broadcast the intent
+                Intent i = new Intent("com.action.email");
+                i.putExtra("file_path",file.getAbsolutePath());
+                i.putExtra("file_name",Fnamexls);
+                manager.sendBroadcast(i);
             }
         }
+    }
+    //This broadcastreceiver will be used locally instead of globally across the system
+    class EmailBroadCastReceiver extends BroadcastReceiver
+    {
+        public void onReceive(Context context, Intent intent)
+        {
+            //Log.v("Dodgers","content://" + intent.getStringExtra("file_path"));
+            Intent emailIntent = new Intent(Intent.ACTION_SEND);
+            emailIntent.setType("application/vnd.ms-excel");
+            //emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[] {"jon@example.com"}); // recipients
+            emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Gas Entries");
+            emailIntent.putExtra(Intent.EXTRA_TEXT, "Here are all the gas entries recorded");
+            emailIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("content://" + intent.getStringExtra("file_path")));
+            emailIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            startActivity(Intent.createChooser(emailIntent, "Send email..."));
+        }
+    }
+    public void email()
+    {
+        Intent emailIntent = new Intent(Intent.ACTION_SEND);
+        emailIntent.setType("application/vnd.ms-excel");
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Gas Entries");
+        emailIntent.putExtra(Intent.EXTRA_TEXT, "Here are all the gas entries recorded");
+        //emailIntent.putExtra(Intent.EXTRA_STREAM, FileProvider.getUriForFile(getContext(),"com.mydomain.fileprovider",new File("/storage/emulated/0/Android/data/com.apps.jlee.carcare/files/Documents/Gas_Entries","excelSheet06-11-2019_14_47_55.xls")));
+        //Log.v("Dodgers",FileProvider.getUriForFile(getContext(),"com.mydomain.fileprovider",new File("/storage/emulated/0/Android/data/com.apps.jlee.carcare/files/Documents/Gas_Entries","excelSheet06-11-2019_14_47_55.xls")).toString());
+        //emailIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("content://" + "/storage/emulated/0/Android/data/com.apps.jlee.carcare/files/Documents/Gas_Entries/excelSheet06-11-2019_14_47_55.xls"));
+        emailIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        startActivity(Intent.createChooser(emailIntent, "Send email..."));
     }
 
     //Defines the rules for comparisons that is used in Collection.sort method
