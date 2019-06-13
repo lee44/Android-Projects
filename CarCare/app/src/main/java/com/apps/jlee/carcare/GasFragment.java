@@ -623,7 +623,7 @@ public class GasFragment extends Fragment
             startActivity(Intent.createChooser(emailIntent, "Send email..."));
         }
     }
-    
+
     //Defines the rules for comparisons that is used in Collection.sort method
     class MapComparator implements Comparator<Map<String, String>>
     {
