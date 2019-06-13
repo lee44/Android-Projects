@@ -11,7 +11,7 @@ import android.view.MenuItem;
 public class MainActivity extends AppCompatActivity
 {
     private HomeFragment home;
-    private GasFragment gas;
+    private EntryFragment entry;
     private OilFragment oil;
     private BottomNavigationView bottomNavigationView;
 
@@ -21,14 +21,14 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        bottomNavigationView = (BottomNavigationView)findViewById(R.id.bottom_navigation);
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
 
         home = new HomeFragment();
-        gas = new GasFragment();
+        entry = new EntryFragment();
         oil = new OilFragment();
 
-        setFragment(gas);
-        bottomNavigationView.setSelectedItemId(R.id.Gas);
+        setFragment(home);
+        bottomNavigationView.setSelectedItemId(R.id.Home);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener()
         {
@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity
                         break;
 
                     case R.id.Gas:
-                        setFragment(gas);
+                        setFragment(entry);
                         break;
 
                     case R.id.Oil:
