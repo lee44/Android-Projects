@@ -21,9 +21,10 @@ public class EntryFragment extends Fragment
     {
         super.onActivityCreated(savedInstanceState);
 
-        MyTabPagerAdapter tabPager = new MyTabPagerAdapter(getFragmentManager());
+        MyTabPagerAdapter tabPager = new MyTabPagerAdapter(getChildFragmentManager());
 
         ViewPager viewPager = getView().findViewById(R.id.viewpager);
+        viewPager.setOffscreenPageLimit(2);
         viewPager.setAdapter(tabPager);
 
         // Display a tab for each Fragment displayed in ViewPager.
