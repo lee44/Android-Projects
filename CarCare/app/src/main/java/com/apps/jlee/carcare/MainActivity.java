@@ -12,7 +12,6 @@ public class MainActivity extends AppCompatActivity
 {
     private HomeFragment home;
     private EntryFragment entry;
-    private StatisticsFragment stat;
     private BottomNavigationView bottomNavigationView;
 
     @Override
@@ -25,7 +24,6 @@ public class MainActivity extends AppCompatActivity
 
         home = new HomeFragment();
         entry = new EntryFragment();
-        stat = new StatisticsFragment();
 
         setFragment(home);
         bottomNavigationView.setSelectedItemId(R.id.Home);
@@ -45,8 +43,8 @@ public class MainActivity extends AppCompatActivity
                         setFragment(entry);
                         break;
 
-                    case R.id.Oil:
-                        setFragment(stat);
+                    case R.id.Settings:
+                        ;
                         break;
                 }
                 return true;
