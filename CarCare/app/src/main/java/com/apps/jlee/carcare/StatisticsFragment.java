@@ -59,7 +59,7 @@ public class StatisticsFragment extends Fragment
             Double cost = 0.0, miles = 0.0, gallons = 0.0;
             long timeInMilliseconds = 0;
 
-            if(list.size() != 0)
+            if(list.size() > 2)
             {
                 for (int i = 0; i < list.size(); i++)
                 {
