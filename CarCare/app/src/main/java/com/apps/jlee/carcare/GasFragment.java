@@ -415,7 +415,7 @@ public class GasFragment extends Fragment
             super.onPostExecute(list);
             Date date = null;
 
-            if(list != null)
+            if(list.size() != 0)
             {
                 for (int i = 0; i < list.size(); i++)
                 {
@@ -466,7 +466,7 @@ public class GasFragment extends Fragment
             super.onPostExecute(list);
             Date date = null;
 
-            if (list != null)
+            if(list.size() != 0)
             {
                 arrayList.clear();
                 for (int i = 0; i < list.size(); i++)
@@ -516,7 +516,7 @@ public class GasFragment extends Fragment
         {
             super.onPostExecute(list);
 
-            if (list != null)
+            if(list.size() != 0)
             {
                 long yourmilliseconds = System.currentTimeMillis();
                 SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy_HH_mm_ss");

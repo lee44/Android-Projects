@@ -1,15 +1,19 @@
 package com.apps.jlee.carcare;
 
-import android.graphics.Paint;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -38,7 +42,7 @@ public class StatisticsFragment extends Fragment
         return view;
     }
 
-    private class AsyncStatTask extends AsyncTask<Void,Void,List<Object>>
+    private class AsyncStatTask extends AsyncTask<Void,Void,double[]>
     {
         private SQLiteDatabaseHandler handler;
 
@@ -46,37 +50,64 @@ public class StatisticsFragment extends Fragment
         {
             this.handler = handler;
         }
-        @Override
-        protected List<Object> doInBackground(Void... voids)
-        {
-            return handler.getAllEntries(new Gas());
-        }
-        @Override
-        protected void onPostExecute(List<Object> list)
-        {
-            super.onPostExecute(list);
-            Date date = null;
-            Double cost = 0.0, miles = 0.0, gallons = 0.0;
-            DecimalFormat number = new DecimalFormat("0.00");
 
-            if(list != null)
+        @Override
+        protected double[] doInBackground(Void... voids)
+        {
+            double[] v = new double[9];
+            List<Object> list = handler.getAllEntries(new Gas());
+            Double cost = 0.0, miles = 0.0, gallons = 0.0;
+            long timeInMilliseconds = 0;
+
+            if(list.size() != 0)
             {
                 for (int i = 0; i < list.size(); i++)
                 {
-                    cost += Double.valueOf((((Gas)(list.get(i))).getCost()));
-                    miles += Double.valueOf((((Gas)(list.get(i))).getMiles()));
-                    gallons += Double.valueOf((((Gas)(list.get(i))).getAmount()));
+                    cost += Double.valueOf((((Gas) (list.get(i))).getCost()));
+                    miles += Double.valueOf((((Gas) (list.get(i))).getMiles()));
+                    gallons += Double.valueOf((((Gas) (list.get(i))).getAmount()));
                 }
-                totalCost.setText("$"+number.format(cost));
-                totalGallons.setText(number.format(gallons));
-                totalMiles.setText(number.format(miles));
+                v[0] = cost; v[1] = miles; v[2] = gallons;
+                v[3] = cost/list.size(); v[4] = miles/list.size(); v[5] = gallons/list.size();
 
-                averageCost.setText("$"+number.format(cost/list.size()));
-                averageGallons.setText(number.format(gallons/list.size()));
-                averageMiles.setText(number.format(miles/list.size()));
+                //LinearRegression
+                //Log.v("Dodgers",""+(int)(System.currentTimeMillis()/(1000*60*60*24)));
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                try
+                {
+                    Date mDate = sdf.parse(Calendar.getInstance().get(Calendar.YEAR)+"-12-31");
+                    timeInMilliseconds = mDate.getTime();
+                }
+                catch (ParseException e){ e.printStackTrace();}
 
-                forecastCost.setText("$"+number.format(new LinearRegression().predictForValue(8)));
+                v[6] = new LinearRegression("cost",list).predictForValue((int)(timeInMilliseconds/(1000*60*60*24)));
+                v[7] = new LinearRegression("miles",list).predictForValue((int)(timeInMilliseconds/(1000*60*60*24)));
+                v[8] = new LinearRegression("gallons",list).predictForValue((int)(timeInMilliseconds/(1000*60*60*24)));
+
+                //LinearRegression2
+                //v[6] = new LinearRegression2(new double[]{18025,18037,18051},new double[]{59,61,25}).predict(18060);
             }
+            return v;
+        }
+
+        @Override
+        protected void onPostExecute(double[] v)
+        {
+            super.onPostExecute(v);
+
+            DecimalFormat number = new DecimalFormat("0.00");
+
+            totalCost.setText("$"+number.format(v[0]));
+            totalGallons.setText(number.format(v[1]));
+            totalMiles.setText(number.format(v[2]));
+
+            averageCost.setText("$"+number.format(v[3]));
+            averageMiles.setText(number.format(v[4]));
+            averageGallons.setText(number.format(v[5]));
+
+            forecastCost.setText("$"+number.format(v[6]));
+            forecastMiles.setText(number.format(v[7]));
+            forecastGallons.setText(number.format(v[8]));
         }
     }
 }

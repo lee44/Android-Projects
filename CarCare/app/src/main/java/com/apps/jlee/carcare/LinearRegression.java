@@ -1,5 +1,8 @@
 package com.apps.jlee.carcare;
 
+import android.util.Log;
+
+import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -7,9 +10,23 @@ import static java.util.Arrays.asList;
 
 public class LinearRegression
 {
-    private static final List<Integer> x = asList(1, 2, 3, 4, 5, 6, 7); // Consecutive hours developer codes
-    private static final List<Integer> y = asList(55, 65, 47, 50, 52, 49, 63); // Number of bugs produced
+    private List<Integer> x = new LinkedList<>();
+    private List<Integer> y = new LinkedList<>();
 
+    public LinearRegression(String type,List<Object> list)
+    {
+        for (int i = 0; i < list.size(); i++)
+        {
+            x.add((int)((((Gas)(list.get(i))).getDateRefilled())/(1000*60*60*24)));
+
+            if(type == "cost")
+                y.add((int)((Gas)(list.get(i))).getCost());
+            else if(type == "miles")
+                y.add((int)((Gas)(list.get(i))).getMiles());
+            else
+                y.add((int)((Gas)(list.get(i))).getAmount());
+        }
+    }
     public Double predictForValue(int predictForDependentVariable)
     {
         if (x.size() != y.size())

@@ -162,7 +162,7 @@ public class OilFragment extends Fragment
         List<Object> list = db.getAllEntries(new Oil());
         Date date = null;
 
-        if(list != null)
+        if(list.size() != 0)
         {
             for (int i = 0; i < list.size(); i++)
             {

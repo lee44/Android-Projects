@@ -80,7 +80,7 @@ public class GraphFragment extends Fragment
         batteryPB.setMax(30000);
         timingBeltPB.setMax(100000);
 
-        if(list != null)
+        if(list.size() != 0)
         {
             loadGraphData(1);
             loadProgressBar();
