@@ -42,10 +42,6 @@ public class MainActivity extends AppCompatActivity
                     case R.id.Gas:
                         setFragment(entry);
                         break;
-
-                    case R.id.Settings:
-                        ;
-                        break;
                 }
                 return true;
             }

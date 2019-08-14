@@ -10,8 +10,4 @@
         android:id="@+id/Gas"
         android:icon="@drawable/gas"
         android:title="Gas" />
-    <item
-        android:id="@+id/Settings"
-        android:icon="@drawable/outline_settings_black_24dp"
-        android:title="Settings" />
 </menu>

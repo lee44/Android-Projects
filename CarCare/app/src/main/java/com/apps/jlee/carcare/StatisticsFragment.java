@@ -78,7 +78,7 @@ public class StatisticsFragment extends Fragment
                     Date mDate = sdf.parse(Calendar.getInstance().get(Calendar.YEAR)+"-12-31");
                     timeInMilliseconds = mDate.getTime();
                 }
-                catch (ParseException e){ e.printStackTrace();}
+                catch (ParseException e){e.printStackTrace();}
 
                 v[6] = new LinearRegression("cost",list).predictForValue((int)(timeInMilliseconds/(1000*60*60*24)));
                 v[7] = new LinearRegression("miles",list).predictForValue((int)(timeInMilliseconds/(1000*60*60*24)));
