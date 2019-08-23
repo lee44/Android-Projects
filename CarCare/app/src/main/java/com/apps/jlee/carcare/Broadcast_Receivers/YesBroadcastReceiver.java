@@ -1,4 +1,4 @@
-package com.apps.jlee.carcare;
+package com.apps.jlee.carcare.Broadcast_Receivers;
 
 import android.app.AlarmManager;
 import android.app.NotificationManager;
@@ -8,6 +8,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
+
+import com.apps.jlee.carcare.Broadcast_Receivers.AlarmReceiver;
 
 import java.util.Calendar;
 

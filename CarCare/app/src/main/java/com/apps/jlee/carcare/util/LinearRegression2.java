@@ -1,4 +1,4 @@
-package com.apps.jlee.carcare;
+package com.apps.jlee.carcare.util;
 
 public class LinearRegression2
 {

@@ -1,4 +1,4 @@
-package com.apps.jlee.carcare;
+package com.apps.jlee.carcare.Data;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -8,6 +8,9 @@ import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import com.apps.jlee.carcare.Objects.Gas;
+import com.apps.jlee.carcare.Objects.Oil;
 
 //In order to use the SQLite class, you need to create a helper class that is a child(extends) SQLiteOpenHelper
 //With the class below, we are defining database operations like delete, update, select, etc

@@ -14,7 +14,7 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".MainActivity"
+            android:name=".Activities.MainActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustNothing">
             <intent-filter>
@@ -23,26 +23,26 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".YesBroadcastReceiver">
+        <receiver android:name=".Broadcast_Receivers.YesBroadcastReceiver">
             <intent-filter>
                 <action android:name="Yes"/>
             </intent-filter>
         </receiver>
 
-        <receiver android:name=".NoBroadCastReceiver">
+        <receiver android:name=".Broadcast_Receivers.NoBroadCastReceiver">
             <intent-filter>
                 <action android:name="No"/>
             </intent-filter>
         </receiver>
 
-        <receiver android:name=".AlarmReceiver">
+        <receiver android:name=".Broadcast_Receivers.AlarmReceiver">
             <intent-filter>
                 <action android:name="Alarm"/>
             </intent-filter>
         </receiver>
 
 <!-- Intent Filter specifies what type of intent this receiver will listen to. On boot completed, the system will transmit a broadcast with an intent that has an action of BOOT_COMPLETED-->
-        <receiver android:name=".RebootReceiver"
+        <receiver android:name=".Broadcast_Receivers.RebootReceiver"
             android:enabled="false">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"></action>

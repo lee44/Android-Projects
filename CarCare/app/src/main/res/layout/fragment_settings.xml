@@ -21,7 +21,7 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent=".66" />
 
-    <com.apps.jlee.carcare.TextView_Header
+    <com.apps.jlee.carcare.UI.TextView_Header
         android:id="@+id/totaltotaltextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -41,7 +41,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
 
-    <com.apps.jlee.carcare.TextView_Header
+    <com.apps.jlee.carcare.UI.TextView_Header
         android:id="@+id/average"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -60,7 +60,7 @@
         app:layout_constraintTop_toTopOf="@+id/guideline16"
         app:layout_constraintVertical_bias="0.0" />
 
-    <com.apps.jlee.carcare.TextView_Header
+    <com.apps.jlee.carcare.UI.TextView_Header
         android:id="@+id/forecast"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

@@ -1,4 +1,4 @@
-package com.apps.jlee.carcare;
+package com.apps.jlee.carcare.Broadcast_Receivers;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -8,6 +8,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.support.v4.app.NotificationCompat;
+
+import com.apps.jlee.carcare.R;
 
 import java.util.Random;
 

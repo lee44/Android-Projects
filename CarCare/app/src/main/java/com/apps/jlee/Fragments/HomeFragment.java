@@ -1,4 +1,4 @@
-package com.apps.jlee.carcare;
+package com.apps.jlee.Fragments;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -10,7 +10,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class EntryFragment extends Fragment
+import com.apps.jlee.Fragments.GraphFragment;
+import com.apps.jlee.Fragments.StatisticsFragment;
+import com.apps.jlee.carcare.R;
+
+public class HomeFragment extends Fragment
 {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
@@ -34,7 +38,7 @@ public class EntryFragment extends Fragment
 
     class MyTabPagerAdapter extends FragmentPagerAdapter
     {
-        private String tabTitles[] = new String[] { "Gas", "Oil"};
+        private String tabTitles[] = new String[] { "Graphs", "Statistics"};
 
         MyTabPagerAdapter(FragmentManager fm)
         {
@@ -53,11 +57,11 @@ public class EntryFragment extends Fragment
             switch(position)
             {
                 case 0:
-                    return new GasFragment();
+                    return new GraphFragment();
                 case 1:
-                    return new OilFragment();
+                    return new StatisticsFragment();
                 default:
-                    return new GasFragment();
+                    return new GraphFragment();
             }
         }
         public CharSequence getPageTitle(int position)

@@ -1,4 +1,4 @@
-package com.apps.jlee.carcare;
+package com.apps.jlee.carcare.Dialog_Fragments;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -18,6 +18,8 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+
+import com.apps.jlee.carcare.R;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

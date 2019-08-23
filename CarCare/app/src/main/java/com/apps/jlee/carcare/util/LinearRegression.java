@@ -1,12 +1,11 @@
-package com.apps.jlee.carcare;
+package com.apps.jlee.carcare.util;
 
-import android.util.Log;
+import com.apps.jlee.carcare.Objects.Gas;
 
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import static java.util.Arrays.asList;
 
 public class LinearRegression
 {

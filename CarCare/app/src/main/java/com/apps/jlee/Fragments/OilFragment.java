@@ -1,19 +1,21 @@
-package com.apps.jlee.carcare;
+package com.apps.jlee.Fragments;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+
+import com.apps.jlee.carcare.Objects.Oil;
+import com.apps.jlee.carcare.Dialog_Fragments.OilDialogFragment;
+import com.apps.jlee.carcare.R;
+import com.apps.jlee.carcare.Data.SQLiteDatabaseHandler;
 
 import java.text.DecimalFormat;
 import java.text.ParseException;
@@ -24,7 +26,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
-import java.util.StringTokenizer;
 
 public class OilFragment extends Fragment
 {

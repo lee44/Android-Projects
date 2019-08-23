@@ -1,14 +1,18 @@
-package com.apps.jlee.carcare;
+package com.apps.jlee.Fragments;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.apps.jlee.carcare.Objects.Gas;
+import com.apps.jlee.carcare.util.LinearRegression;
+import com.apps.jlee.carcare.R;
+import com.apps.jlee.carcare.Data.SQLiteDatabaseHandler;
 
 import java.text.DecimalFormat;
 import java.text.ParseException;
