@@ -7,8 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-import com.apps.jlee.Fragments.EntryFragment;
-import com.apps.jlee.Fragments.HomeFragment;
+import com.apps.jlee.carcare.Fragments.EntryFragment;
+import com.apps.jlee.carcare.Fragments.HomeFragment;
 import com.apps.jlee.carcare.R;
 
 public class MainActivity extends AppCompatActivity

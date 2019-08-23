@@ -1,4 +1,4 @@
-package com.apps.jlee.Fragments;
+package com.apps.jlee.carcare.Fragments;
 
 import android.content.Context;
 import android.content.SharedPreferences;

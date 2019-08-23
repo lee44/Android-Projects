@@ -1,4 +1,4 @@
-package com.apps.jlee.Fragments;
+package com.apps.jlee.carcare.Fragments;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -10,8 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.apps.jlee.Fragments.GraphFragment;
-import com.apps.jlee.Fragments.StatisticsFragment;
+import com.apps.jlee.carcare.Fragments.GraphFragment;
+import com.apps.jlee.carcare.Fragments.StatisticsFragment;
 import com.apps.jlee.carcare.R;
 
 public class HomeFragment extends Fragment
