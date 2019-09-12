@@ -14,6 +14,9 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.FileProvider;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -25,6 +28,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
+import com.apps.jlee.carcare.Adapters.GasAdapter;
 import com.apps.jlee.carcare.Broadcast_Receivers.AlarmReceiver;
 import com.apps.jlee.carcare.Dialog_Fragments.FilterDialogFragment;
 import com.apps.jlee.carcare.Objects.Gas;
@@ -42,6 +46,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -61,7 +66,10 @@ public class GasFragment extends Fragment
     private FilterDialogFragment f;
     private ListView listView;
     private ArrayList<HashMap<String,String>> arrayList;
-    private SimpleAdapter adapter;
+    private List<Object> gasList;
+    //private SimpleAdapter adapter;
+    private RecyclerView rv;
+    private GasAdapter adapter;
     private SQLiteDatabaseHandler db;
     private int updateFlag = 0, editPosition;
     private String DateFormat = "M/dd/yy";
@@ -73,25 +81,28 @@ public class GasFragment extends Fragment
     {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+
+        arrayList = new ArrayList<>();
+        gasList = new LinkedList<>();
+        d = new GasDialogFragment();
+        f = new FilterDialogFragment();
+        db = new SQLiteDatabaseHandler(getContext());
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState)
     {
-       View view = inflater.inflate(R.layout.fragment_gas, container, false);
-       FloatingActionButton fab = view.findViewById(R.id.fab);
-       d = new GasDialogFragment();
-       f = new FilterDialogFragment();
-       db = new SQLiteDatabaseHandler(getContext());
-       listView = view.findViewById(R.id.gasListView);
-       arrayList = new ArrayList<>();
-       adapter = new SimpleAdapter(getContext(),arrayList,R.layout.gas_listview_items, new String[]{"Date","Cost","Miles","Gallons","MPG"},new int[]{R.id.Date,R.id.cost,R.id.miles,R.id.gallons,R.id.MPG});
-       listView.setAdapter(adapter);
+       View view = inflater.inflate(R.layout.fragment_gas2, container, false);
+       FloatingActionButton fab = view.findViewById(R.id.fab2);
 
-        new AsyncDBTask(db).execute();
+       rv = view.findViewById(R.id.gas_Entries2);
+       rv.setLayoutManager(new LinearLayoutManager(getContext()));
+       adapter = new GasAdapter(gasList);
+       rv.setAdapter(adapter);
+       new AsyncDBTask(db).execute();
 
        //registers the context menu for to be shown for our listview
-       registerForContextMenu(listView);
+       //registerForContextMenu(rv);
 
        fab.setOnClickListener(new View.OnClickListener()
        {
@@ -112,7 +123,7 @@ public class GasFragment extends Fragment
        {
            @Override
            public void onClick(String milesValue, String gallonsValue, String cost, Date date)
-           {
+           {   /*
                int dbCount = (int)db.getProfilesCount(new Gas())+1;
 
                //Insert new Gas Entry
@@ -150,6 +161,7 @@ public class GasFragment extends Fragment
                }
                updateProgressBar();
                adapter.notifyDataSetChanged();
+               */
            }
        });
 
@@ -172,6 +184,7 @@ public class GasFragment extends Fragment
         getActivity().getMenuInflater().inflate(R.menu.context_menu, menu);
     }
 
+
     //Called when an item inside context menu is selected
     public boolean onContextItemSelected(MenuItem item)
     {
@@ -185,37 +198,38 @@ public class GasFragment extends Fragment
             HashMap<String,String> hashMap=new HashMap<>();
             //getItem will get a reference to data stored in the ArrayList. This data is a HashMap. We cast it below because
             //getItem is returning a plain object. By casting, we are telling the compiler that the object is a HashMap object.
-            hashMap = (HashMap<String,String>) adapter.getItem(index);
+            //hashMap = (HashMap<String,String>) adapter.getItem(index);
 
             db.deleteEntry(new Gas(Integer.valueOf(hashMap.get("ID")),0,0,0,0));
             //new AsyncDBTask(db,new Gas(Integer.parseInt(hashMap.get("ID")),0,0,0,0),"Delete");
             updateProgressBar();
-            arrayList.remove(adapter.getItem(index));
+            //arrayList.remove(adapter.getItem(index));
             adapter.notifyDataSetChanged();
         }
         else if(item.getItemId() == R.id.Edit)
         {
             AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
             int index = info.position;
-            HashMap<String,String> hashMap = (HashMap<String,String>) adapter.getItem(index);
-
-            updateFlag = 1;
-            editPosition = index;
-
-            Bundle b = new Bundle();
-            b.putString("ID",hashMap.get("ID"));
-            b.putString("Cost",hashMap.get("Cost"));
-            b.putString("Miles",hashMap.get("Miles"));
-            b.putString("Gallons",hashMap.get("Gallons"));
-            b.putString("Date",hashMap.get("Date Long"));
-            d.setArguments(b);
-            d.show(getFragmentManager(), "fragment_gas");
+            //HashMap<String,String> hashMap = (HashMap<String,String>) adapter.getItem(index);
+            //
+            //updateFlag = 1;
+            //editPosition = index;
+            //
+            //Bundle b = new Bundle();
+            //b.putString("ID",hashMap.get("ID"));
+            //b.putString("Cost",hashMap.get("Cost"));
+            //b.putString("Miles",hashMap.get("Miles"));
+            //b.putString("Gallons",hashMap.get("Gallons"));
+            //b.putString("Date",hashMap.get("Date Long"));
+            //d.setArguments(b);
+            //d.show(getFragmentManager(), "fragment_gas");
         }
         else
             return false;
 
         return true;
     }
+
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater)
@@ -430,6 +444,7 @@ public class GasFragment extends Fragment
                     hashMap.put("MPG",String.format("%.2f", (((Gas)(list.get(i))).getMiles()) / (((Gas)(list.get(i))).getAmount()))+" MPG");
                     arrayList.add(0,hashMap);
                 }
+                gasList.addAll(list);
                 adapter.notifyDataSetChanged();
             }
         }
@@ -602,7 +617,7 @@ public class GasFragment extends Fragment
         }
     }
 
-    //This broadcastreceiver will be used locally instead of globally across the system
+    //This broadcastreceiver will be used locally instead of globally across the system and called by the AsyncExcel
     class EmailBroadCastReceiver extends BroadcastReceiver
     {
         public void onReceive(Context context, Intent intent)
