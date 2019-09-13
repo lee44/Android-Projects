@@ -7,14 +7,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-import com.apps.jlee.carcare.Fragments.EntryFragment;
+import com.apps.jlee.carcare.Fragments.GasFragment;
 import com.apps.jlee.carcare.Fragments.HomeFragment;
 import com.apps.jlee.carcare.R;
 
 public class MainActivity extends AppCompatActivity
 {
     private HomeFragment home;
-    private EntryFragment entry;
+    private GasFragment gas;
     private BottomNavigationView bottomNavigationView;
 
     @Override
@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity
         bottomNavigationView = findViewById(R.id.bottom_navigation);
 
         home = new HomeFragment();
-        entry = new EntryFragment();
+        gas = new GasFragment();
 
         setFragment(home);
         bottomNavigationView.setSelectedItemId(R.id.Home);
@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity
                         break;
 
                     case R.id.Gas:
-                        setFragment(entry);
+                        setFragment(gas);
                         break;
                 }
                 return true;
