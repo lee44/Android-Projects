@@ -100,9 +100,6 @@ public class GasFragment extends Fragment
        rv.setAdapter(adapter);
        new AsyncDBTask(db).execute();
 
-       //registers the context menu for to be shown for our listview
-       //registerForContextMenu(rv);
-
        fab.setOnClickListener(new View.OnClickListener()
        {
             public void onClick(View view)
@@ -372,6 +369,7 @@ public class GasFragment extends Fragment
         //alarmMgr.set(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(), alarmIntent);*/
     }
 
+    /*Load Gas Entries*/
     private class AsyncDBTask extends AsyncTask<Void,Void,List<Object>>
     {
         private SQLiteDatabaseHandler handler;
@@ -389,34 +387,16 @@ public class GasFragment extends Fragment
         protected void onPostExecute(List<Object> list)
         {
             super.onPostExecute(list);
-            Date date = null;
 
             if(list.size() != 0)
             {
-                for (int i = 0; i < list.size(); i++)
-                {
-                    DecimalFormat number = new DecimalFormat("0.00");
-                    Double cost = Double.valueOf((((Gas)(list.get(i))).getCost()));
-                    Double miles = Double.valueOf((((Gas)(list.get(i))).getMiles()));
-                    Double gallons = Double.valueOf((((Gas)(list.get(i))).getAmount()));
-
-                    HashMap<String,String> hashMap = new HashMap<>();
-                    hashMap.put("ID",String.valueOf(((Gas)(list.get(i))).getID()));
-                    hashMap.put("Cost", number.format(cost));
-                    hashMap.put("Miles",number.format(miles)+" mi");
-                    hashMap.put("Gallons",number.format(gallons)+" gal");
-                    date = new Date(((Gas)(list.get(i))).getDateRefilled());
-                    hashMap.put("Date", new SimpleDateFormat(DateFormat).format(date));
-                    hashMap.put("Date Long",Long.toString(date.getTime()));
-                    hashMap.put("MPG",String.format("%.2f", (((Gas)(list.get(i))).getMiles()) / (((Gas)(list.get(i))).getAmount()))+" MPG");
-                    arrayList.add(0,hashMap);
-                }
                 gasList.addAll(list);
                 adapter.notifyDataSetChanged();
             }
         }
     }
 
+    /*Sort Gas Entries*/
     private class AsyncDBFilterTask extends AsyncTask<Void,Void,List<Object>>
     {
         private SQLiteDatabaseHandler handler;
@@ -445,34 +425,18 @@ public class GasFragment extends Fragment
 
             if(list.size() != 0)
             {
-                arrayList.clear();
+                gasList.clear();
                 for (int i = 0; i < list.size(); i++)
-                {
                     if (starting_date.getTime() <= ((Gas) (list.get(i))).getDateRefilled() && ending_date.getTime() >= ((Gas) (list.get(i))).getDateRefilled())
-                    {
-                        DecimalFormat number = new DecimalFormat("0.00");
-                        Double cost = Double.valueOf((((Gas) (list.get(i))).getCost()));
-                        Double miles = Double.valueOf((((Gas) (list.get(i))).getMiles()));
-                        Double gallons = Double.valueOf((((Gas) (list.get(i))).getAmount()));
+                        gasList.add(list.get(i));
 
-                        HashMap<String, String> hashMap = new HashMap<>();
-                        hashMap.put("ID", String.valueOf(((Gas) (list.get(i))).getID()));
-                        hashMap.put("Cost", number.format(cost));
-                        hashMap.put("Miles", number.format(miles) + " mi");
-                        hashMap.put("Gallons", number.format(gallons) + " gal");
-                        date = new Date(((Gas) (list.get(i))).getDateRefilled());
-                        hashMap.put("Date", new SimpleDateFormat(DateFormat).format(date));
-                        hashMap.put("Date Long", Long.toString(date.getTime()));
-                        hashMap.put("MPG", String.format("%.2f", (((Gas) (list.get(i))).getMiles()) / (((Gas) (list.get(i))).getAmount())) + " MPG");
-                        arrayList.add(0, hashMap);
-                    }
-                }
-                Collections.sort(arrayList, new MapComparator(sortBy));
+                Collections.sort(gasList, new MapComparator(sortBy));
                 adapter.notifyDataSetChanged();
             }
         }
     }
 
+    /*Load Gas Entries and Generate Excel File*/
     private class AsyncExcel extends AsyncTask<Void,Void,List<Object>>
     {
         private SQLiteDatabaseHandler handler;
@@ -602,7 +566,7 @@ public class GasFragment extends Fragment
     }
 
     //Defines the rules for comparisons that is used in Collection.sort method
-    class MapComparator implements Comparator<Map<String, String>>
+    class MapComparator implements Comparator<Object>
     {
         private final String key;
 
@@ -611,14 +575,19 @@ public class GasFragment extends Fragment
             this.key = key;
         }
 
-        public int compare(Map<String, String> first, Map<String, String> second)
+        @Override
+        public int compare(Object first, Object second)
         {
-            String firstValue = "", secondValue = "";
+            int v = 0;
 
-            firstValue = String.valueOf(first.get(key));
-            secondValue = String.valueOf(second.get(key));
-
-            return secondValue.compareTo(firstValue);
+            switch (key)
+            {
+                case "MPG": v = (((Gas)(second)).getMiles()/((Gas)(second)).getAmount()+"").compareTo(((Gas)(first)).getMiles()/((Gas)(first)).getAmount()+""); break;
+                case "Cost": v = (((Gas)(second)).getCost()+"").compareTo((((Gas)(first)).getCost()+"")); break;
+                case "Miles": v = (((Gas)(second)).getMiles()+"").compareTo((((Gas)(first)).getMiles()+"")); break;
+                case "Gallons": v = (((Gas)(second)).getAmount()+"").compareTo((((Gas)(first)).getAmount()+"")); break;
+            }
+            return v;
         }
     }
 }

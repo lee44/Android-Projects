@@ -92,7 +92,8 @@ public class GasAdapter extends RecyclerView.Adapter<GasAdapter.ViewHolder>
             gallons_icon = itemView.findViewById(R.id.gallons_icon);
         }
 
-        @Override public void onCreateContextMenu(ContextMenu contextMenu, View view, ContextMenu.ContextMenuInfo contextMenuInfo)
+        @Override
+        public void onCreateContextMenu(ContextMenu contextMenu, View view, ContextMenu.ContextMenuInfo contextMenuInfo)
         {
             contextMenu.add(this.getAdapterPosition(),121,0,"Edit");
             contextMenu.add(this.getAdapterPosition(),122,1,"Delete");
