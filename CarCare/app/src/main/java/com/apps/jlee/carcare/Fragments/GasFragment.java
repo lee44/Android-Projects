@@ -64,15 +64,14 @@ public class GasFragment extends Fragment
 {
     private GasDialogFragment d;
     private FilterDialogFragment f;
-    private ListView listView;
     private ArrayList<HashMap<String,String>> arrayList;
     private List<Object> gasList;
-    //private SimpleAdapter adapter;
     private RecyclerView rv;
     private GasAdapter adapter;
     private SQLiteDatabaseHandler db;
-    private int updateFlag = 0, editPosition;
+    private boolean updateFlag = false;
     private String DateFormat = "M/dd/yy";
+    private int edit_Position = 0;
 
     public GasFragment(){}
 
@@ -108,7 +107,7 @@ public class GasFragment extends Fragment
        {
             public void onClick(View view)
             {
-                updateFlag = 0;
+                updateFlag = false;
                 Bundle b = new Bundle();
                 b.putString("Cost","");
                 b.putString("Miles","");
@@ -123,11 +122,11 @@ public class GasFragment extends Fragment
        {
            @Override
            public void onClick(String milesValue, String gallonsValue, String cost, Date date)
-           {   /*
+           {
                int dbCount = (int)db.getProfilesCount(new Gas())+1;
 
                //Insert new Gas Entry
-               if(updateFlag == 0)
+               if(!updateFlag)
                {
                    Gas g = new Gas();
                    g.setID(dbCount);
@@ -136,32 +135,20 @@ public class GasFragment extends Fragment
                    g.setCost(Double.parseDouble(cost));
                    g.setDateRefilled(date.getTime());
                    db.addEntry(g);
-
-                   HashMap<String, String> hashMap = new HashMap<>();
-                   hashMap.put("ID", dbCount + "");
-                   hashMap.put("Cost", cost);
-                   hashMap.put("Miles", milesValue+" mi");
-                   hashMap.put("Gallons", gallonsValue+" gal");
-                   hashMap.put("Date", new SimpleDateFormat(DateFormat).format(date));
-                   hashMap.put("Date Long",Long.toString(date.getTime()));
-                   hashMap.put("MPG", String.format("%.2f", (Double.parseDouble(milesValue) / Double.parseDouble(gallonsValue)))+ " MPG");
-                   arrayList.add(0,hashMap);
+                   gasList.add(g);
                }
                //Update existing Gas Entry
                else
                {
-                   HashMap<String, String> hashMap = (HashMap<String,String>) adapter.getItem(editPosition);
-                   hashMap.put("Cost", cost);
-                   hashMap.put("Miles", milesValue+" mi");
-                   hashMap.put("Gallons", gallonsValue+" gal");
-                   hashMap.put("Date",new SimpleDateFormat(DateFormat).format(date));
-                   hashMap.put("Date Long",Long.toString(date.getTime()));
-                   hashMap.put("MPG", String.format("%.2f", (Double.parseDouble(milesValue) / Double.parseDouble(gallonsValue)))+ " MPG");
-                   db.updateEntry(new Gas(Integer.valueOf(hashMap.get("ID")),Double.valueOf(cost),Double.valueOf(gallonsValue),Double.valueOf(milesValue),date.getTime()));
+                    Gas g = (Gas)gasList.get(edit_Position);
+                    g.setCost(Double.valueOf(cost));
+                    g.setMiles(Double.valueOf(milesValue));
+                    g.setAmount(Double.valueOf(gallonsValue));
+                    g.setDateRefilled(date.getTime());
+                    db.updateEntry(g);
                }
                updateProgressBar();
                adapter.notifyDataSetChanged();
-               */
            }
        });
 
@@ -177,59 +164,39 @@ public class GasFragment extends Fragment
        return view;
     }
 
-    //Generates the view objects of the menu and inflate(render) them into the screen
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo)
-    {
-        getActivity().getMenuInflater().inflate(R.menu.context_menu, menu);
-    }
-
-
     //Called when an item inside context menu is selected
     public boolean onContextItemSelected(MenuItem item)
     {
-        if(item.getItemId()==R.id.Delete)
+        if(item.getItemId()==121)
         {
-            //getMenuInfo gets a reference to the item in the listview that was long pressed when opening the context menu
-            AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-            //info.position is the position of the listview item on the visible screen. It does not reflect the actual position
-            //inside the arraylist. For example, lets say a screen can only fit 10 items so the position will range from 1-10.
-            int index = info.position;
-            HashMap<String,String> hashMap=new HashMap<>();
-            //getItem will get a reference to data stored in the ArrayList. This data is a HashMap. We cast it below because
-            //getItem is returning a plain object. By casting, we are telling the compiler that the object is a HashMap object.
-            //hashMap = (HashMap<String,String>) adapter.getItem(index);
+            int index = item.getGroupId();
+            updateFlag = true;
+            edit_Position = index;
 
-            db.deleteEntry(new Gas(Integer.valueOf(hashMap.get("ID")),0,0,0,0));
-            //new AsyncDBTask(db,new Gas(Integer.parseInt(hashMap.get("ID")),0,0,0,0),"Delete");
-            updateProgressBar();
-            //arrayList.remove(adapter.getItem(index));
-            adapter.notifyDataSetChanged();
+            Bundle b = new Bundle();
+            b.putString("ID",((Gas)gasList.get(index)).getID()+"");
+            b.putString("Cost",((Gas)gasList.get(index)).getCost()+"");
+            b.putString("Miles",((Gas)gasList.get(index)).getMiles()+"");
+            b.putString("Gallons",((Gas)gasList.get(index)).getAmount()+"");
+            b.putString("Date",((Gas)gasList.get(index)).getDateRefilled()+"");
+            d.setArguments(b);
+            d.show(getFragmentManager(), "fragment_gas");
         }
-        else if(item.getItemId() == R.id.Edit)
+        else if(item.getItemId() == 122)
         {
-            AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-            int index = info.position;
-            //HashMap<String,String> hashMap = (HashMap<String,String>) adapter.getItem(index);
-            //
-            //updateFlag = 1;
-            //editPosition = index;
-            //
-            //Bundle b = new Bundle();
-            //b.putString("ID",hashMap.get("ID"));
-            //b.putString("Cost",hashMap.get("Cost"));
-            //b.putString("Miles",hashMap.get("Miles"));
-            //b.putString("Gallons",hashMap.get("Gallons"));
-            //b.putString("Date",hashMap.get("Date Long"));
-            //d.setArguments(b);
-            //d.show(getFragmentManager(), "fragment_gas");
+            int index = item.getGroupId();
+
+            db.deleteEntry(new Gas(((Gas)gasList.get(index)).getID(),0,0,0,0));
+            gasList.remove(index);
+
+            updateProgressBar();
+            adapter.notifyDataSetChanged();
         }
         else
             return false;
 
         return true;
     }
-
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater)
@@ -384,7 +351,7 @@ public class GasFragment extends Fragment
     }
 
     public void scheduleNotification(String title, String message, int id)
-    {
+    {/*
         AlarmManager alarmMgr = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(getContext(), AlarmReceiver.class);
         intent.putExtra("title",title);
@@ -402,7 +369,7 @@ public class GasFragment extends Fragment
         // Schedule a repeating alarm that runs every minute
         // alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),1000 * 60 * 1, alarmIntent);
         // Schedule alarm that runs once at the given time
-        //alarmMgr.set(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(), alarmIntent);
+        //alarmMgr.set(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(), alarmIntent);*/
     }
 
     private class AsyncDBTask extends AsyncTask<Void,Void,List<Object>>
