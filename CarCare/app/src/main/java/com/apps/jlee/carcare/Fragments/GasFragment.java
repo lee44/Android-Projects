@@ -235,12 +235,11 @@ public class GasFragment extends Fragment
 
     public void generateGasEntries()
     {
-        HashMap<String,String> hashMap = new HashMap<>();
         Calendar cal = Calendar.getInstance();
         Double cost,gallons,miles;
         int id;
 
-        for(int i = 1; i < 14; i++)
+        for(int i = 1; i < 7; i++)
         {
             id = (int)db.getProfilesCount(new Gas())+1;
             cal.set(Calendar.MONTH,6); cal.set(Calendar.DAY_OF_MONTH, i*2); cal.set(Calendar.YEAR, 2019);
@@ -250,6 +249,8 @@ public class GasFragment extends Fragment
             miles = Double.parseDouble(String.format("%.2f",(new Random().nextInt(115)+400) + new Random().nextDouble()));
 
             db.addEntry(new Gas(id,cost,gallons,miles,cal.getTime().getTime()));
+            gasList.add(new Gas(id,cost,gallons,miles,cal.getTime().getTime()));
+            adapter.notifyDataSetChanged();
         }
     }
 

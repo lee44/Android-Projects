@@ -43,8 +43,6 @@ public class SQLiteDatabaseHandler extends SQLiteOpenHelper
         values.put(KEY_MILES, ((Gas) o).getMiles());
         values.put(KEY_DATE, ((Gas) o).getDateRefilled());
         db.insert(TABLE_NAME, null, values);
-
-        db.close();
     }
 
     public List<Object> getAllEntries(Object o)
@@ -68,7 +66,6 @@ public class SQLiteDatabaseHandler extends SQLiteOpenHelper
                 list.add(gas);
             } while (cursor.moveToNext());
         }
-        db.close();
         return list;
     }
 
@@ -89,8 +86,6 @@ public class SQLiteDatabaseHandler extends SQLiteOpenHelper
             "id = ?", // selections
             new String[]{String.valueOf(((Gas)o).getID())});
 
-        db.close();
-
         return i;
     }
     public void deleteEntry(Object o)
@@ -98,12 +93,10 @@ public class SQLiteDatabaseHandler extends SQLiteOpenHelper
         // Get reference to writable DB
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_NAME, "id = ?", new String[]{String.valueOf(((Gas)o).getID())});
-        db.close();
     }
     public long getProfilesCount(Object o)
     {
         SQLiteDatabase db = this.getReadableDatabase();
-        db.close();
         return DatabaseUtils.queryNumEntries(db, TABLE_NAME);
     }
     public Gas getEntry(int id)

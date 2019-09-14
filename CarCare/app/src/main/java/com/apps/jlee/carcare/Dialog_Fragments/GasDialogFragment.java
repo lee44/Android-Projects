@@ -157,12 +157,7 @@ public class GasDialogFragment extends DialogFragment
             @Override
             public void onClick(View view)
             {
-                if(cost.getText().toString().matches(""))
-                {
-                    costtextInputLayout.setErrorEnabled(true);
-                    costtextInputLayout.setError("Can't Leave Cost Blank");
-                }
-                else if(miles.getText().toString().matches(""))
+                if(miles.getText().toString().matches(""))
                 {
                     milestextInputLayout.setErrorEnabled(true);
                     milestextInputLayout.setError("Can't Leave Miles Blank");
@@ -171,6 +166,11 @@ public class GasDialogFragment extends DialogFragment
                 {
                     gallonstextInputLayout.setErrorEnabled(true);
                     gallonstextInputLayout.setError("Can't Leave Gallons Blank");
+                }
+                else if(!cost.getText().toString().matches("^\\$?(([1-9]\\d{0,2}(,\\d{3})*)|0)?\\.\\d{1,2}$"))
+                {
+                    costtextInputLayout.setErrorEnabled(true);
+                    costtextInputLayout.setError("Wrong format. e.g $10.42");
                 }
                 else
                 {
@@ -239,7 +239,7 @@ public class GasDialogFragment extends DialogFragment
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2){}
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2){}
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
 
             @Override
             public void afterTextChanged(Editable editable)
@@ -247,18 +247,11 @@ public class GasDialogFragment extends DialogFragment
                 if(costtextInputLayout.isErrorEnabled())
                     costtextInputLayout.setErrorEnabled(false);
 
-                if (cost.getText().toString().matches("^\d+"))
-                {
-                    cost.setText("$ ");
-                }
-
                 if (!editable.toString().contains("$"))
                 {
-                    cost.setText("$ " + editable.toString());
+                    cost.setText("$" + editable.toString());
                     Selection.setSelection(cost.getText(), cost.getText().length());
                 }
-
-
                 costValue = editable.toString();
             }
         });
