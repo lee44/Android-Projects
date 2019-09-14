@@ -82,7 +82,7 @@
             android:hint="Enter Cost"
             android:imeOptions="actionDone"
             android:inputType="numberDecimal|numberSigned"
-            android:maxLength="6"
+            android:maxLength="8"
             android:textAlignment="center"
             android:textSize="@dimen/edittext" />
     </android.support.design.widget.TextInputLayout>

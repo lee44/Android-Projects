@@ -1,7 +1,5 @@
 package com.apps.jlee.carcare.Fragments;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -16,20 +14,14 @@ import android.support.v4.content.FileProvider;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
 
 import com.apps.jlee.carcare.Adapters.GasAdapter;
-import com.apps.jlee.carcare.Broadcast_Receivers.AlarmReceiver;
 import com.apps.jlee.carcare.Dialog_Fragments.FilterDialogFragment;
 import com.apps.jlee.carcare.Objects.Gas;
 import com.apps.jlee.carcare.Dialog_Fragments.GasDialogFragment;
@@ -38,7 +30,6 @@ import com.apps.jlee.carcare.Data.SQLiteDatabaseHandler;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -49,7 +40,6 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 import java.util.Random;
 
 import jxl.Workbook;
@@ -91,7 +81,7 @@ public class GasFragment extends Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState)
     {
-       View view = inflater.inflate(R.layout.fragment_gas2, container, false);
+       View view = inflater.inflate(R.layout.fragment_gas, container, false);
        FloatingActionButton fab = view.findViewById(R.id.fab2);
 
        rv = view.findViewById(R.id.gas_Entries2);

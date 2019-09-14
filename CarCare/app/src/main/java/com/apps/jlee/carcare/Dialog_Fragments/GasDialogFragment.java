@@ -9,6 +9,7 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.text.Editable;
+import android.text.Selection;
 import android.text.TextWatcher;
 
 import android.view.Gravity;
@@ -245,6 +246,18 @@ public class GasDialogFragment extends DialogFragment
             {
                 if(costtextInputLayout.isErrorEnabled())
                     costtextInputLayout.setErrorEnabled(false);
+
+                if (cost.getText().toString().matches("^\d+"))
+                {
+                    cost.setText("$ ");
+                }
+
+                if (!editable.toString().contains("$"))
+                {
+                    cost.setText("$ " + editable.toString());
+                    Selection.setSelection(cost.getText(), cost.getText().length());
+                }
+
 
                 costValue = editable.toString();
             }
