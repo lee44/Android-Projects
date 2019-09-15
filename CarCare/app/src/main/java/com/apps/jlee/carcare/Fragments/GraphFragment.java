@@ -3,6 +3,7 @@ package com.apps.jlee.carcare.Fragments;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.text.format.DateFormat;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -57,7 +58,6 @@ public class GraphFragment extends Fragment
     {
         db = new SQLiteDatabaseHandler(getContext());
         entries = new ArrayList<Entry>();
-        list = db.getAllEntries(new Gas());
         View v = inflater.inflate(R.layout.fragment_graph, container, false);
         chart = v.findViewById(R.id.chart);
         oilPB = v.findViewById(R.id.oilPB);
@@ -73,11 +73,8 @@ public class GraphFragment extends Fragment
         batteryPB.setMax(30000);
         timingBeltPB.setMax(100000);
 
-        if(list.size() != 0)
-        {
-            loadGraphData(1);
-            loadProgressBar();
-        }
+        new AsyncDBTask(db).execute();
+
         return v;
     }
 
@@ -213,12 +210,13 @@ public class GraphFragment extends Fragment
 
     public void loadProgressBar()
     {
+        SharedPreferences sharedpreferences = getContext().getSharedPreferences("Replacement Values", Context.MODE_PRIVATE);
+
         oilPB.post(new Runnable()
         {
             @Override
             public void run()
             {
-                SharedPreferences sharedpreferences = getContext().getSharedPreferences("Replacement Values", Context.MODE_PRIVATE);
                 oilPB.setProgress((int)sharedpreferences.getFloat("oil",0));
             }
         });
@@ -228,7 +226,6 @@ public class GraphFragment extends Fragment
             @Override
             public void run()
             {
-                SharedPreferences sharedpreferences = getContext().getSharedPreferences("Replacement Values", Context.MODE_PRIVATE);
                 brakesPB.setProgress((int)sharedpreferences.getFloat("brakes",0));
             }
         });
@@ -238,7 +235,6 @@ public class GraphFragment extends Fragment
             @Override
             public void run()
             {
-                SharedPreferences sharedpreferences = getContext().getSharedPreferences("Replacement Values", Context.MODE_PRIVATE);
                 wheelsPB.setProgress((int)sharedpreferences.getFloat("wheels",0));
             }
         });
@@ -248,7 +244,6 @@ public class GraphFragment extends Fragment
             @Override
             public void run()
             {
-                SharedPreferences sharedpreferences = getContext().getSharedPreferences("Replacement Values", Context.MODE_PRIVATE);
                 batteryPB.setProgress((int)sharedpreferences.getFloat("battery",0));
             }
         });
@@ -258,10 +253,37 @@ public class GraphFragment extends Fragment
             @Override
             public void run()
             {
-                SharedPreferences sharedpreferences = getContext().getSharedPreferences("Replacement Values", Context.MODE_PRIVATE);
                 timingBeltPB.setProgress((int)sharedpreferences.getFloat("timingbelt",0));
             }
         });
+    }
+
+    private class AsyncDBTask extends AsyncTask<Void,Void,List<Object>>
+    {
+        private SQLiteDatabaseHandler handler;
+
+        public AsyncDBTask(SQLiteDatabaseHandler handler)
+        {
+            this.handler = handler;
+        }
+        @Override
+        protected List<Object> doInBackground(Void... voids)
+        {
+            return handler.getAllEntries(new Gas());
+        }
+        @Override
+        protected void onPostExecute(List<Object> DBlist)
+        {
+            super.onPostExecute(DBlist);
+
+            if(DBlist.size() != 0)
+            {
+                list = DBlist;
+                loadGraphData(1);
+                loadProgressBar();
+
+            }
+        }
     }
 }
 

@@ -176,7 +176,7 @@ public class GasDialogFragment extends DialogFragment
                 {
                     listener.onClick(new BigDecimal(Double.parseDouble(milesValue)).setScale(2, RoundingMode.HALF_UP).toString(),
                                      new BigDecimal(Double.parseDouble(gallonsValue)).setScale(2, RoundingMode.HALF_UP).toString(),
-                                     new BigDecimal(Double.parseDouble(costValue)).setScale(2, RoundingMode.HALF_UP).toString(),
+                                     new BigDecimal(Double.parseDouble(costValue.split("\\$")[1])).setScale(2, RoundingMode.HALF_UP).toString(),
                                      myCalendar.getTime());
                     getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
                     dialog.dismiss();
