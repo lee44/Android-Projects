@@ -43,10 +43,11 @@ public class GasDialogFragment extends DialogFragment
     private GasInterface listener;
     private AlertDialog dialog;
     final Calendar myCalendar = Calendar.getInstance();
+    private int position;
 
     public interface GasInterface
     {
-        public void onClick(String milesValue, String gallonsValue, String cost, Date date);
+        public void onClick(int position,String milesValue, String gallonsValue, String cost, Date date);
     }
 
     public GasDialogFragment()
@@ -92,7 +93,9 @@ public class GasDialogFragment extends DialogFragment
         //Sets the text for all edit text views when user wants to edit the gas entry
         if(getArguments() != null)
         {
-            cost.setText((String)getArguments().get("Cost"));
+            position = Integer.valueOf((String)getArguments().get("Position"));
+
+            cost.setText("$"+getArguments().get("Cost"));
 
             String [] str1 = ((String)getArguments().get("Miles")).split(" mi");
             miles.setText(str1[0]);
@@ -101,26 +104,27 @@ public class GasDialogFragment extends DialogFragment
             gallons.setText(str2[0]);
 
             SimpleDateFormat sdf = new SimpleDateFormat(DateFormat, Locale.US);
-            if(((String)getArguments().get("Date")).equals(""))
-                date.setText(sdf.format(Calendar.getInstance().getTime()));
-            else
-            {
-                Calendar c = Calendar.getInstance();
-                c.setTimeInMillis(Long.valueOf((String)getArguments().get("Date")));
 
-                date.setText(sdf.format(c.getTime()));
+            Calendar c = Calendar.getInstance();
+            c.setTimeInMillis(Long.valueOf((String)getArguments().get("Date")));
 
-                myCalendar.set(Calendar.YEAR,c.get(Calendar.YEAR));
-                myCalendar.set(Calendar.MONTH,c.get(Calendar.MONTH));
-                myCalendar.set(Calendar.DAY_OF_MONTH,c.get(Calendar.DAY_OF_MONTH));
-                myCalendar.set(Calendar.HOUR_OF_DAY, 0);
-                myCalendar.set(Calendar.MINUTE, 0);
-            }
+            date.setText(sdf.format(c.getTime()));
+
+            myCalendar.set(Calendar.YEAR,c.get(Calendar.YEAR));
+            myCalendar.set(Calendar.MONTH,c.get(Calendar.MONTH));
+            myCalendar.set(Calendar.DAY_OF_MONTH,c.get(Calendar.DAY_OF_MONTH));
+            myCalendar.set(Calendar.HOUR_OF_DAY, 0);
+            myCalendar.set(Calendar.MINUTE, 0);
 
             milesValue = str1[0];
             gallonsValue = str2[0];
             costValue = (String)getArguments().get("Cost");
             calculateMPG();
+        }
+        else
+        {
+            SimpleDateFormat sdf = new SimpleDateFormat(DateFormat, Locale.US);
+            date.setText(sdf.format(Calendar.getInstance().getTime()));
         }
 
         builder.setView(dialogView);
@@ -174,9 +178,10 @@ public class GasDialogFragment extends DialogFragment
                 }
                 else
                 {
-                    listener.onClick(new BigDecimal(Double.parseDouble(milesValue)).setScale(2, RoundingMode.HALF_UP).toString(),
+                    listener.onClick(position,
+                                    new BigDecimal(Double.parseDouble(milesValue)).setScale(2, RoundingMode.HALF_UP).toString(),
                                      new BigDecimal(Double.parseDouble(gallonsValue)).setScale(2, RoundingMode.HALF_UP).toString(),
-                                     new BigDecimal(Double.parseDouble(costValue.split("\\$")[1])).setScale(2, RoundingMode.HALF_UP).toString(),
+                                     new BigDecimal(Double.parseDouble(costValue.split("\\$")[0])).setScale(2, RoundingMode.HALF_UP).toString(),
                                      myCalendar.getTime());
                     getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
                     dialog.dismiss();

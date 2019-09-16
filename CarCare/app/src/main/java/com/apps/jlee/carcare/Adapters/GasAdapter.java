@@ -1,6 +1,7 @@
 package com.apps.jlee.carcare.Adapters;
 
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.ContextMenu;
@@ -67,7 +68,7 @@ public class GasAdapter extends RecyclerView.Adapter<GasAdapter.ViewHolder>
     }
 
     //Provides direct link to all the views inside each item
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener
+    public class ViewHolder extends RecyclerView.ViewHolder
     {
         TextView date,cost,miles,gallons,mpg;
         ImageView cash_icon,miles_icon,gallons_icon;
@@ -85,18 +86,10 @@ public class GasAdapter extends RecyclerView.Adapter<GasAdapter.ViewHolder>
             gallons = itemView.findViewById(R.id.gallons);
             mpg = itemView.findViewById(R.id.MPG);
             cv = itemView.findViewById(R.id.cardView);
-            cv.setOnCreateContextMenuListener(this);
 
             cash_icon = itemView.findViewById(R.id.cash_icon);
             miles_icon = itemView.findViewById(R.id.miles_icon);
             gallons_icon = itemView.findViewById(R.id.gallons_icon);
-        }
-
-        @Override
-        public void onCreateContextMenu(ContextMenu contextMenu, View view, ContextMenu.ContextMenuInfo contextMenuInfo)
-        {
-            contextMenu.add(this.getAdapterPosition(),121,0,"Edit");
-            contextMenu.add(this.getAdapterPosition(),122,1,"Delete");
         }
     }
 }

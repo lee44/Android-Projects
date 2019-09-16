@@ -2,5 +2,6 @@
     <string name="app_name">CarCare</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="channel_name">Reminder</string>
+    <string name="snack_bar_text">Undo</string>
     <string name="channel_description">Channel is for reminding user to replace car parts based on mileage</string>
 </resources>

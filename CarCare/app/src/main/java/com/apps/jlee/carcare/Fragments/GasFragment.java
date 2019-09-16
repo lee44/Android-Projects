@@ -9,11 +9,14 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.FileProvider;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -27,6 +30,7 @@ import com.apps.jlee.carcare.Objects.Gas;
 import com.apps.jlee.carcare.Dialog_Fragments.GasDialogFragment;
 import com.apps.jlee.carcare.R;
 import com.apps.jlee.carcare.Data.SQLiteDatabaseHandler;
+import com.apps.jlee.carcare.UI.SwipeCallback;
 
 import java.io.File;
 import java.io.IOException;
@@ -56,12 +60,13 @@ public class GasFragment extends Fragment
     private FilterDialogFragment f;
     private ArrayList<HashMap<String,String>> arrayList;
     private List<Object> gasList;
+    private Gas mRecentlyDeletedItem;
     private RecyclerView rv;
     private GasAdapter adapter;
     private SQLiteDatabaseHandler db;
     private boolean updateFlag = false;
     private String DateFormat = "M/dd/yy";
-    private int edit_Position = 0;
+    private int mRecentlyDeletedItemPosition;
 
     public GasFragment(){}
 
@@ -88,6 +93,8 @@ public class GasFragment extends Fragment
        rv.setLayoutManager(new LinearLayoutManager(getContext()));
        adapter = new GasAdapter(gasList);
        rv.setAdapter(adapter);
+       ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new SwipeCallback(this));
+       itemTouchHelper.attachToRecyclerView(rv);
        new AsyncDBTask(db).execute();
 
        fab.setOnClickListener(new View.OnClickListener()
@@ -96,11 +103,7 @@ public class GasFragment extends Fragment
             {
                 updateFlag = false;
                 Bundle b = new Bundle();
-                b.putString("Cost","");
-                b.putString("Miles","");
-                b.putString("Gallons","");
-                b.putString("Date","");
-                d.setArguments(b);
+                b.clear();
                 d.show(getFragmentManager(), "fragment_gas");
             }
        });
@@ -108,7 +111,7 @@ public class GasFragment extends Fragment
        d.setListener(new GasDialogFragment.GasInterface()
        {
            @Override
-           public void onClick(String milesValue, String gallonsValue, String cost, Date date)
+           public void onClick(int position, String milesValue, String gallonsValue, String cost, Date date)
            {
                int dbCount = (int)db.getProfilesCount(new Gas())+1;
 
@@ -123,19 +126,20 @@ public class GasFragment extends Fragment
                    g.setDateRefilled(date.getTime());
                    db.addEntry(g);
                    gasList.add(g);
+                   adapter.notifyItemInserted(gasList.size());
                }
                //Update existing Gas Entry
                else
                {
-                    Gas g = (Gas)gasList.get(edit_Position);
+                    Gas g = (Gas)gasList.get(position);
                     g.setCost(Double.valueOf(cost));
                     g.setMiles(Double.valueOf(milesValue));
                     g.setAmount(Double.valueOf(gallonsValue));
                     g.setDateRefilled(date.getTime());
                     db.updateEntry(g);
+                    adapter.notifyItemChanged(position);
                }
                updateProgressBar();
-               adapter.notifyDataSetChanged();
            }
        });
 
@@ -149,40 +153,6 @@ public class GasFragment extends Fragment
        });
 
        return view;
-    }
-
-    //Called when an item inside context menu is selected
-    public boolean onContextItemSelected(MenuItem item)
-    {
-        if(item.getItemId()==121)
-        {
-            int index = item.getGroupId();
-            updateFlag = true;
-            edit_Position = index;
-
-            Bundle b = new Bundle();
-            b.putString("ID",((Gas)gasList.get(index)).getID()+"");
-            b.putString("Cost",((Gas)gasList.get(index)).getCost()+"");
-            b.putString("Miles",((Gas)gasList.get(index)).getMiles()+"");
-            b.putString("Gallons",((Gas)gasList.get(index)).getAmount()+"");
-            b.putString("Date",((Gas)gasList.get(index)).getDateRefilled()+"");
-            d.setArguments(b);
-            d.show(getFragmentManager(), "fragment_gas");
-        }
-        else if(item.getItemId() == 122)
-        {
-            int index = item.getGroupId();
-
-            db.deleteEntry(new Gas(((Gas)gasList.get(index)).getID(),0,0,0,0));
-            gasList.remove(index);
-
-            updateProgressBar();
-            adapter.notifyDataSetChanged();
-        }
-        else
-            return false;
-
-        return true;
     }
 
     @Override
@@ -580,5 +550,43 @@ public class GasFragment extends Fragment
             }
             return v;
         }
+    }
+
+    public void deleteItem(int position)
+    {
+        mRecentlyDeletedItem = (Gas)gasList.get(position);
+        mRecentlyDeletedItemPosition = position;
+        gasList.remove(position);
+        db.deleteEntry(new Gas(((Gas)gasList.get(position)).getID(),0,0,0,0));
+        adapter.notifyItemRemoved(position);
+        showUndoSnackbar();
+    }
+
+    private void showUndoSnackbar()
+    {
+        Snackbar snackbar = Snackbar.make(getActivity().findViewById(R.id.root), R.string.snack_bar_text,Snackbar.LENGTH_LONG);
+        snackbar.setAction("Undo", v -> undoDelete());
+        snackbar.show();
+    }
+
+    private void undoDelete()
+    {
+        gasList.add(mRecentlyDeletedItemPosition, mRecentlyDeletedItem);
+        adapter.notifyItemInserted(mRecentlyDeletedItemPosition);
+    }
+
+    public void edit(int position)
+    {
+        updateFlag = true;
+
+        Bundle b = new Bundle();
+        b.putString("Position",position+"");
+        b.putString("ID",((Gas)gasList.get(position)).getID()+"");
+        b.putString("Cost",((Gas)gasList.get(position)).getCost()+"");
+        b.putString("Miles",((Gas)gasList.get(position)).getMiles()+"");
+        b.putString("Gallons",((Gas)gasList.get(position)).getAmount()+"");
+        b.putString("Date",((Gas)gasList.get(position)).getDateRefilled()+"");
+        d.setArguments(b);
+        d.show(getFragmentManager(), "fragment_gas");
     }
 }
