@@ -1,2 +1,2 @@
 # CarCare
-v2.1 - added a Swipe feature to gas entries for user to edit and delete
+v2.1 - added a Swipe feature for gas entries so users can edit and delete
