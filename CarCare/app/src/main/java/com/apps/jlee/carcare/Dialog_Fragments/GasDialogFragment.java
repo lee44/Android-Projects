@@ -94,6 +94,8 @@ public class GasDialogFragment extends DialogFragment
         //Sets the text for all edit text views when user wants to edit the gas entry
         if(getArguments() != null)
         {
+            Cancel.setVisibility(View.GONE);
+
             position = Integer.valueOf((String)getArguments().get("Position"));
             cost.setText((String)getArguments().get("Cost"));
 
@@ -176,11 +178,6 @@ public class GasDialogFragment extends DialogFragment
                    costtextInputLayout.setErrorEnabled(true);
                    costtextInputLayout.setError("Can't Leave Cost Blank");
                 }
-//                else if(!cost.getText().toString().matches("^\\$?(([1-9]\\d{0,2}(,\\d{3})*)|0)?\\.\\d{1,2}$"))
-//                {
-//                    costtextInputLayout.setErrorEnabled(true);
-//                    costtextInputLayout.setError("Wrong format. e.g $10.42");
-//                }
                 else
                 {
                     listener.onClick(position,
@@ -257,11 +254,6 @@ public class GasDialogFragment extends DialogFragment
                 if(costtextInputLayout.isErrorEnabled())
                     costtextInputLayout.setErrorEnabled(false);
 
-//                if (!editable.toString().contains("$"))
-//                {
-//                    cost.setText("$" + editable.toString());
-//                    Selection.setSelection(cost.getText(), cost.getText().length());
-//                }
                 costValue = editable.toString();
             }
         });
