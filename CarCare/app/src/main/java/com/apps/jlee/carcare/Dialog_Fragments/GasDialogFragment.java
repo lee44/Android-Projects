@@ -12,6 +12,7 @@ import android.text.Editable;
 import android.text.Selection;
 import android.text.TextWatcher;
 
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -94,8 +95,7 @@ public class GasDialogFragment extends DialogFragment
         if(getArguments() != null)
         {
             position = Integer.valueOf((String)getArguments().get("Position"));
-
-            cost.setText("$"+getArguments().get("Cost"));
+            cost.setText((String)getArguments().get("Cost"));
 
             String [] str1 = ((String)getArguments().get("Miles")).split(" mi");
             miles.setText(str1[0]);
@@ -171,17 +171,22 @@ public class GasDialogFragment extends DialogFragment
                     gallonstextInputLayout.setErrorEnabled(true);
                     gallonstextInputLayout.setError("Can't Leave Gallons Blank");
                 }
-                else if(!cost.getText().toString().matches("^\\$?(([1-9]\\d{0,2}(,\\d{3})*)|0)?\\.\\d{1,2}$"))
+                else if(cost.getText().toString().matches(""))
                 {
-                    costtextInputLayout.setErrorEnabled(true);
-                    costtextInputLayout.setError("Wrong format. e.g $10.42");
+                   costtextInputLayout.setErrorEnabled(true);
+                   costtextInputLayout.setError("Can't Leave Cost Blank");
                 }
+//                else if(!cost.getText().toString().matches("^\\$?(([1-9]\\d{0,2}(,\\d{3})*)|0)?\\.\\d{1,2}$"))
+//                {
+//                    costtextInputLayout.setErrorEnabled(true);
+//                    costtextInputLayout.setError("Wrong format. e.g $10.42");
+//                }
                 else
                 {
                     listener.onClick(position,
                                     new BigDecimal(Double.parseDouble(milesValue)).setScale(2, RoundingMode.HALF_UP).toString(),
                                      new BigDecimal(Double.parseDouble(gallonsValue)).setScale(2, RoundingMode.HALF_UP).toString(),
-                                     new BigDecimal(Double.parseDouble(costValue.split("\\$")[0])).setScale(2, RoundingMode.HALF_UP).toString(),
+                                     new BigDecimal(Double.parseDouble(costValue)).setScale(2, RoundingMode.HALF_UP).toString(),
                                      myCalendar.getTime());
                     getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
                     dialog.dismiss();
@@ -252,11 +257,11 @@ public class GasDialogFragment extends DialogFragment
                 if(costtextInputLayout.isErrorEnabled())
                     costtextInputLayout.setErrorEnabled(false);
 
-                if (!editable.toString().contains("$"))
-                {
-                    cost.setText("$" + editable.toString());
-                    Selection.setSelection(cost.getText(), cost.getText().length());
-                }
+//                if (!editable.toString().contains("$"))
+//                {
+//                    cost.setText("$" + editable.toString());
+//                    Selection.setSelection(cost.getText(), cost.getText().length());
+//                }
                 costValue = editable.toString();
             }
         });

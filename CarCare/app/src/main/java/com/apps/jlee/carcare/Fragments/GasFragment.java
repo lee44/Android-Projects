@@ -556,8 +556,8 @@ public class GasFragment extends Fragment
     {
         mRecentlyDeletedItem = (Gas)gasList.get(position);
         mRecentlyDeletedItemPosition = position;
+        db.deleteEntry(gasList.get(position));
         gasList.remove(position);
-        db.deleteEntry(new Gas(((Gas)gasList.get(position)).getID(),0,0,0,0));
         adapter.notifyItemRemoved(position);
         showUndoSnackbar();
     }
