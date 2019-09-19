@@ -137,7 +137,8 @@ public class GasFragment extends Fragment
                     g.setAmount(Double.valueOf(gallonsValue));
                     g.setDateRefilled(date.getTime());
                     db.updateEntry(g);
-                    adapter.notifyItemChanged(position);
+                    adapter.notifyItemRemoved(position);
+                    adapter.notifyItemInserted(position);
                }
                updateProgressBar();
            }
