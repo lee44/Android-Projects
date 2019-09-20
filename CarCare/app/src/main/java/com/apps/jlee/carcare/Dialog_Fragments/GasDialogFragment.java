@@ -92,7 +92,7 @@ public class GasDialogFragment extends DialogFragment
         cost.requestFocus();
 
         //Sets the text for all edit text views when user wants to edit the gas entry
-        if(getArguments() != null)
+        if(getArguments().size() != 0)
         {
             Cancel.setVisibility(View.GONE);
 
@@ -127,6 +127,9 @@ public class GasDialogFragment extends DialogFragment
         {
             SimpleDateFormat sdf = new SimpleDateFormat(DateFormat, Locale.US);
             date.setText(sdf.format(Calendar.getInstance().getTime()));
+            cost.setText("");
+            miles.setText("");
+            gallons.setText("");
         }
 
         builder.setView(dialogView);

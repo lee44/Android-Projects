@@ -104,6 +104,7 @@ public class GasFragment extends Fragment
                 updateFlag = false;
                 Bundle b = new Bundle();
                 b.clear();
+                d.setArguments(b);
                 d.show(getFragmentManager(), "fragment_gas");
             }
        });
@@ -210,7 +211,7 @@ public class GasFragment extends Fragment
         Double cost,gallons,miles;
         int id;
 
-        for(int i = 1; i < 7; i++)
+        for(int i = 1; i < 4; i++)
         {
             id = (int)db.getProfilesCount(new Gas())+1;
             cal.set(Calendar.MONTH,6); cal.set(Calendar.DAY_OF_MONTH, i*2); cal.set(Calendar.YEAR, 2019);
@@ -227,7 +228,7 @@ public class GasFragment extends Fragment
 
     public void updateProgressBar()
     {
-        int previous_oil_total = 0, previous_brakes_total = 0, previous_wheels_total = 0, previous_battery_total = 0, previous_timingbelt_total = 0;
+        double previous_oil_total = 0, previous_brakes_total = 0, previous_wheels_total = 0, previous_battery_total = 0, previous_timingbelt_total = 0;
         SharedPreferences sharedpreferences = getContext().getSharedPreferences("Replacement Values", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedpreferences.edit();
 
@@ -238,6 +239,12 @@ public class GasFragment extends Fragment
             editor.putLong("wheels_checkpoint",((Gas) (gasList.get(0))).getDateRefilled());
             editor.putLong("battery_checkpoint",((Gas) (gasList.get(0))).getDateRefilled());
             editor.putLong("timingbelt_checkpoint",((Gas) (gasList.get(0))).getDateRefilled());
+
+            editor.putFloat("oil",(float)((Gas) (gasList.get(0))).getMiles());
+            editor.putFloat("brakes",(float)((Gas) (gasList.get(0))).getMiles());
+            editor.putFloat("wheels",(float)((Gas) (gasList.get(0))).getMiles());
+            editor.putFloat("battery",(float)((Gas) (gasList.get(0))).getMiles());
+            editor.putFloat("timingbelt",(float)((Gas) (gasList.get(0))).getMiles());
         }
 
         for (int i = 0; i < gasList.size(); i++)
@@ -258,7 +265,7 @@ public class GasFragment extends Fragment
         if(gasList.size() > 0)
         {
             if (previous_oil_total < 3000)
-                editor.putFloat("oil", previous_oil_total);
+                editor.putFloat("oil", (float)previous_oil_total);
             else
             {
                 editor.putFloat("oil", 3000);
@@ -266,7 +273,7 @@ public class GasFragment extends Fragment
             }
 
             if (previous_brakes_total < 50000)
-                editor.putFloat("brakes", previous_brakes_total);
+                editor.putFloat("brakes", (float)previous_brakes_total);
             else
             {
                 editor.putFloat("brakes", 50000);
@@ -274,7 +281,7 @@ public class GasFragment extends Fragment
             }
 
             if (previous_wheels_total < 15000)
-                editor.putFloat("wheels", previous_wheels_total);
+                editor.putFloat("wheels", (float)previous_wheels_total);
             else
             {
                 editor.putFloat("wheels", 15000);
@@ -282,7 +289,7 @@ public class GasFragment extends Fragment
             }
 
             if (previous_battery_total < 30000)
-                editor.putFloat("battery", previous_battery_total);
+                editor.putFloat("battery", (float)previous_battery_total);
             else
             {
                 editor.putFloat("battery", 30000);
@@ -290,7 +297,7 @@ public class GasFragment extends Fragment
             }
 
             if (previous_timingbelt_total < 100000)
-                editor.putFloat("timingbelt", previous_timingbelt_total);
+                editor.putFloat("timingbelt", (float)previous_timingbelt_total);
             else
             {
                 editor.putFloat("timingbelt", 100000);
@@ -299,11 +306,11 @@ public class GasFragment extends Fragment
         }
         else
         {
-            editor.putFloat("oil", previous_oil_total);
-            editor.putFloat("brakes", previous_brakes_total);
-            editor.putFloat("wheels", previous_wheels_total);
-            editor.putFloat("battery", previous_battery_total);
-            editor.putFloat("timingbelt", previous_timingbelt_total);
+            editor.putFloat("oil", (float)previous_oil_total);
+            editor.putFloat("brakes", (float)previous_brakes_total);
+            editor.putFloat("wheels", (float)previous_wheels_total);
+            editor.putFloat("battery", (float)previous_battery_total);
+            editor.putFloat("timingbelt", (float)previous_timingbelt_total);
         }
         editor.apply();
     }
@@ -509,6 +516,33 @@ public class GasFragment extends Fragment
         }
     }
 
+    private class AsyncDeleteTask extends AsyncTask<Void,Void,Void>
+    {
+        private SQLiteDatabaseHandler handler;
+        private Object o;
+
+        public AsyncDeleteTask(SQLiteDatabaseHandler handler,Object o)
+        {
+            this.handler = handler;
+            this.o = o;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids)
+        {
+            handler.deleteEntry(o);
+            //updateProgressBar();
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid)
+        {
+            super.onPostExecute(aVoid);
+            Log.v("Dodgers","Object:" + ((Gas)(o)).getID());
+        }
+    }
+
     //This broadcastreceiver will be used locally instead of globally across the system and called by the AsyncExcel
     class EmailBroadCastReceiver extends BroadcastReceiver
     {
@@ -569,8 +603,10 @@ public class GasFragment extends Fragment
             @Override
             public void onDismissed(Snackbar snackbar, int event)
             {
-                if(event == Snackbar.Callback.DISMISS_EVENT_SWIPE || event == Snackbar.Callback.DISMISS_EVENT_TIMEOUT)
-                    db.deleteEntry(mRecentlyDeletedItem);
+                if(event == Snackbar.Callback.DISMISS_EVENT_SWIPE || event == Snackbar.Callback.DISMISS_EVENT_TIMEOUT || event == Snackbar.Callback.DISMISS_EVENT_CONSECUTIVE)
+                {
+                    new AsyncDeleteTask(db,mRecentlyDeletedItem).execute();
+                }
             }
 
             @Override
