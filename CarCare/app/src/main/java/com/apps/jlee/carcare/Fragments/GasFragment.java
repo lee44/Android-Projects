@@ -228,35 +228,34 @@ public class GasFragment extends Fragment
     public void updateProgressBar()
     {
         int previous_oil_total = 0, previous_brakes_total = 0, previous_wheels_total = 0, previous_battery_total = 0, previous_timingbelt_total = 0;
-        List<Object> list = db.getAllEntries(new Gas());
         SharedPreferences sharedpreferences = getContext().getSharedPreferences("Replacement Values", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedpreferences.edit();
 
-        if(list.size() == 1)
+        if(gasList.size() == 1)
         {
-            editor.putLong("oil_checkpoint",((Gas) (list.get(0))).getDateRefilled());
-            editor.putLong("brakes_checkpoint",((Gas) (list.get(0))).getDateRefilled());
-            editor.putLong("wheels_checkpoint",((Gas) (list.get(0))).getDateRefilled());
-            editor.putLong("battery_checkpoint",((Gas) (list.get(0))).getDateRefilled());
-            editor.putLong("timingbelt_checkpoint",((Gas) (list.get(0))).getDateRefilled());
+            editor.putLong("oil_checkpoint",((Gas) (gasList.get(0))).getDateRefilled());
+            editor.putLong("brakes_checkpoint",((Gas) (gasList.get(0))).getDateRefilled());
+            editor.putLong("wheels_checkpoint",((Gas) (gasList.get(0))).getDateRefilled());
+            editor.putLong("battery_checkpoint",((Gas) (gasList.get(0))).getDateRefilled());
+            editor.putLong("timingbelt_checkpoint",((Gas) (gasList.get(0))).getDateRefilled());
         }
 
-        for (int i = 0; i < list.size(); i++)
+        for (int i = 0; i < gasList.size(); i++)
         {
-            double miles = ((Gas) (list.get(i))).getMiles();
+            double miles = ((Gas) (gasList.get(i))).getMiles();
 
-            if(((Gas) (list.get(i))).getDateRefilled() >= sharedpreferences.getLong("oil_checkpoint",0))
+            if(((Gas) (gasList.get(i))).getDateRefilled() >= sharedpreferences.getLong("oil_checkpoint",0))
                 previous_oil_total += miles;
-            if(((Gas) (list.get(i))).getDateRefilled() >= sharedpreferences.getLong("brakes_checkpoint",0))
+            if(((Gas) (gasList.get(i))).getDateRefilled() >= sharedpreferences.getLong("brakes_checkpoint",0))
                 previous_brakes_total += miles;
-            if(((Gas) (list.get(i))).getDateRefilled() >= sharedpreferences.getLong("wheels_checkpoint",0))
+            if(((Gas) (gasList.get(i))).getDateRefilled() >= sharedpreferences.getLong("wheels_checkpoint",0))
                 previous_wheels_total += miles;
-            if(((Gas) (list.get(i))).getDateRefilled() >= sharedpreferences.getLong("battery_checkpoint",0))
+            if(((Gas) (gasList.get(i))).getDateRefilled() >= sharedpreferences.getLong("battery_checkpoint",0))
                 previous_battery_total += miles;
-            if(((Gas) (list.get(i))).getDateRefilled() >= sharedpreferences.getLong("timingbelt_checkpoint",0))
+            if(((Gas) (gasList.get(i))).getDateRefilled() >= sharedpreferences.getLong("timingbelt_checkpoint",0))
                 previous_timingbelt_total += miles;
         }
-        if(list.size() > 0)
+        if(gasList.size() > 0)
         {
             if (previous_oil_total < 3000)
                 editor.putFloat("oil", previous_oil_total);
@@ -557,7 +556,6 @@ public class GasFragment extends Fragment
     {
         mRecentlyDeletedItem = (Gas)gasList.get(position);
         mRecentlyDeletedItemPosition = position;
-        db.deleteEntry(gasList.get(position));
         gasList.remove(position);
         adapter.notifyItemRemoved(position);
         showUndoSnackbar();
@@ -566,7 +564,18 @@ public class GasFragment extends Fragment
     private void showUndoSnackbar()
     {
         Snackbar snackbar = Snackbar.make(getActivity().findViewById(R.id.root), R.string.snack_bar_text,Snackbar.LENGTH_LONG);
-        snackbar.setAction("Undo", v -> undoDelete());
+        snackbar.addCallback(new Snackbar.Callback()
+        {
+            @Override
+            public void onDismissed(Snackbar snackbar, int event)
+            {
+                if(event == Snackbar.Callback.DISMISS_EVENT_SWIPE || event == Snackbar.Callback.DISMISS_EVENT_TIMEOUT)
+                    db.deleteEntry(mRecentlyDeletedItem);
+            }
+
+            @Override
+            public void onShown(Snackbar snackbar){}
+        }).setAction("Undo", v -> undoDelete());
         snackbar.show();
     }
 

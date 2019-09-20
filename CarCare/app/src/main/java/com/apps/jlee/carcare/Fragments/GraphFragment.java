@@ -51,13 +51,13 @@ public class GraphFragment extends Fragment
     {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+        db = new SQLiteDatabaseHandler(getContext());
+        entries = new ArrayList<Entry>();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState)
     {
-        db = new SQLiteDatabaseHandler(getContext());
-        entries = new ArrayList<Entry>();
         View v = inflater.inflate(R.layout.fragment_graph, container, false);
         chart = v.findViewById(R.id.chart);
         oilPB = v.findViewById(R.id.oilPB);
@@ -281,7 +281,6 @@ public class GraphFragment extends Fragment
                 list = DBlist;
                 loadGraphData(1);
                 loadProgressBar();
-
             }
         }
     }
