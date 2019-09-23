@@ -114,13 +114,10 @@ public class GasFragment extends Fragment
            @Override
            public void onClick(int position, String milesValue, String gallonsValue, String cost, Date date)
            {
-               int dbCount = (int)db.getProfilesCount()+1;
-
                //Insert new Gas Entry
                if(!updateFlag)
                {
                    Gas g = new Gas();
-                   g.setID(dbCount);
                    g.setMiles(Double.parseDouble(milesValue));
                    g.setAmount(Double.parseDouble(gallonsValue));
                    g.setCost(Double.parseDouble(cost));
@@ -209,11 +206,9 @@ public class GasFragment extends Fragment
     {
         Calendar cal = Calendar.getInstance();
         Double cost,gallons,miles;
-        int id;
 
-        for(int i = 1; i < 2; i++)
+        for(int i = 1; i < 5; i++)
         {
-            id = (int)db.getProfilesCount()+1;
             cal.set(Calendar.MONTH,6); cal.set(Calendar.DAY_OF_MONTH, i*2); cal.set(Calendar.YEAR, 2019);
 
             cost = Double.parseDouble(String.format("%.2f",(new Random().nextInt(10)+45) + new Random().nextDouble()));
@@ -221,11 +216,9 @@ public class GasFragment extends Fragment
             miles = Double.parseDouble(String.format("%.2f",(new Random().nextInt(115)+400) + new Random().nextDouble()));
 
             //db.addEntry(new Gas(id,cost,gallons,miles,cal.getTime().getTime()));
-            new AsyncAddDeleteTask(db,new Gas(id,cost,gallons,miles,cal.getTime().getTime()),"add").execute();
-            gasList.add(new Gas(id,cost,gallons,miles,cal.getTime().getTime()));
-            adapter.notifyDataSetChanged();
+            new AsyncAddDeleteTask(db,new Gas(0,cost,gallons,miles,cal.getTime().getTime()),"add").execute();
         }
-        Log.v("Dodgers",db.getAllEntries().toString());
+        new AsyncDBTask(db).execute();
     }
 
     public void updateProgressBar()
@@ -394,7 +387,6 @@ public class GasFragment extends Fragment
         protected void onPostExecute(Void aVoid)
         {
             super.onPostExecute(aVoid);
-            //Log.v("Dodgers","Object:" + ((Gas)(o)).getID());
         }
     }
 
@@ -597,8 +589,7 @@ public class GasFragment extends Fragment
     {
         mRecentlyDeletedItem = (Gas)gasList.get(position);
         mRecentlyDeletedItemPosition = position;
-        //Log.v("Dodgers",db.getAllEntries().toString());
-        Log.v("Dodgers","Position: "+ position + "\nDeleting: "+mRecentlyDeletedItem.toString());
+
         new AsyncAddDeleteTask(db,mRecentlyDeletedItem,"delete").execute();
         //db.deleteEntry(mRecentlyDeletedItem);
         gasList.remove(position);
