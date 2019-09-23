@@ -26,7 +26,7 @@ public class SwipeCallback extends ItemTouchHelper.SimpleCallback
         this.g = g;
         delete_icon = ContextCompat.getDrawable(g.getContext(), R.drawable.trash);
         edit_icon = ContextCompat.getDrawable(g.getContext(), R.drawable.edit);
-        background = new ColorDrawable(Color.RED);
+        background = new ColorDrawable(Color.rgb(220,20,60));
     }
 
     @Override
@@ -62,7 +62,7 @@ public class SwipeCallback extends ItemTouchHelper.SimpleCallback
 
         if (dX > 0)
         { // Swiping to the right
-            background.setColor(Color.GREEN);
+            background.setColor(Color.rgb(50,205,50));
             int iconLeft = itemView.getLeft() + iconMargin + edit_icon.getIntrinsicWidth();
             int iconRight = itemView.getLeft() + iconMargin;
             edit_icon.setBounds(iconRight, iconTop, iconLeft, iconBottom);
@@ -72,7 +72,7 @@ public class SwipeCallback extends ItemTouchHelper.SimpleCallback
         }
         else if (dX < 0)
         { // Swiping to the left
-            background.setColor(Color.RED);
+            background.setColor(Color.rgb(220,20,60));
             int iconLeft = itemView.getRight() - iconMargin - delete_icon.getIntrinsicWidth();
             int iconRight = itemView.getRight() - iconMargin;
             delete_icon.setBounds(iconLeft, iconTop, iconRight, iconBottom);

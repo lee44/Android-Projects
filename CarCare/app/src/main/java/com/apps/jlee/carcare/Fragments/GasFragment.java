@@ -80,7 +80,7 @@ public class GasFragment extends Fragment
         gasList = new LinkedList<>();
         d = new GasDialogFragment();
         f = new FilterDialogFragment();
-        db = new SQLiteDatabaseHandler(getContext());
+        db = SQLiteDatabaseHandler.getInstance(getContext());
     }
 
     @Override
@@ -114,7 +114,7 @@ public class GasFragment extends Fragment
            @Override
            public void onClick(int position, String milesValue, String gallonsValue, String cost, Date date)
            {
-               int dbCount = (int)db.getProfilesCount(new Gas())+1;
+               int dbCount = (int)db.getProfilesCount()+1;
 
                //Insert new Gas Entry
                if(!updateFlag)
@@ -211,19 +211,21 @@ public class GasFragment extends Fragment
         Double cost,gallons,miles;
         int id;
 
-        for(int i = 1; i < 4; i++)
+        for(int i = 1; i < 2; i++)
         {
-            id = (int)db.getProfilesCount(new Gas())+1;
+            id = (int)db.getProfilesCount()+1;
             cal.set(Calendar.MONTH,6); cal.set(Calendar.DAY_OF_MONTH, i*2); cal.set(Calendar.YEAR, 2019);
 
             cost = Double.parseDouble(String.format("%.2f",(new Random().nextInt(10)+45) + new Random().nextDouble()));
             gallons = Double.parseDouble(String.format("%.2f",(new Random().nextInt(6)+10) + new Random().nextDouble()));
             miles = Double.parseDouble(String.format("%.2f",(new Random().nextInt(115)+400) + new Random().nextDouble()));
 
-            db.addEntry(new Gas(id,cost,gallons,miles,cal.getTime().getTime()));
+            //db.addEntry(new Gas(id,cost,gallons,miles,cal.getTime().getTime()));
+            new AsyncAddDeleteTask(db,new Gas(id,cost,gallons,miles,cal.getTime().getTime()),"add").execute();
             gasList.add(new Gas(id,cost,gallons,miles,cal.getTime().getTime()));
             adapter.notifyDataSetChanged();
         }
+        Log.v("Dodgers",db.getAllEntries().toString());
     }
 
     public void updateProgressBar()
@@ -349,7 +351,7 @@ public class GasFragment extends Fragment
         @Override
         protected List<Object> doInBackground(Void... voids)
         {
-            return handler.getAllEntries(new Gas());
+            return handler.getAllEntries();
         }
         @Override
         protected void onPostExecute(List<Object> list)
@@ -361,6 +363,38 @@ public class GasFragment extends Fragment
                 gasList.addAll(list);
                 adapter.notifyDataSetChanged();
             }
+        }
+    }
+
+    private static class AsyncAddDeleteTask extends AsyncTask<Void,Void,Void>
+    {
+        private SQLiteDatabaseHandler handler;
+        private Object o;
+        private String flag;
+
+        public AsyncAddDeleteTask(SQLiteDatabaseHandler handler, Object o, String flag)
+        {
+            this.handler = handler;
+            this.o = o;
+            this.flag = flag;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids)
+        {
+            if(flag.equals("add"))
+                handler.addEntry(o);
+            else if(flag.equals("delete"))
+                handler.deleteEntry(o);
+            //updateProgressBar();
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid)
+        {
+            super.onPostExecute(aVoid);
+            //Log.v("Dodgers","Object:" + ((Gas)(o)).getID());
         }
     }
 
@@ -382,7 +416,7 @@ public class GasFragment extends Fragment
         @Override
         protected List<Object> doInBackground(Void... voids)
         {
-            return handler.getAllEntries(new Gas());
+            return handler.getAllEntries();
         }
 
         @Override
@@ -417,7 +451,7 @@ public class GasFragment extends Fragment
         @Override
         protected List<Object> doInBackground(Void... voids)
         {
-            return handler.getAllEntries(new Gas());
+            return handler.getAllEntries();
         }
 
         @Override
@@ -516,33 +550,6 @@ public class GasFragment extends Fragment
         }
     }
 
-    private class AsyncDeleteTask extends AsyncTask<Void,Void,Void>
-    {
-        private SQLiteDatabaseHandler handler;
-        private Object o;
-
-        public AsyncDeleteTask(SQLiteDatabaseHandler handler,Object o)
-        {
-            this.handler = handler;
-            this.o = o;
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids)
-        {
-            handler.deleteEntry(o);
-            //updateProgressBar();
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid)
-        {
-            super.onPostExecute(aVoid);
-            Log.v("Dodgers","Object:" + ((Gas)(o)).getID());
-        }
-    }
-
     //This broadcastreceiver will be used locally instead of globally across the system and called by the AsyncExcel
     class EmailBroadCastReceiver extends BroadcastReceiver
     {
@@ -590,6 +597,10 @@ public class GasFragment extends Fragment
     {
         mRecentlyDeletedItem = (Gas)gasList.get(position);
         mRecentlyDeletedItemPosition = position;
+        //Log.v("Dodgers",db.getAllEntries().toString());
+        Log.v("Dodgers","Position: "+ position + "\nDeleting: "+mRecentlyDeletedItem.toString());
+        new AsyncAddDeleteTask(db,mRecentlyDeletedItem,"delete").execute();
+        //db.deleteEntry(mRecentlyDeletedItem);
         gasList.remove(position);
         adapter.notifyItemRemoved(position);
         showUndoSnackbar();
@@ -597,27 +608,15 @@ public class GasFragment extends Fragment
 
     private void showUndoSnackbar()
     {
-        Snackbar snackbar = Snackbar.make(getActivity().findViewById(R.id.root), R.string.snack_bar_text,Snackbar.LENGTH_LONG);
-        snackbar.addCallback(new Snackbar.Callback()
-        {
-            @Override
-            public void onDismissed(Snackbar snackbar, int event)
-            {
-                if(event == Snackbar.Callback.DISMISS_EVENT_SWIPE || event == Snackbar.Callback.DISMISS_EVENT_TIMEOUT || event == Snackbar.Callback.DISMISS_EVENT_CONSECUTIVE)
-                {
-                    new AsyncDeleteTask(db,mRecentlyDeletedItem).execute();
-                }
-            }
-
-            @Override
-            public void onShown(Snackbar snackbar){}
-        }).setAction("Undo", v -> undoDelete());
+        Snackbar snackbar = Snackbar.make(getActivity().findViewById(R.id.root), R.string.snack_bar_text,Snackbar.LENGTH_SHORT);
+        snackbar.setAction("Undo",v -> undoDelete());
         snackbar.show();
     }
 
     private void undoDelete()
     {
         gasList.add(mRecentlyDeletedItemPosition, mRecentlyDeletedItem);
+        new AsyncAddDeleteTask(db,mRecentlyDeletedItem,"add").execute();
         adapter.notifyItemInserted(mRecentlyDeletedItemPosition);
     }
 

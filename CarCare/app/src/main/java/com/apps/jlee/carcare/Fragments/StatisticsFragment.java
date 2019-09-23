@@ -28,7 +28,7 @@ public class StatisticsFragment extends Fragment
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        db = new SQLiteDatabaseHandler(getContext());
+        db = SQLiteDatabaseHandler.getInstance(getContext());
 
         View view = inflater.inflate(R.layout.fragment_stat, container, false);
         totalCost = view.findViewById(R.id.totalCost);
@@ -59,7 +59,7 @@ public class StatisticsFragment extends Fragment
         protected double[] doInBackground(Void... voids)
         {
             double[] v = new double[9];
-            List<Object> list = handler.getAllEntries(new Gas());
+            List<Object> list = handler.getAllEntries();
             Double cost = 0.0, miles = 0.0, gallons = 0.0;
             long timeInMilliseconds = 0;
 

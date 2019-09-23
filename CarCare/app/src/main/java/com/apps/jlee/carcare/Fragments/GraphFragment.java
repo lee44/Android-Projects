@@ -51,7 +51,7 @@ public class GraphFragment extends Fragment
     {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        db = new SQLiteDatabaseHandler(getContext());
+        db = SQLiteDatabaseHandler.getInstance(getContext());
         entries = new ArrayList<Entry>();
     }
 
@@ -269,7 +269,7 @@ public class GraphFragment extends Fragment
         @Override
         protected List<Object> doInBackground(Void... voids)
         {
-            return handler.getAllEntries(new Gas());
+            return handler.getAllEntries();
         }
         @Override
         protected void onPostExecute(List<Object> DBlist)

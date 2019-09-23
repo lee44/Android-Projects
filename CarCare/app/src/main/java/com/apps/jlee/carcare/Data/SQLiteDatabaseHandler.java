@@ -20,12 +20,26 @@ public class SQLiteDatabaseHandler extends SQLiteOpenHelper
     private static final String TABLE_NAME = "Gas", KEY_ID = "id", KEY_COST = "cost", KEY_AMOUNT = "amount", KEY_MILES = "miles", KEY_DATE = "date";
     private static final String[] COLUMNS = {KEY_ID, KEY_COST, KEY_AMOUNT, KEY_MILES, KEY_DATE};
     private Context c;
+    private static SQLiteDatabaseHandler sInstance;
 
     public SQLiteDatabaseHandler(Context context)
     {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         this.c = context;
     }
+
+    public static synchronized SQLiteDatabaseHandler getInstance(Context context)
+    {
+        // Use the application context, which will ensure that you
+        // don't accidentally leak an Activity's context.
+        // See this article for more information: http://bit.ly/6LRzfx
+        if (sInstance == null)
+        {
+            sInstance = new SQLiteDatabaseHandler(context.getApplicationContext());
+        }
+        return sInstance;
+    }
+
 
     @Override
     public void onCreate(SQLiteDatabase db)
@@ -45,7 +59,7 @@ public class SQLiteDatabaseHandler extends SQLiteOpenHelper
         db.insert(TABLE_NAME, null, values);
     }
 
-    public List<Object> getAllEntries(Object o)
+    public List<Object> getAllEntries()
     {
         List<Object> list = new LinkedList<>();
         SQLiteDatabase db = this.getWritableDatabase();
@@ -94,11 +108,20 @@ public class SQLiteDatabaseHandler extends SQLiteOpenHelper
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_NAME, "id = ?", new String[]{String.valueOf(((Gas)o).getID())});
     }
-    public long getProfilesCount(Object o)
+    public long getProfilesCount()
     {
         SQLiteDatabase db = this.getReadableDatabase();
         return DatabaseUtils.queryNumEntries(db, TABLE_NAME);
     }
+
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
+    {
+        // you can implement here migration process
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+        this.onCreate(db);
+    }
+
     public Gas getEntry(int id)
     {
         SQLiteDatabase db = this.getReadableDatabase();
@@ -159,11 +182,5 @@ public class SQLiteDatabaseHandler extends SQLiteOpenHelper
         return gasList;
     }
 
-    @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
-    {
-        // you can implement here migration process
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
-        this.onCreate(db);
-    }
+
 }
