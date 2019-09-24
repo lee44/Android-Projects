@@ -73,7 +73,13 @@ public class GraphFragment extends Fragment
         batteryPB.setMax(30000);
         timingBeltPB.setMax(100000);
 
-        new AsyncDBTask(db).execute();
+        //new AsyncDBTask(db).execute();
+        list = db.getAllEntries();
+        if(list.size() != 0)
+        {
+            loadGraphData(1);
+            loadProgressBar();
+        }
 
         return v;
     }

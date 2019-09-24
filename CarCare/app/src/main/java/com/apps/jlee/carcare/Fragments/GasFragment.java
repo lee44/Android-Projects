@@ -95,7 +95,10 @@ public class GasFragment extends Fragment
        rv.setAdapter(adapter);
        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new SwipeCallback(this));
        itemTouchHelper.attachToRecyclerView(rv);
-       new AsyncDBTask(db).execute();
+
+       //new AsyncDBTask(db).execute();
+        gasList.addAll(db.getAllEntries());
+        adapter.notifyDataSetChanged();
 
        fab.setOnClickListener(new View.OnClickListener()
        {
@@ -215,10 +218,12 @@ public class GasFragment extends Fragment
             gallons = Double.parseDouble(String.format("%.2f",(new Random().nextInt(6)+10) + new Random().nextDouble()));
             miles = Double.parseDouble(String.format("%.2f",(new Random().nextInt(115)+400) + new Random().nextDouble()));
 
-            //db.addEntry(new Gas(id,cost,gallons,miles,cal.getTime().getTime()));
-            new AsyncAddDeleteTask(db,new Gas(0,cost,gallons,miles,cal.getTime().getTime()),"add").execute();
+            db.addEntry(new Gas(0,cost,gallons,miles,cal.getTime().getTime()));
+            //new AsyncAddDeleteTask(db,new Gas(0,cost,gallons,miles,cal.getTime().getTime()),"add").execute();
         }
-        new AsyncDBTask(db).execute();
+        //new AsyncDBTask(db).execute();
+        gasList.addAll(db.getAllEntries());
+        adapter.notifyDataSetChanged();
     }
 
     public void updateProgressBar()
@@ -359,7 +364,7 @@ public class GasFragment extends Fragment
         }
     }
 
-    private static class AsyncAddDeleteTask extends AsyncTask<Void,Void,Void>
+    private class AsyncAddDeleteTask extends AsyncTask<Void,Void,Void>
     {
         private SQLiteDatabaseHandler handler;
         private Object o;
@@ -379,7 +384,6 @@ public class GasFragment extends Fragment
                 handler.addEntry(o);
             else if(flag.equals("delete"))
                 handler.deleteEntry(o);
-            //updateProgressBar();
             return null;
         }
 
@@ -590,8 +594,8 @@ public class GasFragment extends Fragment
         mRecentlyDeletedItem = (Gas)gasList.get(position);
         mRecentlyDeletedItemPosition = position;
 
-        new AsyncAddDeleteTask(db,mRecentlyDeletedItem,"delete").execute();
-        //db.deleteEntry(mRecentlyDeletedItem);
+        //new AsyncAddDeleteTask(db,mRecentlyDeletedItem,"delete").execute();
+        db.deleteEntry(mRecentlyDeletedItem);
         gasList.remove(position);
         adapter.notifyItemRemoved(position);
         showUndoSnackbar();
@@ -607,7 +611,8 @@ public class GasFragment extends Fragment
     private void undoDelete()
     {
         gasList.add(mRecentlyDeletedItemPosition, mRecentlyDeletedItem);
-        new AsyncAddDeleteTask(db,mRecentlyDeletedItem,"add").execute();
+        db.addEntry(mRecentlyDeletedItem);
+        //new AsyncAddDeleteTask(db,mRecentlyDeletedItem,"add").execute();
         adapter.notifyItemInserted(mRecentlyDeletedItemPosition);
     }
 
