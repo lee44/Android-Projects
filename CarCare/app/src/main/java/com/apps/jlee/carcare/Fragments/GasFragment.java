@@ -150,7 +150,18 @@ public class GasFragment extends Fragment
            @Override
            public void onClick(Date starting_date, Date ending_date, String sortBy)
            {
-               new AsyncDBFilterTask(db,starting_date,ending_date,sortBy).execute();
+               List<Object> list = db.getAllEntries();
+
+               if(list.size() != 0)
+               {
+                   gasList.clear();
+                   for (int i = 0; i < list.size(); i++)
+                       if (starting_date.getTime() <= ((Gas) (list.get(i))).getDateRefilled() && ending_date.getTime() >= ((Gas) (list.get(i))).getDateRefilled())
+                           gasList.add(list.get(i));
+
+                   Collections.sort(gasList, new MapComparator(sortBy));
+                   adapter.notifyDataSetChanged();
+               }
            }
        });
 
