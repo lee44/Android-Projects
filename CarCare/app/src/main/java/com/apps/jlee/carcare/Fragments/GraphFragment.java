@@ -42,7 +42,7 @@ public class GraphFragment extends Fragment
     private String[] values;
     private ProgressBar oilPB, brakesPB, wheelsPB, batteryPB, timingBeltPB;
     private String dbDateFormat = "yyyy-MM-dd HH:mm:ss";
-    private TextView t;
+    private TextView t, oilProgress, brakesProgress, wheelsProgress, batteryProgress, timeingBeltProgress;
 
     public GraphFragment(){}
 
@@ -61,10 +61,15 @@ public class GraphFragment extends Fragment
         View v = inflater.inflate(R.layout.fragment_graph, container, false);
         chart = v.findViewById(R.id.chart);
         oilPB = v.findViewById(R.id.oilPB);
+        oilProgress = v.findViewById(R.id.oilprogress);
         brakesPB = v.findViewById(R.id.brakesPB);
+        brakesProgress = v.findViewById(R.id.brakesprogress);
         wheelsPB = v.findViewById(R.id.wheelsPB);
+        wheelsProgress = v.findViewById(R.id.wheelsprogress);
         batteryPB = v.findViewById(R.id.batteryPB);
+        batteryProgress = v.findViewById(R.id.batteryprogress);
         timingBeltPB = v.findViewById(R.id.timingBeltPB);
+        timeingBeltProgress = v.findViewById(R.id.timingbeltprogress);
         t = v.findViewById(R.id.title);
 
         oilPB.setMax(3000);
@@ -223,7 +228,9 @@ public class GraphFragment extends Fragment
             @Override
             public void run()
             {
-                oilPB.setProgress((int)sharedpreferences.getFloat("oil",0));
+                int oil = (int)sharedpreferences.getFloat("oil",0);
+                oilPB.setProgress(oil);
+                oilProgress.setText(oil+"/3000");
             }
         });
 
@@ -232,7 +239,9 @@ public class GraphFragment extends Fragment
             @Override
             public void run()
             {
-                brakesPB.setProgress((int)sharedpreferences.getFloat("brakes",0));
+                int brakes = (int)sharedpreferences.getFloat("brakes",0);
+                brakesPB.setProgress(brakes);
+                brakesProgress.setText(brakes+"/50000");
             }
         });
 
@@ -241,7 +250,9 @@ public class GraphFragment extends Fragment
             @Override
             public void run()
             {
-                wheelsPB.setProgress((int)sharedpreferences.getFloat("wheels",0));
+                int wheels = (int)sharedpreferences.getFloat("wheels",0);
+                wheelsPB.setProgress(wheels);
+                wheelsProgress.setText(wheels+"/15000");
             }
         });
 
@@ -250,7 +261,9 @@ public class GraphFragment extends Fragment
             @Override
             public void run()
             {
-                batteryPB.setProgress((int)sharedpreferences.getFloat("battery",0));
+                int battery = (int)sharedpreferences.getFloat("battery",0);
+                batteryPB.setProgress(battery);
+                batteryProgress.setText(battery+"/30000");
             }
         });
 
@@ -259,7 +272,9 @@ public class GraphFragment extends Fragment
             @Override
             public void run()
             {
-                timingBeltPB.setProgress((int)sharedpreferences.getFloat("timingbelt",0));
+                int timingBelt = (int)sharedpreferences.getFloat("timingbelt",0);
+                timingBeltPB.setProgress(timingBelt);
+                timeingBeltProgress.setText(timingBelt+"/100000");
             }
         });
     }

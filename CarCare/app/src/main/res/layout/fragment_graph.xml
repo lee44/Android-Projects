@@ -73,6 +73,18 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/guideline4" />
 
+        <TextView
+            android:id="@+id/oilprogress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:layout_marginTop="6dp"
+            android:text="0/3000"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/Default"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline4" />
+
         <ProgressBar
             android:id="@+id/oilPB"
             style="@android:style/Widget.ProgressBar.Horizontal"
@@ -101,6 +113,18 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/guideline9" />
 
+        <TextView
+            android:id="@+id/brakesprogress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:layout_marginTop="6dp"
+            android:text="0/50000"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/Default"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline9" />
+
         <ProgressBar
             android:id="@+id/brakesPB"
             style="@android:style/Widget.ProgressBar.Horizontal"
@@ -127,6 +151,18 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline10" />
+
+        <TextView
+            android:id="@+id/wheelsprogress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:layout_marginTop="6dp"
+            android:text="0/15000"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/Default"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/guideline10" />
 
         <ProgressBar
@@ -158,6 +194,18 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/guideline11" />
 
+        <TextView
+            android:id="@+id/batteryprogress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:layout_marginTop="6dp"
+            android:text="0/30000"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/Default"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline11" />
+
         <ProgressBar
             android:id="@+id/batteryPB"
             style="@android:style/Widget.ProgressBar.Horizontal"
@@ -184,6 +232,18 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline12" />
+
+        <TextView
+            android:id="@+id/timingbeltprogress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:layout_marginTop="6dp"
+            android:text="0/100000"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/Default"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/guideline12" />
 
         <ProgressBar
