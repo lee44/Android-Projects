@@ -141,7 +141,6 @@ public class GasFragment extends Fragment
                     adapter.notifyItemRemoved(position);
                     adapter.notifyItemInserted(position);
                }
-               updateProgressBar();
            }
        });
 
@@ -235,95 +234,6 @@ public class GasFragment extends Fragment
         //new AsyncDBTask(db).execute();
         gasList.addAll(db.getAllEntries());
         adapter.notifyDataSetChanged();
-    }
-
-    public void updateProgressBar()
-    {
-        double previous_oil_total = 0, previous_brakes_total = 0, previous_wheels_total = 0, previous_battery_total = 0, previous_timingbelt_total = 0;
-        SharedPreferences sharedpreferences = getContext().getSharedPreferences("Replacement Values", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedpreferences.edit();
-
-        if(gasList.size() == 1)
-        {
-            editor.putLong("oil_checkpoint",((Gas) (gasList.get(0))).getDateRefilled());
-            editor.putLong("brakes_checkpoint",((Gas) (gasList.get(0))).getDateRefilled());
-            editor.putLong("wheels_checkpoint",((Gas) (gasList.get(0))).getDateRefilled());
-            editor.putLong("battery_checkpoint",((Gas) (gasList.get(0))).getDateRefilled());
-            editor.putLong("timingbelt_checkpoint",((Gas) (gasList.get(0))).getDateRefilled());
-
-            editor.putFloat("oil",(float)((Gas) (gasList.get(0))).getMiles());
-            editor.putFloat("brakes",(float)((Gas) (gasList.get(0))).getMiles());
-            editor.putFloat("wheels",(float)((Gas) (gasList.get(0))).getMiles());
-            editor.putFloat("battery",(float)((Gas) (gasList.get(0))).getMiles());
-            editor.putFloat("timingbelt",(float)((Gas) (gasList.get(0))).getMiles());
-        }
-
-        for (int i = 0; i < gasList.size(); i++)
-        {
-            double miles = ((Gas) (gasList.get(i))).getMiles();
-
-            if(((Gas) (gasList.get(i))).getDateRefilled() >= sharedpreferences.getLong("oil_checkpoint",0))
-                previous_oil_total += miles;
-            if(((Gas) (gasList.get(i))).getDateRefilled() >= sharedpreferences.getLong("brakes_checkpoint",0))
-                previous_brakes_total += miles;
-            if(((Gas) (gasList.get(i))).getDateRefilled() >= sharedpreferences.getLong("wheels_checkpoint",0))
-                previous_wheels_total += miles;
-            if(((Gas) (gasList.get(i))).getDateRefilled() >= sharedpreferences.getLong("battery_checkpoint",0))
-                previous_battery_total += miles;
-            if(((Gas) (gasList.get(i))).getDateRefilled() >= sharedpreferences.getLong("timingbelt_checkpoint",0))
-                previous_timingbelt_total += miles;
-        }
-        if(gasList.size() > 0)
-        {
-            if (previous_oil_total < 3000)
-                editor.putFloat("oil", (float)previous_oil_total);
-            else
-            {
-                editor.putFloat("oil", 3000);
-                scheduleNotification("Oil Replacement", "You have driven more than 3000 miles and your oil needs to be replaced. Have you replaced your oil?",1);
-            }
-
-            if (previous_brakes_total < 50000)
-                editor.putFloat("brakes", (float)previous_brakes_total);
-            else
-            {
-                editor.putFloat("brakes", 50000);
-                scheduleNotification("Brake Replacement", "You have driven more than 50000 miles and your brakes needs to be replaced. Have you replaced your brakes?",2);
-            }
-
-            if (previous_wheels_total < 15000)
-                editor.putFloat("wheels", (float)previous_wheels_total);
-            else
-            {
-                editor.putFloat("wheels", 15000);
-                scheduleNotification("Tire Replacement", "You have driven more than 15000 miles and your tires needs to be replaced. Have you replaced your tires?",3);
-            }
-
-            if (previous_battery_total < 30000)
-                editor.putFloat("battery", (float)previous_battery_total);
-            else
-            {
-                editor.putFloat("battery", 30000);
-                scheduleNotification("Battery Replacement", "You have driven more than 30000 miles and your battery needs to be replaced. Have you replaced your battery?",4);
-            }
-
-            if (previous_timingbelt_total < 100000)
-                editor.putFloat("timingbelt", (float)previous_timingbelt_total);
-            else
-            {
-                editor.putFloat("timingbelt", 100000);
-                scheduleNotification("Timing Belt Replacement", "You have driven more than 100000 miles and your timing belt needs to be replaced. Have you replaced your timing belt?",5);
-            }
-        }
-        else
-        {
-            editor.putFloat("oil", (float)previous_oil_total);
-            editor.putFloat("brakes", (float)previous_brakes_total);
-            editor.putFloat("wheels", (float)previous_wheels_total);
-            editor.putFloat("battery", (float)previous_battery_total);
-            editor.putFloat("timingbelt", (float)previous_timingbelt_total);
-        }
-        editor.apply();
     }
 
     public void scheduleNotification(String title, String message, int id)

@@ -43,6 +43,7 @@ public class GraphFragment extends Fragment
     private ProgressBar oilPB, brakesPB, wheelsPB, batteryPB, timingBeltPB;
     private String dbDateFormat = "yyyy-MM-dd HH:mm:ss";
     private TextView t, oilProgress, brakesProgress, wheelsProgress, batteryProgress, timeingBeltProgress;
+    private double previous_oil_total = 0, previous_brakes_total = 0, previous_wheels_total = 0, previous_battery_total = 0, previous_timingbelt_total = 0;
 
     public GraphFragment(){}
 
@@ -83,6 +84,7 @@ public class GraphFragment extends Fragment
         if(list.size() != 0)
         {
             loadGraphData(1);
+            updateProgressBar();
             loadProgressBar();
         }
 
@@ -219,16 +221,93 @@ public class GraphFragment extends Fragment
         chart.moveViewToX(list.size());
     }
 
-    public void loadProgressBar()
+    public void updateProgressBar()
     {
         SharedPreferences sharedpreferences = getContext().getSharedPreferences("Replacement Values", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedpreferences.edit();
 
+        /*Create checkpoint if it doesn't exist*/
+        if(sharedpreferences.getLong("oil_checkpoint",0) == 0)
+        {
+            editor.putLong("oil_checkpoint",((Gas) (list.get(0))).getDateRefilled());
+            editor.putLong("brakes_checkpoint",((Gas) (list.get(0))).getDateRefilled());
+            editor.putLong("wheels_checkpoint",((Gas) (list.get(0))).getDateRefilled());
+            editor.putLong("battery_checkpoint",((Gas) (list.get(0))).getDateRefilled());
+            editor.putLong("timingbelt_checkpoint",((Gas) (list.get(0))).getDateRefilled());
+        }
+
+        for (int i = 0; i < list.size(); i++)
+        {
+            double miles = ((Gas) (list.get(i))).getMiles();
+
+            if(((Gas) (list.get(i))).getDateRefilled() >= sharedpreferences.getLong("oil_checkpoint",0))
+                previous_oil_total += miles;
+            if(((Gas) (list.get(i))).getDateRefilled() >= sharedpreferences.getLong("brakes_checkpoint",0))
+                previous_brakes_total += miles;
+            if(((Gas) (list.get(i))).getDateRefilled() >= sharedpreferences.getLong("wheels_checkpoint",0))
+                previous_wheels_total += miles;
+            if(((Gas) (list.get(i))).getDateRefilled() >= sharedpreferences.getLong("battery_checkpoint",0))
+                previous_battery_total += miles;
+            if(((Gas) (list.get(i))).getDateRefilled() >= sharedpreferences.getLong("timingbelt_checkpoint",0))
+                previous_timingbelt_total += miles;
+        }
+
+        if (previous_oil_total < 3000)
+            editor.putFloat("oil", (float)previous_oil_total);
+        else
+        {
+            editor.putFloat("oil", 3000);
+            previous_oil_total = 3000;
+            //scheduleNotification("Oil Replacement", "You have driven more than 3000 miles and your oil needs to be replaced. Have you replaced your oil?",1);
+        }
+
+        if (previous_brakes_total < 50000)
+            editor.putFloat("brakes", (float)previous_brakes_total);
+        else
+        {
+            editor.putFloat("brakes", 50000);
+            previous_brakes_total = 50000;
+            //scheduleNotification("Brake Replacement", "You have driven more than 50000 miles and your brakes needs to be replaced. Have you replaced your brakes?",2);
+        }
+
+        if (previous_wheels_total < 15000)
+            editor.putFloat("wheels", (float)previous_wheels_total);
+        else
+        {
+            editor.putFloat("wheels", 15000);
+            previous_wheels_total = 15000;
+            //scheduleNotification("Tire Replacement", "You have driven more than 15000 miles and your tires needs to be replaced. Have you replaced your tires?",3);
+        }
+
+        if (previous_battery_total < 30000)
+            editor.putFloat("battery", (float)previous_battery_total);
+        else
+        {
+            editor.putFloat("battery", 30000);
+            previous_battery_total = 30000;
+            //scheduleNotification("Battery Replacement", "You have driven more than 30000 miles and your battery needs to be replaced. Have you replaced your battery?",4);
+        }
+
+        if (previous_timingbelt_total < 100000)
+            editor.putFloat("timingbelt", (float)previous_timingbelt_total);
+        else
+        {
+            editor.putFloat("timingbelt", 100000);
+            previous_timingbelt_total = 100000;
+            //scheduleNotification("Timing Belt Replacement", "You have driven more than 100000 miles and your timing belt needs to be replaced. Have you replaced your timing belt?",5);
+        }
+
+        editor.apply();
+    }
+
+    public void loadProgressBar()
+    {
         oilPB.post(new Runnable()
         {
             @Override
             public void run()
             {
-                int oil = (int)sharedpreferences.getFloat("oil",0);
+                int oil = (int)previous_oil_total;
                 oilPB.setProgress(oil);
                 oilProgress.setText(oil+"/3000");
             }
@@ -239,7 +318,7 @@ public class GraphFragment extends Fragment
             @Override
             public void run()
             {
-                int brakes = (int)sharedpreferences.getFloat("brakes",0);
+                int brakes = (int)previous_brakes_total;
                 brakesPB.setProgress(brakes);
                 brakesProgress.setText(brakes+"/50000");
             }
@@ -250,7 +329,7 @@ public class GraphFragment extends Fragment
             @Override
             public void run()
             {
-                int wheels = (int)sharedpreferences.getFloat("wheels",0);
+                int wheels = (int)previous_wheels_total;
                 wheelsPB.setProgress(wheels);
                 wheelsProgress.setText(wheels+"/15000");
             }
@@ -261,7 +340,7 @@ public class GraphFragment extends Fragment
             @Override
             public void run()
             {
-                int battery = (int)sharedpreferences.getFloat("battery",0);
+                int battery = (int)previous_battery_total;
                 batteryPB.setProgress(battery);
                 batteryProgress.setText(battery+"/30000");
             }
@@ -272,7 +351,7 @@ public class GraphFragment extends Fragment
             @Override
             public void run()
             {
-                int timingBelt = (int)sharedpreferences.getFloat("timingbelt",0);
+                int timingBelt = (int)previous_timingbelt_total;
                 timingBeltPB.setProgress(timingBelt);
                 timeingBeltProgress.setText(timingBelt+"/100000");
             }
