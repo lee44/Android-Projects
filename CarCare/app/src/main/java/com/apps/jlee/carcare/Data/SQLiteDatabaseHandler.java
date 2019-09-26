@@ -181,6 +181,4 @@ public class SQLiteDatabaseHandler extends SQLiteOpenHelper
         }
         return gasList;
     }
-
-
 }

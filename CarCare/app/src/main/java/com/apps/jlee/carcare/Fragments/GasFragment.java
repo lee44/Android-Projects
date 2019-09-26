@@ -67,6 +67,7 @@ public class GasFragment extends Fragment
     private boolean updateFlag = false;
     private String DateFormat = "M/dd/yy";
     private int mRecentlyDeletedItemPosition;
+    private long oil, brake, wheels, battery, timmingBelt;
 
     public GasFragment(){}
 
@@ -520,6 +521,17 @@ public class GasFragment extends Fragment
         gasList.remove(position);
         adapter.notifyItemRemoved(position);
         showUndoSnackbar();
+
+        if(db.getProfilesCount() == 0)
+        {
+            SharedPreferences sharedpreferences = getContext().getSharedPreferences("Replacement Values", Context.MODE_PRIVATE);
+            oil = sharedpreferences.getLong("oil_checkpoint",0);
+            brake = sharedpreferences.getLong("brakes_checkpoint",0);
+            wheels = sharedpreferences.getLong("wheels_checkpoint",0);
+            battery = sharedpreferences.getLong("battery_checkpoint",0);
+            timmingBelt = sharedpreferences.getLong("timingbelt_checkpoint",0);
+            sharedpreferences.edit().clear().apply();
+        }
     }
 
     private void showUndoSnackbar()
@@ -535,6 +547,18 @@ public class GasFragment extends Fragment
         db.addEntry(mRecentlyDeletedItem);
         //new AsyncAddDeleteTask(db,mRecentlyDeletedItem,"add").execute();
         adapter.notifyItemInserted(mRecentlyDeletedItemPosition);
+
+        if(db.getProfilesCount() == 0)
+        {
+            SharedPreferences sharedpreferences = getContext().getSharedPreferences("Replacement Values", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedpreferences.edit();
+            editor.putLong("oil_checkpoint",oil);
+            editor.putLong("brakes_checkpoint",brake);
+            editor.putLong("wheels_checkpoint",wheels);
+            editor.putLong("battery_checkpoint",battery);
+            editor.putLong("timingbelt_checkpoint",timmingBelt);
+            editor.apply();
+        }
     }
 
     public void edit(int position)
