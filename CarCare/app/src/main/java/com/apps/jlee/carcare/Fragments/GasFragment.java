@@ -128,7 +128,8 @@ public class GasFragment extends Fragment
                    g.setDateRefilled(date.getTime());
                    db.addEntry(g);
                    gasList.add(g);
-                   adapter.notifyItemInserted(gasList.size());
+                   Collections.sort(gasList, new MapComparator("Date"));
+                   adapter.notifyDataSetChanged();
                }
                //Update existing Gas Entry
                else
@@ -154,12 +155,21 @@ public class GasFragment extends Fragment
 
                if(list.size() != 0)
                {
-                   gasList.clear();
-                   for (int i = 0; i < list.size(); i++)
-                       if (starting_date.getTime() <= ((Gas) (list.get(i))).getDateRefilled() && ending_date.getTime() >= ((Gas) (list.get(i))).getDateRefilled())
-                           gasList.add(list.get(i));
+                   if(!sortBy.equals("Date"))
+                   {
+                       gasList.clear();
+                       for (int i = 0; i < list.size(); i++)
+                           if (starting_date.getTime() <= ((Gas) (list.get(i))).getDateRefilled() && ending_date.getTime() >= ((Gas) (list.get(i))).getDateRefilled())
+                               gasList.add(list.get(i));
 
-                   Collections.sort(gasList, new MapComparator(sortBy));
+                       Collections.sort(gasList, new MapComparator(sortBy));
+                   }
+                   else
+                   {
+                       gasList.clear();
+                       gasList.addAll(list);
+                   }
+
                    adapter.notifyDataSetChanged();
                }
            }
@@ -234,6 +244,7 @@ public class GasFragment extends Fragment
         }
         //new AsyncDBTask(db).execute();
         gasList.addAll(db.getAllEntries());
+        Collections.sort(gasList, new MapComparator("Date"));
         adapter.notifyDataSetChanged();
     }
 
@@ -484,6 +495,7 @@ public class GasFragment extends Fragment
                 case "Cost": v = (((Gas)(second)).getCost()+"").compareTo((((Gas)(first)).getCost()+"")); break;
                 case "Miles": v = (((Gas)(second)).getMiles()+"").compareTo((((Gas)(first)).getMiles()+"")); break;
                 case "Gallons": v = (((Gas)(second)).getAmount()+"").compareTo((((Gas)(first)).getAmount()+"")); break;
+                case "Date": v = (((Gas)(second)).getDateRefilled()+"").compareTo((((Gas)(first)).getDateRefilled()+""));
             }
             return v;
         }

@@ -64,7 +64,7 @@ public class SQLiteDatabaseHandler extends SQLiteOpenHelper
         List<Object> list = new LinkedList<>();
         SQLiteDatabase db = this.getWritableDatabase();
 
-        String query = "SELECT  * FROM " + TABLE_NAME + " ORDER BY " + KEY_DATE + " ASC";
+        String query = "SELECT  * FROM " + TABLE_NAME + " ORDER BY " + KEY_DATE + " DESC";
         Cursor cursor = db.rawQuery(query, null);
 
         if (cursor.moveToFirst())

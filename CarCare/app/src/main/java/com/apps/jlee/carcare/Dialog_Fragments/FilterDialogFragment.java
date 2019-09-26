@@ -29,7 +29,7 @@ public class FilterDialogFragment extends DialogFragment
     private Spinner dropdown;
     final Calendar startingCalendar = Calendar.getInstance(), endingCalendar = Calendar.getInstance();
     private String DateFormat = "M/dd/yy";
-    private Button OK,Cancel;
+    private Button OK,Reset;
     private FilterInterface listener;
 
     public interface FilterInterface {public void onClick(Date starting_date, Date ending_date, String sortBy);}
@@ -57,7 +57,7 @@ public class FilterDialogFragment extends DialogFragment
         endingDate = dialogView.findViewById(R.id.endingdate);
         dropdown = dialogView.findViewById(R.id.spinner);
         OK = dialogView.findViewById(R.id.OK);
-        Cancel = dialogView.findViewById(R.id.Cancel);
+        Reset = dialogView.findViewById(R.id.Reset);
 
         String[] items = new String[]{"MPG", "Cost", "Miles", "Gallons"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, items);
@@ -74,6 +74,8 @@ public class FilterDialogFragment extends DialogFragment
         endingCalendar.set(Calendar.YEAR, endingCalendar.get(Calendar.YEAR));
         endingCalendar.set(Calendar.MONTH, endingCalendar.get(Calendar.MONTH));
         endingCalendar.set(Calendar.DAY_OF_MONTH, endingCalendar.getActualMaximum(Calendar.DATE));
+        endingCalendar.set(Calendar.HOUR_OF_DAY, 23);
+        endingCalendar.set(Calendar.MINUTE, 59);
         endingDate.setText(sdf.format(endingCalendar.getTime()));
 
         //Sets the listener for the DatePickerDialog that will be appear when the user clicks the Date edit text view
@@ -136,11 +138,12 @@ public class FilterDialogFragment extends DialogFragment
             }
         });
 
-        Cancel.setOnClickListener(new View.OnClickListener()
+        Reset.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View view)
             {
+                listener.onClick(new Date(),new Date(),"Date");
                 dialog.dismiss();
             }
         });
