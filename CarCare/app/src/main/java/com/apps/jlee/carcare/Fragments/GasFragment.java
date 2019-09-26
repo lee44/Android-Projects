@@ -237,28 +237,6 @@ public class GasFragment extends Fragment
         adapter.notifyDataSetChanged();
     }
 
-    public void scheduleNotification(String title, String message, int id)
-    {/*
-        AlarmManager alarmMgr = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(getContext(), AlarmReceiver.class);
-        intent.putExtra("title",title);
-        intent.putExtra("message",message);
-        intent.putExtra("id",id);
-        PendingIntent alarmIntent = PendingIntent.getBroadcast(getContext(), id, intent, 0);
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, 12);
-        calendar.set(Calendar.MINUTE, 00);
-
-        //Schedule a repeating alarm that runs every 24 hours
-        alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),1000 * 60 * 60 * 24, alarmIntent);
-        // Schedule a repeating alarm that runs every minute
-        // alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),1000 * 60 * 1, alarmIntent);
-        // Schedule alarm that runs once at the given time
-        //alarmMgr.set(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(), alarmIntent);*/
-    }
-
     /*Load Gas Entries*/
     private class AsyncDBTask extends AsyncTask<Void,Void,List<Object>>
     {

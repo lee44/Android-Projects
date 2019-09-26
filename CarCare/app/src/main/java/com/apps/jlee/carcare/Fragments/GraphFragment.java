@@ -1,6 +1,9 @@
 package com.apps.jlee.carcare.Fragments;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.AsyncTask;
@@ -16,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.apps.jlee.carcare.Broadcast_Receivers.AlarmReceiver;
 import com.apps.jlee.carcare.Objects.Gas;
 import com.apps.jlee.carcare.R;
 import com.apps.jlee.carcare.Data.SQLiteDatabaseHandler;
@@ -30,6 +34,7 @@ import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -258,7 +263,7 @@ public class GraphFragment extends Fragment
         {
             editor.putFloat("oil", 3000);
             previous_oil_total = 3000;
-            //scheduleNotification("Oil Replacement", "You have driven more than 3000 miles and your oil needs to be replaced. Have you replaced your oil?",1);
+            scheduleNotification("Oil Replacement", "You have driven more than 3000 miles and your oil needs to be replaced. Have you replaced your oil?",1);
         }
 
         if (previous_brakes_total < 50000)
@@ -267,7 +272,7 @@ public class GraphFragment extends Fragment
         {
             editor.putFloat("brakes", 50000);
             previous_brakes_total = 50000;
-            //scheduleNotification("Brake Replacement", "You have driven more than 50000 miles and your brakes needs to be replaced. Have you replaced your brakes?",2);
+            scheduleNotification("Brake Replacement", "You have driven more than 50000 miles and your brakes needs to be replaced. Have you replaced your brakes?",2);
         }
 
         if (previous_wheels_total < 15000)
@@ -276,7 +281,7 @@ public class GraphFragment extends Fragment
         {
             editor.putFloat("wheels", 15000);
             previous_wheels_total = 15000;
-            //scheduleNotification("Tire Replacement", "You have driven more than 15000 miles and your tires needs to be replaced. Have you replaced your tires?",3);
+            scheduleNotification("Tire Replacement", "You have driven more than 15000 miles and your tires needs to be replaced. Have you replaced your tires?",3);
         }
 
         if (previous_battery_total < 30000)
@@ -285,7 +290,7 @@ public class GraphFragment extends Fragment
         {
             editor.putFloat("battery", 30000);
             previous_battery_total = 30000;
-            //scheduleNotification("Battery Replacement", "You have driven more than 30000 miles and your battery needs to be replaced. Have you replaced your battery?",4);
+            scheduleNotification("Battery Replacement", "You have driven more than 30000 miles and your battery needs to be replaced. Have you replaced your battery?",4);
         }
 
         if (previous_timingbelt_total < 100000)
@@ -294,7 +299,7 @@ public class GraphFragment extends Fragment
         {
             editor.putFloat("timingbelt", 100000);
             previous_timingbelt_total = 100000;
-            //scheduleNotification("Timing Belt Replacement", "You have driven more than 100000 miles and your timing belt needs to be replaced. Have you replaced your timing belt?",5);
+            scheduleNotification("Timing Belt Replacement", "You have driven more than 100000 miles and your timing belt needs to be replaced. Have you replaced your timing belt?",5);
         }
 
         editor.apply();
@@ -383,6 +388,28 @@ public class GraphFragment extends Fragment
                 loadProgressBar();
             }
         }
+    }
+
+    public void scheduleNotification(String title, String message, int id)
+    {
+        AlarmManager alarmMgr = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(getContext(), AlarmReceiver.class);
+        intent.putExtra("title",title);
+        intent.putExtra("message",message);
+        intent.putExtra("id",id);
+        PendingIntent alarmIntent = PendingIntent.getBroadcast(getContext(), id, intent, 0);
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY, 12);
+        calendar.set(Calendar.MINUTE, 00);
+
+        //Schedule a repeating alarm that runs every 24 hours
+        alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),1000 * 60 * 60 * 24, alarmIntent);
+        // Schedule a repeating alarm that runs every minute
+        // alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),1000 * 60 * 1, alarmIntent);
+        // Schedule alarm that runs once at the given time
+        //alarmMgr.set(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(), alarmIntent);
     }
 }
 

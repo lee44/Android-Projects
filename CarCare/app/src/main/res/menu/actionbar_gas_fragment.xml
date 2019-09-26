@@ -1,7 +1,10 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/Filter"
-        android:title="Filter">
+        android:title="Filter"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/filter">
     </item>
 
     <item
