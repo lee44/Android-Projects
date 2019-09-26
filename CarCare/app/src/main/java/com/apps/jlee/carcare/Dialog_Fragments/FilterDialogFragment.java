@@ -60,7 +60,7 @@ public class FilterDialogFragment extends DialogFragment
         Reset = dialogView.findViewById(R.id.Reset);
 
         String[] items = new String[]{"MPG", "Cost", "Miles", "Gallons"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, items);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), R.layout.spinner_item, items);
         dropdown.setAdapter(adapter);
 
         SimpleDateFormat sdf = new SimpleDateFormat(DateFormat);
