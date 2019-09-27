@@ -15,7 +15,9 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 
+import com.apps.jlee.carcare.Adapters.SpinnerCustomAdapter;
 import com.apps.jlee.carcare.R;
 
 import java.text.SimpleDateFormat;
@@ -29,6 +31,7 @@ public class FilterDialogFragment extends DialogFragment
     private Spinner dropdown;
     final Calendar startingCalendar = Calendar.getInstance(), endingCalendar = Calendar.getInstance();
     private String DateFormat = "M/dd/yy";
+    private String[] filters = {"MPG","Cost","Miles","Gallons"};
     private Button OK,Reset;
     private FilterInterface listener;
 
@@ -59,8 +62,7 @@ public class FilterDialogFragment extends DialogFragment
         OK = dialogView.findViewById(R.id.OK);
         Reset = dialogView.findViewById(R.id.Reset);
 
-        String[] items = new String[]{"MPG", "Cost", "Miles", "Gallons"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), R.layout.spinner_item, items);
+        SpinnerCustomAdapter adapter = new SpinnerCustomAdapter(getContext(), filters);
         dropdown.setAdapter(adapter);
 
         SimpleDateFormat sdf = new SimpleDateFormat(DateFormat);
