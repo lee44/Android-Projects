@@ -222,7 +222,7 @@ public class GraphFragment extends Fragment
         chart.setData(lineData);
         chart.invalidate();
 
-        chart.setVisibleXRangeMaximum(8);/*Set Maximum x values being displayed*/
+        chart.setVisibleXRangeMaximum(7);/*Set Maximum x values being displayed*/
         chart.moveViewToX(list.size());
     }
 
