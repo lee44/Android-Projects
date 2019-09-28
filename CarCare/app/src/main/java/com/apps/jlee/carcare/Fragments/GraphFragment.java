@@ -85,7 +85,7 @@ public class GraphFragment extends Fragment
         timingBeltPB.setMax(100000);
 
         //new AsyncDBTask(db).execute();
-        list = db.getAllEntries();
+        list = db.sortEntries("ASC");
         if(list.size() != 0)
         {
             loadGraphData(1);

@@ -66,7 +66,7 @@ public class GasFragment extends Fragment
     private SQLiteDatabaseHandler db;
     private boolean updateFlag = false;
     private String DateFormat = "M/dd/yy";
-    private int mRecentlyDeletedItemPosition;
+    private int mRecentlyDeletedItemPosition,tasks;
     private long oil, brake, wheels, battery, timmingBelt;
 
     public GasFragment(){}
@@ -231,19 +231,25 @@ public class GasFragment extends Fragment
         Calendar cal = Calendar.getInstance();
         Double cost,gallons,miles;
 
-        for(int i = 1; i < 5; i++)
+        for(int j = 1; j < 12; j++)
         {
-            cal.set(Calendar.MONTH,6); cal.set(Calendar.DAY_OF_MONTH, i*2); cal.set(Calendar.YEAR, 2019);
+            cal.set(Calendar.MONTH, j);
+            for (int i = 0; i < 15; i++)
+            {
+                cal.set(Calendar.DAY_OF_MONTH, i * 2);
+                cal.set(Calendar.YEAR, 2019);
 
-            cost = Double.parseDouble(String.format("%.2f",(new Random().nextInt(10)+45) + new Random().nextDouble()));
-            gallons = Double.parseDouble(String.format("%.2f",(new Random().nextInt(6)+10) + new Random().nextDouble()));
-            miles = Double.parseDouble(String.format("%.2f",(new Random().nextInt(115)+400) + new Random().nextDouble()));
+                cost = Double.parseDouble(String.format("%.2f", (new Random().nextInt(10) + 45) + new Random().nextDouble()));
+                gallons = Double.parseDouble(String.format("%.2f", (new Random().nextInt(6) + 10) + new Random().nextDouble()));
+                miles = Double.parseDouble(String.format("%.2f", (new Random().nextInt(115) + 400) + new Random().nextDouble()));
 
-            db.addEntry(new Gas(0,cost,gallons,miles,cal.getTime().getTime()));
-            //new AsyncAddDeleteTask(db,new Gas(0,cost,gallons,miles,cal.getTime().getTime()),"add").execute();
+                db.addEntry(new Gas(i + 999, cost, gallons, miles, cal.getTime().getTime()));
+                gasList.add(new Gas(i + 999, cost, gallons, miles, cal.getTime().getTime()));
+                //new AsyncAddDeleteTask(db,new Gas(i+999,cost,gallons,miles,cal.getTime().getTime()),"add").execute();
+            }
         }
         //new AsyncDBTask(db).execute();
-        gasList.addAll(db.getAllEntries());
+        //gasList.addAll(db.getAllEntries());
         Collections.sort(gasList, new MapComparator("Date"));
         adapter.notifyDataSetChanged();
     }

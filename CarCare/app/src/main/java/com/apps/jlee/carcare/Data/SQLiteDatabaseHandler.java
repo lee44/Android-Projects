@@ -102,12 +102,14 @@ public class SQLiteDatabaseHandler extends SQLiteOpenHelper
 
         return i;
     }
+
     public void deleteEntry(Object o)
     {
         // Get reference to writable DB
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_NAME, "id = ?", new String[]{String.valueOf(((Gas)o).getID())});
     }
+
     public long getProfilesCount()
     {
         SQLiteDatabase db = this.getReadableDatabase();
@@ -158,10 +160,10 @@ public class SQLiteDatabaseHandler extends SQLiteOpenHelper
         this.onCreate(db);
     }
 
-    public List<Gas> sortEntries(String condition)
+    public List<Object> sortEntries(String sortBy)
     {
-        List<Gas> gasList = new LinkedList<Gas>();
-        String query = "SELECT * FROM " + TABLE_NAME + " ORDER BY " + condition + " DESC";
+        List<Object> gasList = new LinkedList<>();
+        String query = "SELECT * FROM " + TABLE_NAME + " ORDER BY " + KEY_DATE + " " + sortBy;
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(query, null);
         Gas gas = null;
@@ -175,7 +177,7 @@ public class SQLiteDatabaseHandler extends SQLiteOpenHelper
                 gas.setCost(Double.parseDouble(cursor.getString(1)));
                 gas.setAmount(Double.parseDouble(cursor.getString(2)));
                 gas.setMiles(Double.parseDouble(cursor.getString(3)));
-                gas.setDateRefilled(Integer.parseInt(cursor.getString(4)));
+                gas.setDateRefilled(Long.parseLong(cursor.getString(4)));
                 gasList.add(gas);
             } while (cursor.moveToNext());
         }
