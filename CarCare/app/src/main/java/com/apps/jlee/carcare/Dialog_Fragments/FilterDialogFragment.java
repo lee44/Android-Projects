@@ -3,6 +3,8 @@ package com.apps.jlee.carcare.Dialog_Fragments;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.res.Resources;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
@@ -152,6 +154,7 @@ public class FilterDialogFragment extends DialogFragment
 
         builder.setView(dialogView);
         dialog = builder.create();
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.setCanceledOnTouchOutside(false);
         dialog.show();
 

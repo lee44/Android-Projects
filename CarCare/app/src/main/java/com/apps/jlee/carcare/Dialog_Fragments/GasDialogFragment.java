@@ -3,6 +3,8 @@ package com.apps.jlee.carcare.Dialog_Fragments;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.res.Resources;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import android.support.design.widget.TextInputLayout;
@@ -64,7 +66,7 @@ public class GasDialogFragment extends DialogFragment
         window.setLayout((int)(Resources.getSystem().getDisplayMetrics().widthPixels *.95), (int)(Resources.getSystem().getDisplayMetrics().heightPixels * .60));
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         //window.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.TOP);
-        getDialog().setCanceledOnTouchOutside(true);
+        getDialog().setCanceledOnTouchOutside(false);
     }
 
     public void setListener(GasInterface listener)
@@ -133,9 +135,10 @@ public class GasDialogFragment extends DialogFragment
         }
 
         builder.setView(dialogView);
-        dialog = builder.create();
+        dialog = builder.create(); //Build the AlertDialog Object
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.setCanceledOnTouchOutside(false);
-        dialog.show();
+        dialog.show(); //Show the dialog containing the AlertDialog
 
         //Sets the listener for the DatePickerDialog that will be appear when the user clicks the Date edit text view
         final DatePickerDialog.OnDateSetListener datePicker = new DatePickerDialog.OnDateSetListener()
