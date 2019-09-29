@@ -24,6 +24,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.apps.jlee.carcare.Activities.MainActivity;
 import com.apps.jlee.carcare.Adapters.GasAdapter;
 import com.apps.jlee.carcare.Dialog_Fragments.FilterDialogFragment;
 import com.apps.jlee.carcare.Objects.Gas;
@@ -174,6 +175,29 @@ public class GasFragment extends Fragment
                }
            }
        });
+
+       rv.addOnScrollListener(new RecyclerView.OnScrollListener()
+       {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy)
+            {
+                if (dy > 0)
+                {
+                    ((MainActivity)getActivity()).setVisibility(false);
+                }
+                else if (dy < 0 )
+                {
+                    ((MainActivity)getActivity()).setVisibility(true);
+
+                }
+            }
+
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+        });
 
        return view;
     }

@@ -10,6 +10,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.apps.jlee.carcare.Fragments.GasFragment;
@@ -88,5 +89,17 @@ public class MainActivity extends AppCompatActivity
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.main_frame,fragment);
         fragmentTransaction.commit();
+    }
+
+    public void setVisibility(boolean visible)
+    {
+        if (bottomNavigationView.isShown() && !visible)
+        {
+            bottomNavigationView.setVisibility(View.GONE);
+        }
+        else if (!bottomNavigationView.isShown() && visible)
+        {
+            bottomNavigationView.setVisibility(View.VISIBLE);
+        }
     }
 }
