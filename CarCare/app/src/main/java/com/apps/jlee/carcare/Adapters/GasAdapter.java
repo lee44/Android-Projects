@@ -8,6 +8,7 @@ import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -45,20 +46,11 @@ public class GasAdapter extends RecyclerView.Adapter<GasAdapter.ViewHolder>
         Gas entry = (Gas)gasList.get(position);
         DecimalFormat number = new DecimalFormat("0.00");
 
-        TextView date = holder.date;
-        date.setText(new SimpleDateFormat("M/dd/yy").format(new Date(entry.getDateRefilled())));
-
-        TextView cost = holder.cost;
-        cost.setText(number.format(entry.getCost()));
-
-        TextView miles = holder.miles;
-        miles.setText(number.format(entry.getMiles()));
-
-        TextView gallons = holder.gallons;
-        gallons.setText(number.format(entry.getAmount()));
-
-        TextView mpg = holder.mpg;
-        mpg.setText(String.format("%.2f", entry.getMiles() / entry.getAmount())+" MPG");
+        holder.date.setText(new SimpleDateFormat("M/dd/yy").format(new Date(entry.getDateRefilled())));
+        holder.cost.setText(number.format(entry.getCost()));
+        holder.miles.setText(number.format(entry.getMiles()));
+        holder.gallons.setText(number.format(entry.getAmount()));
+        holder.mpg.setText(String.format("%.2f", entry.getMiles() / entry.getAmount())+" MPG");
     }
 
     @Override
@@ -67,15 +59,15 @@ public class GasAdapter extends RecyclerView.Adapter<GasAdapter.ViewHolder>
         return gasList.size();
     }
 
-    //Provides direct link to all the views inside each item
+    //Provides a direct reference to each of the views within a data item
+    // Used to cache the views within the item layout for fast access
     public class ViewHolder extends RecyclerView.ViewHolder
     {
         TextView date,cost,miles,gallons,mpg;
         ImageView cash_icon,miles_icon,gallons_icon;
         CardView cv;
+        CheckBox cb;
 
-        //Provides a direct reference to each of the views within a data item
-       // Used to cache the views within the item layout for fast access
         public ViewHolder(View itemView)
         {
             super(itemView);
