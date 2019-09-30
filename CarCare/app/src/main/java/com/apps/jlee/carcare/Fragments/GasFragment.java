@@ -595,4 +595,22 @@ public class GasFragment extends Fragment
         d.setArguments(b);
         d.show(getFragmentManager(), "fragment_gas");
     }
+
+    private void showAllBoxes()
+    {
+        for (int i = 0; i < gasList.size(); i++)
+        {
+            ((Gas)gasList.get(i)).showCheckbox = true;
+        }
+        adapter.notifyDataSetChanged();
+    }
+
+    private void hideAllBoxes()
+    {
+        for (int i = 0; i < gasList.size(); i++)
+        {
+            ((Gas)gasList.get(i)).showCheckbox = false;
+        }
+        adapter.notifyDataSetChanged();
+    }
 }

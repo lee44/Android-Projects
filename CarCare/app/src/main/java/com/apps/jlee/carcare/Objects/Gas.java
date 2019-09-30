@@ -5,6 +5,7 @@ public class Gas
     private int id;
     private double cost, amount, miles;
     private long dateRefilled;
+    public boolean showCheckbox = false;
 
     public Gas() {}
     public Gas(int id, double cost, double amount, double miles, long dateRefilled)

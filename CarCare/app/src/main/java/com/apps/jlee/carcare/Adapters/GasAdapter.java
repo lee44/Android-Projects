@@ -51,6 +51,12 @@ public class GasAdapter extends RecyclerView.Adapter<GasAdapter.ViewHolder>
         holder.miles.setText(number.format(entry.getMiles()));
         holder.gallons.setText(number.format(entry.getAmount()));
         holder.mpg.setText(String.format("%.2f", entry.getMiles() / entry.getAmount())+" MPG");
+
+        if(entry.showCheckbox)
+        {
+            holder.cb.setVisibility(View.VISIBLE);
+            holder.cb.setSelected(true);
+        }
     }
 
     @Override
@@ -82,6 +88,7 @@ public class GasAdapter extends RecyclerView.Adapter<GasAdapter.ViewHolder>
             cash_icon = itemView.findViewById(R.id.cash_icon);
             miles_icon = itemView.findViewById(R.id.miles_icon);
             gallons_icon = itemView.findViewById(R.id.gallons_icon);
+            cb = itemView.findViewById(R.id.gas_checkBox);
         }
     }
 }
