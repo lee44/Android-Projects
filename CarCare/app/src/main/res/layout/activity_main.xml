@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -21,37 +22,40 @@
                 android:id="@+id/checkbox_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="2dp"
                 android:text="All"
-                android:textSize="18sp"
                 android:textColor="@android:color/white"
-                app:layout_constraintTop_toTopOf="parent"
+                android:textSize="16sp"
+                android:visibility="gone"
                 app:layout_constraintBottom_toTopOf="@id/toolbar_checkbox"
+                app:layout_constraintEnd_toStartOf="@+id/toolbar_title"
                 app:layout_constraintStart_toStartOf="parent"
-                android:visibility="gone" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <CheckBox
                 android:id="@+id/toolbar_checkbox"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginEnd="2dp"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintEnd_toStartOf="@+id/toolbar_title"
+                app:layout_constraintStart_toStartOf="parent" />
 
             <TextView
                 android:id="@+id/toolbar_title"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="8dp"
+                android:layout_marginEnd="2dp"
                 android:layout_marginTop="8dp"
                 android:text="CarCare"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/title"
                 android:textStyle="bold"
+                android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/toolbar_checkbox"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </android.support.constraint.ConstraintLayout>
 
