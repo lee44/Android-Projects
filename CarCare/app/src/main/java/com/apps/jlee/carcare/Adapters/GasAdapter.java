@@ -1,7 +1,6 @@
 package com.apps.jlee.carcare.Adapters;
 
 import android.app.Activity;
-import android.content.Context;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -23,7 +22,7 @@ import java.util.List;
 public class GasAdapter extends RecyclerView.Adapter<GasAdapter.ViewHolder>
 {
     private List<Object> gasList;
-    private int checkedPosition = -1;
+    private int selected = -1;
     private Activity c;
 
     public GasAdapter(List<Object> gasList, Activity c)
@@ -58,7 +57,14 @@ public class GasAdapter extends RecyclerView.Adapter<GasAdapter.ViewHolder>
         if(entry.showCheckbox)
         {
             holder.cb.setVisibility(View.VISIBLE);
-            holder.cb.setSelected(true);
+        }
+        if(entry.showChecked)
+        {
+            holder.cb.setChecked(true);
+        }
+        else
+        {
+            holder.cb.setChecked(false);
         }
     }
 
@@ -66,6 +72,27 @@ public class GasAdapter extends RecyclerView.Adapter<GasAdapter.ViewHolder>
     public int getItemCount()
     {
         return gasList.size();
+    }
+
+    public void revealAllCheckBoxes()
+    {
+        for(int i = 0; i < gasList.size(); i++)
+        {
+            ((Gas)(gasList.get(i))).showCheckbox = true;
+            notifyItemChanged(i);
+        }
+        ((MainActivity)c).setToolbarCheckBoxVisibility();
+    }
+
+    private void hideAllCheckBoxes()
+    {
+        for (int i = 0; i < gasList.size(); i++)
+        {
+            ((Gas)gasList.get(i)).showCheckbox = false;
+            ((Gas)gasList.get(i)).showChecked = false;
+            notifyItemChanged(i);
+        }
+        ((MainActivity)c).setToolbarCheckBoxVisibility();
     }
 
     //Provides a direct reference to each of the views within a data item
@@ -93,17 +120,39 @@ public class GasAdapter extends RecyclerView.Adapter<GasAdapter.ViewHolder>
             gallons_icon = itemView.findViewById(R.id.gallons_icon);
             cb = itemView.findViewById(R.id.gas_listview_checkbox);
 
+            itemView.setOnLongClickListener(new View.OnLongClickListener()
+            {
+                @Override
+                public boolean onLongClick(View view)
+                {
+                    int i = getAdapterPosition();
+                    if(!((Gas)(gasList.get(i))).showCheckbox)
+                    {
+                        ((Gas)(gasList.get(i))).showChecked = true;
+                        revealAllCheckBoxes();
+                    }
+
+                    return true;
+                }
+            });
+
             itemView.setOnClickListener(new View.OnClickListener()
             {
                 @Override
                 public void onClick(View view)
                 {
-                    cb.setVisibility(View.VISIBLE);
-                    ((MainActivity)c).setCheckBoxVisibility();
-                    if (checkedPosition != getAdapterPosition())
+                    int i = getAdapterPosition();
+                    if(((Gas)(gasList.get(i))).showCheckbox)
                     {
-                        notifyItemChanged(checkedPosition);
-                        checkedPosition = getAdapterPosition();
+                        if(((Gas)(gasList.get(i))).showChecked)
+                        {
+                            ((Gas)(gasList.get(i))).showChecked = false;
+                        }
+                        else
+                        {
+                            ((Gas)(gasList.get(i))).showChecked = true;
+                        }
+                        notifyItemChanged(i);
                     }
                 }
             });

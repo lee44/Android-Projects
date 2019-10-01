@@ -15,9 +15,7 @@ import android.support.v4.content.FileProvider;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -184,11 +182,11 @@ public class GasFragment extends Fragment
             {
                 if (dy > 0)
                 {
-                    ((MainActivity)getActivity()).setVisibility(false);
+                    ((MainActivity)getActivity()).setBottomNavBarVisibility(false);
                 }
                 else if (dy < 0 )
                 {
-                    ((MainActivity)getActivity()).setVisibility(true);
+                    ((MainActivity)getActivity()).setBottomNavBarVisibility(true);
 
                 }
             }
@@ -256,7 +254,7 @@ public class GasFragment extends Fragment
         Calendar cal = Calendar.getInstance();
         Double cost,gallons,miles;
 
-        for(int j = 1; j < 12; j++)
+        for(int j = 11; j < 12; j++)
         {
             cal.set(Calendar.MONTH, j);
             for (int i = 0; i < 15; i++)
@@ -597,21 +595,21 @@ public class GasFragment extends Fragment
         d.show(getFragmentManager(), "fragment_gas");
     }
 
-    private void showAllBoxes()
+    public void selectAllCheckBoxes()
     {
-        for (int i = 0; i < gasList.size(); i++)
+        for(int i = 0; i < gasList.size(); i++)
         {
-            ((Gas)gasList.get(i)).showCheckbox = true;
+            ((Gas)(gasList.get(i))).showChecked = true;
+            adapter.notifyItemChanged(i);
         }
-        adapter.notifyDataSetChanged();
     }
 
-    private void hideAllBoxes()
+    public void deselectAllCheckBoxes()
     {
-        for (int i = 0; i < gasList.size(); i++)
+        for(int i = 0; i < gasList.size(); i++)
         {
-            ((Gas)gasList.get(i)).showCheckbox = false;
+            ((Gas)(gasList.get(i))).showChecked = false;
+            adapter.notifyItemChanged(i);
         }
-        adapter.notifyDataSetChanged();
     }
 }

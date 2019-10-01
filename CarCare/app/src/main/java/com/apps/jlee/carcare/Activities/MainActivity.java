@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,7 +25,7 @@ public class MainActivity extends AppCompatActivity
 {
     private HomeFragment home;
     private GasFragment gas;
-    private BottomNavigationView bottomNavigationView;
+    private BottomNavigationView bottomNavBar;
     private CheckBox cb;
     private TextView toolbar_title,checkbox_text;
     private Toolbar toolbar;
@@ -37,7 +38,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         toolbar = findViewById(R.id.toolbar);
-        bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavBar = findViewById(R.id.bottom_navigation);
         cb = findViewById(R.id.toolbar_checkbox);
         toolbar_title = findViewById(R.id.toolbar_title);
         checkbox_text = findViewById(R.id.checkbox_text);
@@ -48,9 +49,9 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        bottomNavigationView.setSelectedItemId(R.id.Home);
+        bottomNavBar.setSelectedItemId(R.id.Home);
 
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener()
+        bottomNavBar.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener()
         {
             @Override
             public boolean onNavigationItemSelected(MenuItem item)
@@ -58,7 +59,7 @@ public class MainActivity extends AppCompatActivity
                 switch (item.getItemId())
                 {
                     case R.id.Home:
-                        setCheckBoxVisibility();
+                        setToolbarCheckBoxVisibility();
                         setFragment(home);
                         break;
 
@@ -67,6 +68,18 @@ public class MainActivity extends AppCompatActivity
                         break;
                 }
                 return true;
+            }
+        });
+
+        cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+        {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b)
+            {
+                if(b)
+                    gas.selectAllCheckBoxes();
+                else
+                    gas.deselectAllCheckBoxes();
             }
         });
 
@@ -99,6 +112,7 @@ public class MainActivity extends AppCompatActivity
                 super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
+
     public void setFragment(Fragment fragment)
     {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -106,19 +120,19 @@ public class MainActivity extends AppCompatActivity
         fragmentTransaction.commit();
     }
 
-    public void setVisibility(boolean visible)
+    public void setBottomNavBarVisibility(boolean visible)
     {
-        if (bottomNavigationView.isShown() && !visible)
+        if (bottomNavBar.isShown() && !visible)
         {
-            bottomNavigationView.setVisibility(View.GONE);
+            bottomNavBar.setVisibility(View.GONE);
         }
-        else if (!bottomNavigationView.isShown() && visible)
+        else if (!bottomNavBar.isShown() && visible)
         {
-            bottomNavigationView.setVisibility(View.VISIBLE);
+            bottomNavBar.setVisibility(View.VISIBLE);
         }
     }
 
-    public void setCheckBoxVisibility()
+    public void setToolbarCheckBoxVisibility()
     {
         if(cb.getVisibility() != View.VISIBLE)
         {
@@ -130,6 +144,7 @@ public class MainActivity extends AppCompatActivity
         {
             checkbox_text.setVisibility(View.GONE);
             cb.setVisibility(View.GONE);
+            cb.setChecked(false);
             toolbar_title.setVisibility(View.VISIBLE);
         }
     }
