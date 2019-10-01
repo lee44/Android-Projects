@@ -15,6 +15,7 @@ import android.support.v4.content.FileProvider;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -67,7 +68,7 @@ public class GasFragment extends Fragment
     private SQLiteDatabaseHandler db;
     private boolean updateFlag = false;
     private String DateFormat = "M/dd/yy";
-    private int mRecentlyDeletedItemPosition,tasks;
+    private int mRecentlyDeletedItemPosition;
     private long oil, brake, wheels, battery, timmingBelt;
 
     public GasFragment(){}
@@ -93,14 +94,14 @@ public class GasFragment extends Fragment
 
        rv = view.findViewById(R.id.gas_Entries2);
        rv.setLayoutManager(new LinearLayoutManager(getContext()));
-       adapter = new GasAdapter(gasList);
+       adapter = new GasAdapter(gasList,getActivity());
        rv.setAdapter(adapter);
        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new SwipeCallback(this));
        itemTouchHelper.attachToRecyclerView(rv);
 
        //new AsyncDBTask(db).execute();
-        gasList.addAll(db.getAllEntries());
-        adapter.notifyDataSetChanged();
+       gasList.addAll(db.getAllEntries());
+       adapter.notifyDataSetChanged();
 
        fab.setOnClickListener(new View.OnClickListener()
        {

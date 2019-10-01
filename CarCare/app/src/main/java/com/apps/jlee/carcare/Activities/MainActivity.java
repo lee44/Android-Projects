@@ -9,8 +9,11 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.apps.jlee.carcare.Fragments.GasFragment;
@@ -22,6 +25,9 @@ public class MainActivity extends AppCompatActivity
     private HomeFragment home;
     private GasFragment gas;
     private BottomNavigationView bottomNavigationView;
+    private CheckBox cb;
+    private TextView toolbar_title,checkbox_text;
+    private Toolbar toolbar;
     private static final int REQUEST = 112;
 
     @Override
@@ -30,9 +36,17 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        toolbar = findViewById(R.id.toolbar);
         bottomNavigationView = findViewById(R.id.bottom_navigation);
+        cb = findViewById(R.id.toolbar_checkbox);
+        toolbar_title = findViewById(R.id.toolbar_title);
+        checkbox_text = findViewById(R.id.checkbox_text);
+
         home = new HomeFragment();
         gas = new GasFragment();
+
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         bottomNavigationView.setSelectedItemId(R.id.Home);
 
@@ -44,6 +58,7 @@ public class MainActivity extends AppCompatActivity
                 switch (item.getItemId())
                 {
                     case R.id.Home:
+                        setCheckBoxVisibility();
                         setFragment(home);
                         break;
 
@@ -100,6 +115,22 @@ public class MainActivity extends AppCompatActivity
         else if (!bottomNavigationView.isShown() && visible)
         {
             bottomNavigationView.setVisibility(View.VISIBLE);
+        }
+    }
+
+    public void setCheckBoxVisibility()
+    {
+        if(cb.getVisibility() != View.VISIBLE)
+        {
+            checkbox_text.setVisibility(View.VISIBLE);
+            cb.setVisibility(View.VISIBLE);
+            toolbar_title.setVisibility(View.GONE);
+        }
+        else
+        {
+            checkbox_text.setVisibility(View.GONE);
+            cb.setVisibility(View.GONE);
+            toolbar_title.setVisibility(View.VISIBLE);
         }
     }
 }

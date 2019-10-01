@@ -32,6 +32,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <CheckBox
+            android:id="@+id/gas_listview_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:buttonTint="@android:color/white"
+            android:textColor="@android:color/white"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline14" />
+
         <ImageView
             android:id="@+id/cash_icon"
             android:layout_width="25dp"
@@ -44,7 +55,7 @@
             app:layout_constraintBottom_toTopOf="@+id/guideline14"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/gas_checkBox"
+            app:layout_constraintStart_toEndOf="@+id/gas_listview_checkbox"
             app:layout_constraintTop_toTopOf="@+id/guideline13" />
 
         <TextView
@@ -76,7 +87,7 @@
             app:layout_constraintBottom_toTopOf="@+id/guideline15"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/gas_checkBox"
+            app:layout_constraintStart_toEndOf="@+id/gas_listview_checkbox"
             app:layout_constraintTop_toTopOf="@+id/guideline14" />
 
         <TextView
@@ -108,7 +119,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/gas_checkBox"
+            app:layout_constraintStart_toEndOf="@+id/gas_listview_checkbox"
             app:layout_constraintTop_toTopOf="@+id/guideline15" />
 
         <TextView
@@ -163,17 +174,6 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_percent=".75" />
-
-        <CheckBox
-            android:id="@+id/gas_checkBox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:buttonTint="@android:color/white"
-            android:textColor="@android:color/white"
-            android:visibility="gone"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline14" />
 
     </android.support.constraint.ConstraintLayout>
 </android.support.v7.widget.CardView>

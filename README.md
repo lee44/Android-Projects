@@ -1,2 +1,5 @@
 # CarCare
-v2.1 - added a Swipe feature for gas entries so users can edit and delete
+v2.2
+-will implement a Select All feature
+-each gas entry will have a hidden checkbox which will appear when user long presses
+-toolbar will have a checkbox called Select All

@@ -1,10 +1,9 @@
 package com.apps.jlee.carcare.Adapters;
 
-import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
+import android.app.Activity;
+import android.content.Context;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +11,7 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.apps.jlee.carcare.Activities.MainActivity;
 import com.apps.jlee.carcare.Objects.Gas;
 import com.apps.jlee.carcare.R;
 
@@ -23,10 +23,13 @@ import java.util.List;
 public class GasAdapter extends RecyclerView.Adapter<GasAdapter.ViewHolder>
 {
     private List<Object> gasList;
+    private int checkedPosition = -1;
+    private Activity c;
 
-    public GasAdapter(List<Object> gasList)
+    public GasAdapter(List<Object> gasList, Activity c)
     {
         this.gasList = gasList;
+        this.c = c;
     }
 
     //Inflates the layout of the item and returns the ViewHolder
@@ -88,7 +91,22 @@ public class GasAdapter extends RecyclerView.Adapter<GasAdapter.ViewHolder>
             cash_icon = itemView.findViewById(R.id.cash_icon);
             miles_icon = itemView.findViewById(R.id.miles_icon);
             gallons_icon = itemView.findViewById(R.id.gallons_icon);
-            cb = itemView.findViewById(R.id.gas_checkBox);
+            cb = itemView.findViewById(R.id.gas_listview_checkbox);
+
+            itemView.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View view)
+                {
+                    cb.setVisibility(View.VISIBLE);
+                    ((MainActivity)c).setCheckBoxVisibility();
+                    if (checkedPosition != getAdapterPosition())
+                    {
+                        notifyItemChanged(checkedPosition);
+                        checkedPosition = getAdapterPosition();
+                    }
+                }
+            });
         }
     }
 }
