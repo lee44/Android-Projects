@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity
 {
     private HomeFragment home;
     private GasFragment gas;
-    private BottomNavigationView bottomNavBar;
+    private BottomNavigationView bottomNavBar,bottomNavSelect;
     private CheckBox cb;
     private TextView toolbar_title,checkbox_text;
     private Toolbar toolbar;
@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity
 
         toolbar = findViewById(R.id.toolbar);
         bottomNavBar = findViewById(R.id.bottom_navigation);
+        bottomNavSelect = findViewById(R.id.bottom_navigation_select);
         cb = findViewById(R.id.toolbar_checkbox);
         toolbar_title = findViewById(R.id.toolbar_title);
         checkbox_text = findViewById(R.id.checkbox_text);
@@ -65,6 +66,27 @@ public class MainActivity extends AppCompatActivity
 
                     case R.id.Gas:
                         setFragment(gas);
+                        break;
+                }
+                return true;
+            }
+        });
+
+        bottomNavSelect.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener()
+        {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem item)
+            {
+                switch (item.getItemId())
+                {
+                    case R.id.delete:
+                        gas.deleteSelectedItems();
+                        break;
+
+                    case R.id.cancel:
+                        setBottomNavBarSelect();
+                        setToolbarCheckBoxVisibility();
+                        gas.cancel();
                         break;
                 }
                 return true;
@@ -120,6 +142,9 @@ public class MainActivity extends AppCompatActivity
         fragmentTransaction.commit();
     }
 
+    /**
+     * Hides Bottom Nav Bar when scrolling Recyclerview
+     */
     public void setBottomNavBarVisibility(boolean visible)
     {
         if (bottomNavBar.isShown() && !visible)
@@ -132,6 +157,9 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    /**
+     * Reveals or hides checkbox inside the Toolbar
+     */
     public void setToolbarCheckBoxVisibility()
     {
         if(cb.getVisibility() != View.VISIBLE)
@@ -147,5 +175,23 @@ public class MainActivity extends AppCompatActivity
             cb.setChecked(false);
             toolbar_title.setVisibility(View.VISIBLE);
         }
+    }
+
+    /**
+     * Reveals or hides Bottom Nav Bar used selecting multiple items in Recycleview
+     */
+    public void setBottomNavBarSelect()
+    {
+        if(bottomNavBar.getVisibility() == View.VISIBLE)
+        {
+            bottomNavBar.setVisibility(View.GONE);
+            bottomNavSelect.setVisibility(View.VISIBLE);
+        }
+        else
+        {
+            bottomNavBar.setVisibility(View.VISIBLE);
+            bottomNavSelect.setVisibility(View.GONE);
+        }
+
     }
 }

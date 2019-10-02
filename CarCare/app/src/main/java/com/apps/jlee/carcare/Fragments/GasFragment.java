@@ -277,7 +277,7 @@ public class GasFragment extends Fragment
         adapter.notifyDataSetChanged();
     }
 
-    /*Load Gas Entries*/
+    /**Load Gas Entries*/
     private class AsyncDBTask extends AsyncTask<Void,Void,List<Object>>
     {
         private SQLiteDatabaseHandler handler;
@@ -334,7 +334,7 @@ public class GasFragment extends Fragment
         }
     }
 
-    /*Sort Gas Entries*/
+    /**Sort Gas Entries*/
     private class AsyncDBFilterTask extends AsyncTask<Void,Void,List<Object>>
     {
         private SQLiteDatabaseHandler handler;
@@ -374,7 +374,7 @@ public class GasFragment extends Fragment
         }
     }
 
-    /*Load Gas Entries and Generate Excel File*/
+    /**Load Gas Entries and Generate Excel File*/
     private class AsyncExcel extends AsyncTask<Void,Void,List<Object>>
     {
         private SQLiteDatabaseHandler handler;
@@ -530,6 +530,7 @@ public class GasFragment extends Fragment
         }
     }
 
+    /**Deletes items on left swipe*/
     public void deleteItem(int position)
     {
         mRecentlyDeletedItem = (Gas)gasList.get(position);
@@ -550,6 +551,31 @@ public class GasFragment extends Fragment
             battery = sharedpreferences.getLong("battery_checkpoint",0);
             timmingBelt = sharedpreferences.getLong("timingbelt_checkpoint",0);
             sharedpreferences.edit().clear().apply();
+        }
+    }
+
+    /**Deletes selected items*/
+    public void deleteSelectedItems()
+    {
+        for(int i = 0; i < gasList.size(); i++)
+        {
+            if(((Gas) (gasList.get(i))).showChecked)
+            {
+                db.deleteEntry(gasList.get(i));
+                gasList.remove(i);
+                adapter.notifyItemRemoved(i);
+            }
+        }
+    }
+
+    /**Cancels the selection mode*/
+    public void cancel()
+    {
+        for(int i = 0; i < gasList.size(); i++)
+        {
+            ((Gas)(gasList.get(i))).showChecked = false;
+            ((Gas)(gasList.get(i))).showCheckbox = false;
+            adapter.notifyItemChanged(i);
         }
     }
 
@@ -580,6 +606,7 @@ public class GasFragment extends Fragment
         }
     }
 
+    /**Edit item on right swipe*/
     public void edit(int position)
     {
         updateFlag = true;
@@ -595,6 +622,7 @@ public class GasFragment extends Fragment
         d.show(getFragmentManager(), "fragment_gas");
     }
 
+    /**Sets all CheckBoxes to checked*/
     public void selectAllCheckBoxes()
     {
         for(int i = 0; i < gasList.size(); i++)
@@ -604,6 +632,7 @@ public class GasFragment extends Fragment
         }
     }
 
+    /**Sets all CheckBoxes to unchecked*/
     public void deselectAllCheckBoxes()
     {
         for(int i = 0; i < gasList.size(); i++)

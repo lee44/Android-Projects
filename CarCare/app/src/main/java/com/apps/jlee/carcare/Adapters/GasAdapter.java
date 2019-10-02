@@ -22,7 +22,6 @@ import java.util.List;
 public class GasAdapter extends RecyclerView.Adapter<GasAdapter.ViewHolder>
 {
     private List<Object> gasList;
-    private int selected = -1;
     private Activity c;
 
     public GasAdapter(List<Object> gasList, Activity c)
@@ -41,6 +40,7 @@ public class GasAdapter extends RecyclerView.Adapter<GasAdapter.ViewHolder>
         ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
     }
+
     // Populates data into the views of each item through the ViewHolder
     @Override
     public void onBindViewHolder(GasAdapter.ViewHolder holder, int position)
@@ -74,7 +74,8 @@ public class GasAdapter extends RecyclerView.Adapter<GasAdapter.ViewHolder>
         return gasList.size();
     }
 
-    public void revealAllCheckBoxes()
+    /**Reveals All checkboxes*/
+    private void revealAllCheckBoxes()
     {
         for(int i = 0; i < gasList.size(); i++)
         {
@@ -95,8 +96,7 @@ public class GasAdapter extends RecyclerView.Adapter<GasAdapter.ViewHolder>
         ((MainActivity)c).setToolbarCheckBoxVisibility();
     }
 
-    //Provides a direct reference to each of the views within a data item
-    // Used to cache the views within the item layout for fast access
+    //Provides a direct reference to each of the views within a data item. Used to cache the views within the item layout for fast access
     public class ViewHolder extends RecyclerView.ViewHolder
     {
         TextView date,cost,miles,gallons,mpg;
@@ -128,10 +128,10 @@ public class GasAdapter extends RecyclerView.Adapter<GasAdapter.ViewHolder>
                     int i = getAdapterPosition();
                     if(!((Gas)(gasList.get(i))).showCheckbox)
                     {
-                        ((Gas)(gasList.get(i))).showChecked = true;
+                        //((Gas)(gasList.get(i))).showChecked = true;
                         revealAllCheckBoxes();
+                        ((MainActivity)c).setBottomNavBarSelect();
                     }
-
                     return true;
                 }
             });
