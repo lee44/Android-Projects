@@ -60,7 +60,6 @@ public class MainActivity extends AppCompatActivity
                 switch (item.getItemId())
                 {
                     case R.id.Home:
-                        setToolbarCheckBoxVisibility();
                         setFragment(home);
                         break;
 
@@ -84,8 +83,8 @@ public class MainActivity extends AppCompatActivity
                         break;
 
                     case R.id.cancel:
-                        setBottomNavBarSelect();
-                        setToolbarCheckBoxVisibility();
+                        toggleBottomNavBarSelect();
+                        toggleToolbarCheckBoxVisibility();
                         gas.cancel();
                         break;
                 }
@@ -145,7 +144,7 @@ public class MainActivity extends AppCompatActivity
     /**
      * Hides Bottom Nav Bar when scrolling Recyclerview
      */
-    public void setBottomNavBarVisibility(boolean visible)
+    public void toggleBottomNavBarVisibility(boolean visible)
     {
         if (bottomNavBar.isShown() && !visible)
         {
@@ -160,7 +159,7 @@ public class MainActivity extends AppCompatActivity
     /**
      * Reveals or hides checkbox inside the Toolbar
      */
-    public void setToolbarCheckBoxVisibility()
+    public void toggleToolbarCheckBoxVisibility()
     {
         if(cb.getVisibility() != View.VISIBLE)
         {
@@ -180,7 +179,7 @@ public class MainActivity extends AppCompatActivity
     /**
      * Reveals or hides Bottom Nav Bar used selecting multiple items in Recycleview
      */
-    public void setBottomNavBarSelect()
+    public void toggleBottomNavBarSelect()
     {
         if(bottomNavBar.getVisibility() == View.VISIBLE)
         {

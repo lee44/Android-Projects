@@ -16,6 +16,7 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -180,13 +181,13 @@ public class GasFragment extends Fragment
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy)
             {
-                if (dy > 0)
+                if (dy > 0 && gasList.size() != 5)
                 {
-                    ((MainActivity)getActivity()).setBottomNavBarVisibility(false);
+                    ((MainActivity)getActivity()).toggleBottomNavBarVisibility(false);
                 }
                 else if (dy < 0 )
                 {
-                    ((MainActivity)getActivity()).setBottomNavBarVisibility(true);
+                    ((MainActivity)getActivity()).toggleBottomNavBarVisibility(true);
 
                 }
             }
@@ -257,7 +258,7 @@ public class GasFragment extends Fragment
         for(int j = 11; j < 12; j++)
         {
             cal.set(Calendar.MONTH, j);
-            for (int i = 0; i < 15; i++)
+            for (int i = 0; i < 5; i++)
             {
                 cal.set(Calendar.DAY_OF_MONTH, i * 2);
                 cal.set(Calendar.YEAR, 2019);
@@ -540,6 +541,7 @@ public class GasFragment extends Fragment
         db.deleteEntry(mRecentlyDeletedItem);
         gasList.remove(position);
         adapter.notifyItemRemoved(position);
+        ((MainActivity)getActivity()).toggleBottomNavBarVisibility(true);
         showUndoSnackbar();
 
         if(db.getProfilesCount() == 0)
@@ -564,6 +566,7 @@ public class GasFragment extends Fragment
                 db.deleteEntry(gasList.get(i));
                 gasList.remove(i);
                 adapter.notifyItemRemoved(i);
+                i--;
             }
         }
     }
@@ -573,8 +576,8 @@ public class GasFragment extends Fragment
     {
         for(int i = 0; i < gasList.size(); i++)
         {
-            ((Gas)(gasList.get(i))).showChecked = false;
             ((Gas)(gasList.get(i))).showCheckbox = false;
+            ((Gas)(gasList.get(i))).showChecked = false;
             adapter.notifyItemChanged(i);
         }
     }

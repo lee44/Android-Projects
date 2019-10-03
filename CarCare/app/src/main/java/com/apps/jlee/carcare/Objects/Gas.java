@@ -69,6 +69,6 @@ public class Gas
 
     public String toString()
     {
-        return "\nID: "+id+"\nCost: "+cost+"\nMiles: "+miles+"\nAmount: "+amount+"\nDate: "+dateRefilled;
+        return "\nID: "+id+"\nCost: "+cost+"\nMiles: "+miles+"\nAmount: "+amount+"\nDate: "+dateRefilled+"\nShowCheckbox: "+showCheckbox+"\nShowChecked: "+showChecked;
     }
 }

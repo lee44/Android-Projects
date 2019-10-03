@@ -55,17 +55,14 @@ public class GasAdapter extends RecyclerView.Adapter<GasAdapter.ViewHolder>
         holder.mpg.setText(String.format("%.2f", entry.getMiles() / entry.getAmount())+" MPG");
 
         if(entry.showCheckbox)
-        {
             holder.cb.setVisibility(View.VISIBLE);
-        }
-        if(entry.showChecked)
-        {
-            holder.cb.setChecked(true);
-        }
         else
-        {
+            holder.cb.setVisibility(View.GONE);
+
+        if(entry.showChecked)
+            holder.cb.setChecked(true);
+        else
             holder.cb.setChecked(false);
-        }
     }
 
     @Override
@@ -82,7 +79,7 @@ public class GasAdapter extends RecyclerView.Adapter<GasAdapter.ViewHolder>
             ((Gas)(gasList.get(i))).showCheckbox = true;
             notifyItemChanged(i);
         }
-        ((MainActivity)c).setToolbarCheckBoxVisibility();
+        ((MainActivity)c).toggleToolbarCheckBoxVisibility();
     }
 
     private void hideAllCheckBoxes()
@@ -93,7 +90,7 @@ public class GasAdapter extends RecyclerView.Adapter<GasAdapter.ViewHolder>
             ((Gas)gasList.get(i)).showChecked = false;
             notifyItemChanged(i);
         }
-        ((MainActivity)c).setToolbarCheckBoxVisibility();
+        ((MainActivity)c).toggleToolbarCheckBoxVisibility();
     }
 
     //Provides a direct reference to each of the views within a data item. Used to cache the views within the item layout for fast access
@@ -128,9 +125,10 @@ public class GasAdapter extends RecyclerView.Adapter<GasAdapter.ViewHolder>
                     int i = getAdapterPosition();
                     if(!((Gas)(gasList.get(i))).showCheckbox)
                     {
-                        //((Gas)(gasList.get(i))).showChecked = true;
+                        ((Gas)(gasList.get(i))).showChecked = true;
+                        notifyItemChanged(i);
                         revealAllCheckBoxes();
-                        ((MainActivity)c).setBottomNavBarSelect();
+                        ((MainActivity)c).toggleBottomNavBarSelect();
                     }
                     return true;
                 }
