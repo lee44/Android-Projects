@@ -82,6 +82,6 @@
         app:itemIconTint="@drawable/bot_nav_item_color_state_home_delete"
         app:itemTextColor="@drawable/bot_nav_item_color_state_home_delete"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:menu="@menu/bottom_navigation_home_gas" />
+        app:menu="@menu/bottom_navigation_home_gas"/>
 
 </android.support.constraint.ConstraintLayout>

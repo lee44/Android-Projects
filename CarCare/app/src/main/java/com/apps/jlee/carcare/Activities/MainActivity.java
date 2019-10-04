@@ -12,6 +12,8 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
@@ -62,10 +64,14 @@ public class MainActivity extends AppCompatActivity
                 {
                     case R.id.Home:
                         setFragment(home);
+                        bottomNavBar.findViewById(R.id.Home).setSelected(true);
+                        bottomNavBar.findViewById(R.id.Gas).setSelected(false);
                         break;
 
                     case R.id.Gas:
                         setFragment(gas);
+                        bottomNavBar.findViewById(R.id.Home).setSelected(false);
+                        bottomNavBar.findViewById(R.id.Gas).setSelected(true);
                         break;
 
                     case R.id.cancel:
@@ -184,8 +190,8 @@ public class MainActivity extends AppCompatActivity
         {
             int[][] states = new int[][]
             {
-                new int[] {android.R.attr.state_checked},
-                new int[] {-android.R.attr.state_checked}
+                new int[] {android.R.attr.state_selected},
+                new int[] {-android.R.attr.state_selected}
             };
 
             int[] colors = new int[]
@@ -199,6 +205,7 @@ public class MainActivity extends AppCompatActivity
             bottomNavBar.setItemIconTintList(new ColorStateList(states,colors));
             bottomNavBar.setItemTextColor(new ColorStateList(states,colors));
 
+            bottomNavBar.findViewById(R.id.Gas).setSelected(true);
         }
     }
 }
