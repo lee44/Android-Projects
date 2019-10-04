@@ -2,6 +2,8 @@ package com.apps.jlee.carcare.Activities;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -175,12 +177,28 @@ public class MainActivity extends AppCompatActivity
         {
            bottomNavBar.getMenu().clear();
            bottomNavBar.inflateMenu(R.menu.bottom_navigation_delete_cancel);
+           bottomNavBar.setItemIconTintList(new ColorStateList(new int[][]{new int[]{-android.R.attr.checked}},new int[]{Color.WHITE}));
+           bottomNavBar.setItemTextColor(new ColorStateList(new int[][]{new int[]{-android.R.attr.checked}},new int[]{Color.WHITE}));
         }
         else
         {
+            int[][] states = new int[][]
+            {
+                new int[] {android.R.attr.state_checked},
+                new int[] {-android.R.attr.state_checked}
+            };
+
+            int[] colors = new int[]
+            {
+                Color.WHITE,
+                Color.parseColor("#32000000")
+            };
+
             bottomNavBar.getMenu().clear();
             bottomNavBar.inflateMenu(R.menu.bottom_navigation_home_gas);
-            bottomNavBar.setSelectedItemId(R.id.Gas);
+            bottomNavBar.setItemIconTintList(new ColorStateList(states,colors));
+            bottomNavBar.setItemTextColor(new ColorStateList(states,colors));
+
         }
     }
 }
