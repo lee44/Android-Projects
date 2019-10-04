@@ -664,4 +664,9 @@ public class GasFragment extends Fragment
         else
             fab.setVisibility(View.GONE);
     }
+
+    public void toggleToolbarButtons()
+    {
+
+    }
 }
