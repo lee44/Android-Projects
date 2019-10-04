@@ -39,7 +39,6 @@ public class MainActivity extends AppCompatActivity
 
         toolbar = findViewById(R.id.toolbar);
         bottomNavBar = findViewById(R.id.bottom_navigation);
-        bottomNavSelect = findViewById(R.id.bottom_navigation_select);
         cb = findViewById(R.id.toolbar_checkbox);
         toolbar_title = findViewById(R.id.toolbar_title);
         checkbox_text = findViewById(R.id.checkbox_text);
@@ -66,31 +65,22 @@ public class MainActivity extends AppCompatActivity
                     case R.id.Gas:
                         setFragment(gas);
                         break;
-                }
-                return true;
-            }
-        });
 
-        bottomNavSelect.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener()
-        {
-            @Override
-            public boolean onNavigationItemSelected(MenuItem item)
-            {
-                switch (item.getItemId())
-                {
+                    case R.id.cancel:
+                        toggleToolbarCheckBoxVisibility();
+                        toggleBottomNavBarButtons();
+                        gas.cancel();
+                        break;
+
                     case R.id.delete:
                         gas.deleteSelectedItems();
                         break;
-
-                    case R.id.cancel:
-                        toggleBottomNavBarSelect();
-                        toggleToolbarCheckBoxVisibility();
-                        gas.cancel();
-                        break;
                 }
                 return true;
             }
         });
+
+
 
         cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
         {
@@ -161,7 +151,7 @@ public class MainActivity extends AppCompatActivity
      */
     public void toggleToolbarCheckBoxVisibility()
     {
-        if(cb.getVisibility() != View.VISIBLE)
+        if(cb.getVisibility() == View.GONE)
         {
             checkbox_text.setVisibility(View.VISIBLE);
             cb.setVisibility(View.VISIBLE);
@@ -177,20 +167,20 @@ public class MainActivity extends AppCompatActivity
     }
 
     /**
-     * Reveals or hides Bottom Nav Bar used selecting multiple items in Recycleview
+     * Switches menus for the Bottom Nav Bar
      */
-    public void toggleBottomNavBarSelect()
+    public void toggleBottomNavBarButtons()
     {
-        if(bottomNavBar.getVisibility() == View.VISIBLE)
+        if(bottomNavBar.getMenu().getItem(0).getItemId() == R.id.Home)
         {
-            bottomNavBar.setVisibility(View.GONE);
-            bottomNavSelect.setVisibility(View.VISIBLE);
+           bottomNavBar.getMenu().clear();
+           bottomNavBar.inflateMenu(R.menu.bottom_navigation_delete_cancel);
         }
         else
         {
-            bottomNavBar.setVisibility(View.VISIBLE);
-            bottomNavSelect.setVisibility(View.GONE);
+            bottomNavBar.getMenu().clear();
+            bottomNavBar.inflateMenu(R.menu.bottom_navigation_home_gas);
+            bottomNavBar.setSelectedItemId(R.id.Gas);
         }
-
     }
 }

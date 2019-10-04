@@ -65,6 +65,7 @@ public class GasFragment extends Fragment
     private RecyclerView rv;
     private GasAdapter adapter;
     private SQLiteDatabaseHandler db;
+    private FloatingActionButton fab;
     private boolean updateFlag = false;
     private String DateFormat = "M/dd/yy";
     private int mRecentlyDeletedItemPosition;
@@ -89,11 +90,11 @@ public class GasFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState)
     {
        View view = inflater.inflate(R.layout.fragment_gas, container, false);
-       FloatingActionButton fab = view.findViewById(R.id.fab2);
+       fab = view.findViewById(R.id.fab2);
 
        rv = view.findViewById(R.id.gas_Entries2);
        rv.setLayoutManager(new LinearLayoutManager(getContext()));
-       adapter = new GasAdapter(gasList,getActivity());
+       adapter = new GasAdapter(gasList,getActivity(),this);
        rv.setAdapter(adapter);
        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new SwipeCallback(this));
        itemTouchHelper.attachToRecyclerView(rv);
@@ -571,24 +572,6 @@ public class GasFragment extends Fragment
         }
     }
 
-    /**Cancels the selection mode*/
-    public void cancel()
-    {
-        for(int i = 0; i < gasList.size(); i++)
-        {
-            ((Gas)(gasList.get(i))).showCheckbox = false;
-            ((Gas)(gasList.get(i))).showChecked = false;
-            adapter.notifyItemChanged(i);
-        }
-    }
-
-    private void showUndoSnackbar()
-    {
-        Snackbar snackbar = Snackbar.make(getActivity().findViewById(R.id.root), R.string.snack_bar_text,Snackbar.LENGTH_SHORT);
-        snackbar.setAction("Undo",v -> undoDelete());
-        snackbar.show();
-    }
-
     private void undoDelete()
     {
         gasList.add(mRecentlyDeletedItemPosition, mRecentlyDeletedItem);
@@ -607,6 +590,24 @@ public class GasFragment extends Fragment
             editor.putLong("timingbelt_checkpoint",timmingBelt);
             editor.apply();
         }
+    }
+
+    /**Cancels the selection mode*/
+    public void cancel()
+    {
+        for(int i = 0; i < gasList.size(); i++)
+        {
+            ((Gas)(gasList.get(i))).showCheckbox = false;
+            ((Gas)(gasList.get(i))).showChecked = false;
+            adapter.notifyItemChanged(i);
+        }
+    }
+
+    private void showUndoSnackbar()
+    {
+        Snackbar snackbar = Snackbar.make(getActivity().findViewById(R.id.root), R.string.snack_bar_text,Snackbar.LENGTH_SHORT);
+        snackbar.setAction("Undo",v -> undoDelete());
+        snackbar.show();
     }
 
     /**Edit item on right swipe*/
@@ -643,5 +644,24 @@ public class GasFragment extends Fragment
             ((Gas)(gasList.get(i))).showChecked = false;
             adapter.notifyItemChanged(i);
         }
+    }
+
+    /**Cancels the selection mode*/
+    public void resetCheckBoxes()
+    {
+        for(int i = 0; i < gasList.size(); i++)
+        {
+            ((Gas)(gasList.get(i))).showCheckbox = false;
+            ((Gas)(gasList.get(i))).showChecked = false;
+            adapter.notifyItemChanged(i);
+        }
+    }
+
+    public void toggleFloatingActionButton()
+    {
+        if(fab.getVisibility() == View.GONE)
+            fab.setVisibility(View.VISIBLE);
+        else
+            fab.setVisibility(View.GONE);
     }
 }

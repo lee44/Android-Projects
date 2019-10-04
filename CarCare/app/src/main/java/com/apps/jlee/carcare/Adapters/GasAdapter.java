@@ -1,6 +1,7 @@
 package com.apps.jlee.carcare.Adapters;
 
 import android.app.Activity;
+import android.content.Context;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.apps.jlee.carcare.Activities.MainActivity;
+import com.apps.jlee.carcare.Fragments.GasFragment;
 import com.apps.jlee.carcare.Objects.Gas;
 import com.apps.jlee.carcare.R;
 
@@ -22,12 +24,14 @@ import java.util.List;
 public class GasAdapter extends RecyclerView.Adapter<GasAdapter.ViewHolder>
 {
     private List<Object> gasList;
-    private Activity c;
+    private Context c;
+    private GasFragment g;
 
-    public GasAdapter(List<Object> gasList, Activity c)
+    public GasAdapter(List<Object> gasList, Context c, GasFragment g)
     {
         this.gasList = gasList;
         this.c = c;
+        this.g = g;
     }
 
     //Inflates the layout of the item and returns the ViewHolder
@@ -128,7 +132,9 @@ public class GasAdapter extends RecyclerView.Adapter<GasAdapter.ViewHolder>
                         ((Gas)(gasList.get(i))).showChecked = true;
                         notifyItemChanged(i);
                         revealAllCheckBoxes();
-                        ((MainActivity)c).toggleBottomNavBarSelect();
+                        //((MainActivity)c).toggleBottomNavBarSelect();
+                        ((MainActivity)c).toggleBottomNavBarButtons();
+                        g.toggleFloatingActionButton();
                     }
                     return true;
                 }
