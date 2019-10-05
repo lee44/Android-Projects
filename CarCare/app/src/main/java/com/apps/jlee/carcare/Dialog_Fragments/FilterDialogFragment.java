@@ -18,6 +18,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
+import android.widget.TextView;
 
 import com.apps.jlee.carcare.Adapters.SpinnerCustomAdapter;
 import com.apps.jlee.carcare.R;
@@ -137,7 +138,10 @@ public class FilterDialogFragment extends DialogFragment
             @Override
             public void onClick(View view)
             {
-                listener.onClick(startingCalendar.getTime(),endingCalendar.getTime(),dropdown.getSelectedItem().toString());
+                //Each spinner item is a textview so getSelectedView grabs the textview
+                TextView textView = (TextView)dropdown.getSelectedView();
+                String result = textView.getText().toString();
+                listener.onClick(startingCalendar.getTime(),endingCalendar.getTime(),result);
                 dialog.dismiss();
             }
         });
