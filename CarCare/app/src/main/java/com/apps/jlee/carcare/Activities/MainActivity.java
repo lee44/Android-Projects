@@ -12,8 +12,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
@@ -34,6 +32,7 @@ public class MainActivity extends AppCompatActivity
     private TextView toolbar_title,checkbox_text;
     private Toolbar toolbar;
     private static final int REQUEST = 112;
+    private int count = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -75,12 +74,14 @@ public class MainActivity extends AppCompatActivity
                         break;
 
                     case R.id.cancel:
+                        countSelected(-count);
                         toggleToolbarCheckBoxVisibility();
                         toggleBottomNavBarButtons();
                         gas.cancel();
                         break;
 
                     case R.id.delete:
+                        countSelected(-count);
                         gas.deleteSelectedItems();
                         break;
                 }
@@ -163,14 +164,16 @@ public class MainActivity extends AppCompatActivity
         {
             checkbox_text.setVisibility(View.VISIBLE);
             cb.setVisibility(View.VISIBLE);
-            toolbar_title.setVisibility(View.GONE);
+            toolbar_title.setText("0 selected");
+            toolbar_title.setTextSize(19);
         }
         else
         {
             checkbox_text.setVisibility(View.GONE);
             cb.setVisibility(View.GONE);
             cb.setChecked(false);
-            toolbar_title.setVisibility(View.VISIBLE);
+            toolbar_title.setText("CarCare");
+            toolbar_title.setTextSize(24);
         }
     }
 
@@ -207,5 +210,11 @@ public class MainActivity extends AppCompatActivity
 
             bottomNavBar.findViewById(R.id.Gas).setSelected(true);
         }
+    }
+
+    public void countSelected(int n)
+    {
+        count += n;
+        toolbar_title.setText(count+" selected");
     }
 }

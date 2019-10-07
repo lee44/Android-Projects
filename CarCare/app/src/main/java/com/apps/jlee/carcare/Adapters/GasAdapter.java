@@ -1,6 +1,5 @@
 package com.apps.jlee.carcare.Adapters;
 
-import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -132,9 +131,9 @@ public class GasAdapter extends RecyclerView.Adapter<GasAdapter.ViewHolder>
                         ((Gas)(gasList.get(i))).showChecked = true;
                         notifyItemChanged(i);
                         revealAllCheckBoxes();
-                        //((MainActivity)c).toggleBottomNavBarSelect();
-                        ((MainActivity)c).toggleBottomNavBarButtons();
                         g.toggleFloatingActionButton();
+                        ((MainActivity)c).toggleBottomNavBarButtons();
+                        ((MainActivity)c).countSelected(1);
                     }
                     return true;
                 }
@@ -151,10 +150,12 @@ public class GasAdapter extends RecyclerView.Adapter<GasAdapter.ViewHolder>
                         if(((Gas)(gasList.get(i))).showChecked)
                         {
                             ((Gas)(gasList.get(i))).showChecked = false;
+                            ((MainActivity)c).countSelected(-1);
                         }
                         else
                         {
                             ((Gas)(gasList.get(i))).showChecked = true;
+                            ((MainActivity)c).countSelected(1);
                         }
                         notifyItemChanged(i);
                     }

@@ -657,16 +657,14 @@ public class GasFragment extends Fragment
         }
     }
 
+    /**
+     * Reveals or Hides Floating Action Button
+     */
     public void toggleFloatingActionButton()
     {
         if(fab.getVisibility() == View.GONE)
             fab.setVisibility(View.VISIBLE);
         else
             fab.setVisibility(View.GONE);
-    }
-
-    public void toggleToolbarButtons()
-    {
-
     }
 }
