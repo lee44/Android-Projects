@@ -14,8 +14,6 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,9 +25,8 @@ public class MainActivity extends AppCompatActivity
 {
     private HomeFragment home;
     private GasFragment gas;
-    private BottomNavigationView bottomNavBar,bottomNavSelect;
-    private CheckBox cb;
-    private TextView toolbar_title,checkbox_text;
+    private BottomNavigationView bottomNavBar;
+    private TextView toolbar_title;
     private Toolbar toolbar;
     private static final int REQUEST = 112;
     private int count = 0;
@@ -42,9 +39,7 @@ public class MainActivity extends AppCompatActivity
 
         toolbar = findViewById(R.id.toolbar);
         bottomNavBar = findViewById(R.id.bottom_navigation);
-        cb = findViewById(R.id.toolbar_checkbox);
         toolbar_title = findViewById(R.id.toolbar_title);
-        checkbox_text = findViewById(R.id.checkbox_text);
 
         home = new HomeFragment();
         gas = new GasFragment();
@@ -75,7 +70,7 @@ public class MainActivity extends AppCompatActivity
 
                     case R.id.cancel:
                         countSelected(-count);
-                        toggleToolbarCheckBoxVisibility();
+                        toggleToolbarSelection();
                         toggleBottomNavBarButtons();
                         gas.cancel();
                         break;
@@ -84,22 +79,11 @@ public class MainActivity extends AppCompatActivity
                         countSelected(-count);
                         gas.deleteSelectedItems();
                         break;
+
+                    case R.id.selectall:
+                        gas.toggleSelectAllCheckBoxes();
                 }
                 return true;
-            }
-        });
-
-
-
-        cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
-        {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b)
-            {
-                if(b)
-                    gas.selectAllCheckBoxes();
-                else
-                    gas.deselectAllCheckBoxes();
             }
         });
 
@@ -158,20 +142,15 @@ public class MainActivity extends AppCompatActivity
     /**
      * Reveals or hides checkbox inside the Toolbar
      */
-    public void toggleToolbarCheckBoxVisibility()
+    public void toggleToolbarSelection()
     {
-        if(cb.getVisibility() == View.GONE)
+        if(toolbar_title.getText().equals("CarCare"))
         {
-            checkbox_text.setVisibility(View.VISIBLE);
-            cb.setVisibility(View.VISIBLE);
             toolbar_title.setText("0 selected");
             toolbar_title.setTextSize(19);
         }
         else
         {
-            checkbox_text.setVisibility(View.GONE);
-            cb.setVisibility(View.GONE);
-            cb.setChecked(false);
             toolbar_title.setText("CarCare");
             toolbar_title.setTextSize(24);
         }
@@ -185,7 +164,7 @@ public class MainActivity extends AppCompatActivity
         if(bottomNavBar.getMenu().getItem(0).getItemId() == R.id.Home)
         {
            bottomNavBar.getMenu().clear();
-           bottomNavBar.inflateMenu(R.menu.bottom_navigation_delete_cancel);
+           bottomNavBar.inflateMenu(R.menu.bot_nav_selectall_delete_cancel);
            bottomNavBar.setItemIconTintList(new ColorStateList(new int[][]{new int[]{-android.R.attr.checked}},new int[]{Color.WHITE}));
            bottomNavBar.setItemTextColor(new ColorStateList(new int[][]{new int[]{-android.R.attr.checked}},new int[]{Color.WHITE}));
         }
@@ -204,7 +183,7 @@ public class MainActivity extends AppCompatActivity
             };
 
             bottomNavBar.getMenu().clear();
-            bottomNavBar.inflateMenu(R.menu.bottom_navigation_home_gas);
+            bottomNavBar.inflateMenu(R.menu.bot_nav_home_gas);
             bottomNavBar.setItemIconTintList(new ColorStateList(states,colors));
             bottomNavBar.setItemTextColor(new ColorStateList(states,colors));
 
@@ -215,6 +194,12 @@ public class MainActivity extends AppCompatActivity
     public void countSelected(int n)
     {
         count += n;
+        toolbar_title.setText(count+" selected");
+    }
+
+    public void setSelected(int x)
+    {
+        count = x;
         toolbar_title.setText(count+" selected");
     }
 }

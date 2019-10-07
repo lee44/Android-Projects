@@ -16,6 +16,7 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.text.Selection;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -66,7 +67,7 @@ public class GasFragment extends Fragment
     private GasAdapter adapter;
     private SQLiteDatabaseHandler db;
     private FloatingActionButton fab;
-    private boolean updateFlag = false;
+    private boolean updateFlag = false, select_all = true;
     private String DateFormat = "M/dd/yy";
     private int mRecentlyDeletedItemPosition;
     private long oil, brake, wheels, battery, timmingBelt;
@@ -626,23 +627,33 @@ public class GasFragment extends Fragment
         d.show(getFragmentManager(), "fragment_gas");
     }
 
-    /**Sets all CheckBoxes to checked*/
-    public void selectAllCheckBoxes()
+    /**Selects or Deselects all CheckBoxes*/
+    public void toggleSelectAllCheckBoxes()
     {
-        for(int i = 0; i < gasList.size(); i++)
-        {
-            ((Gas)(gasList.get(i))).showChecked = true;
-            adapter.notifyItemChanged(i);
-        }
-    }
+        int size = gasList.size();
 
-    /**Sets all CheckBoxes to unchecked*/
-    public void deselectAllCheckBoxes()
-    {
-        for(int i = 0; i < gasList.size(); i++)
+        if(select_all)
         {
-            ((Gas)(gasList.get(i))).showChecked = false;
-            adapter.notifyItemChanged(i);
+            for(int i = 0; i < size; i++)
+            {
+                if(((Gas)(gasList.get(i))).showChecked)
+                {
+                    ((Gas)(gasList.get(i))).showChecked = true;
+                    adapter.notifyItemChanged(i);
+                    select_all = false;
+                }
+            }
+            ((MainActivity)getActivity()).setSelected(size);
+        }
+        else
+        {
+            for(int i = 0; i < size; i++)
+            {
+                ((Gas)(gasList.get(i))).showChecked = false;
+                adapter.notifyItemChanged(i);
+                select_all = true;
+            }
+            ((MainActivity)getActivity()).setSelected(0);
         }
     }
 

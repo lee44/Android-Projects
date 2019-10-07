@@ -3,12 +3,15 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/cancel"
-        android:icon="@drawable/cancel"
-        android:title="Cancel" />
+        android:id="@+id/selectall"
+        android:icon="@drawable/select_all2"
+        android:title="Select All" />
     <item
         android:id="@+id/delete"
         android:icon="@drawable/trash"
         android:title="Delete" />
-
+    <item
+        android:id="@+id/cancel"
+        android:icon="@drawable/cancel"
+        android:title="Cancel" />
 </menu>

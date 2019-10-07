@@ -82,7 +82,7 @@ public class GasAdapter extends RecyclerView.Adapter<GasAdapter.ViewHolder>
             ((Gas)(gasList.get(i))).showCheckbox = true;
             notifyItemChanged(i);
         }
-        ((MainActivity)c).toggleToolbarCheckBoxVisibility();
+        ((MainActivity)c).toggleToolbarSelection();
     }
 
     private void hideAllCheckBoxes()
@@ -93,7 +93,7 @@ public class GasAdapter extends RecyclerView.Adapter<GasAdapter.ViewHolder>
             ((Gas)gasList.get(i)).showChecked = false;
             notifyItemChanged(i);
         }
-        ((MainActivity)c).toggleToolbarCheckBoxVisibility();
+        ((MainActivity)c).toggleToolbarSelection();
     }
 
     //Provides a direct reference to each of the views within a data item. Used to cache the views within the item layout for fast access
