@@ -1,5 +1,5 @@
 # CarCare
-v2.2\
+v2.3\
 -In the toolbar, exist a button for selecting all checkboxes and a textview for counting number of selected entries\
 -When user long presses an entry, it will activate the selection mode for deleting entries\
 -added mileage count above the progress bars\
