@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/selectall"
-        android:icon="@drawable/select_all2"
+        android:icon="@drawable/select_all"
         android:title="Select All" />
     <item
         android:id="@+id/delete"
