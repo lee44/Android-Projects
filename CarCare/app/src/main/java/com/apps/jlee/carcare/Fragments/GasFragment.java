@@ -67,7 +67,7 @@ public class GasFragment extends Fragment
     private GasAdapter adapter;
     private SQLiteDatabaseHandler db;
     private FloatingActionButton fab;
-    private boolean updateFlag = false, select_all = true;
+    private boolean updateFlag = false;
     private String DateFormat = "M/dd/yy";
     private int mRecentlyDeletedItemPosition;
     private long oil, brake, wheels, battery, timmingBelt;
@@ -631,17 +631,23 @@ public class GasFragment extends Fragment
     public void toggleSelectAllCheckBoxes()
     {
         int size = gasList.size();
+        boolean select_all = false;
+
+        for(int i = 0; i < size; i++)
+        {
+            if(!((Gas)(gasList.get(i))).showChecked)
+            {
+                select_all = true;
+                break;
+            }
+        }
 
         if(select_all)
         {
             for(int i = 0; i < size; i++)
             {
-                if(((Gas)(gasList.get(i))).showChecked)
-                {
-                    ((Gas)(gasList.get(i))).showChecked = true;
-                    adapter.notifyItemChanged(i);
-                    select_all = false;
-                }
+                ((Gas)(gasList.get(i))).showChecked = true;
+                adapter.notifyItemChanged(i);
             }
             ((MainActivity)getActivity()).setSelected(size);
         }
@@ -651,7 +657,6 @@ public class GasFragment extends Fragment
             {
                 ((Gas)(gasList.get(i))).showChecked = false;
                 adapter.notifyItemChanged(i);
-                select_all = true;
             }
             ((MainActivity)getActivity()).setSelected(0);
         }
