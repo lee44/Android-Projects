@@ -21,4 +21,29 @@
         <item name="android:textSize">13sp</item>
     </style>
 
+    <!-- =============================================================== -->
+    <!-- Material_Dark styles -->
+    <!-- =============================================================== -->
+    <style name="cardView_background_dark">
+        <item name="cardBackgroundColor">@color/cardView_background</item>
+    </style>
+
+    <style name="textView_regular_dark">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/textview</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="textView_large_dark">
+        <item name="android:textColor">@color/red</item>
+        <item name="android:textSize">38sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="button_dark">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@color/cardView_button_background</item>
+        <item name="android:textSize">@dimen/Default</item>
+    </style>
+
 </resources>

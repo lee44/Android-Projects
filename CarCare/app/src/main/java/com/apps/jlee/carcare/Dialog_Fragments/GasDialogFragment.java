@@ -15,6 +15,7 @@ import android.text.Selection;
 import android.text.TextWatcher;
 
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -76,8 +77,11 @@ public class GasDialogFragment extends DialogFragment
 
     public Dialog onCreateDialog(Bundle savedInstanceState)
     {
+        // Create ContextThemeWrapper from the original Activity Context
+        ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(getActivity(), R.style.Material_Dark);
+        LayoutInflater inflater =   getActivity().getLayoutInflater().cloneInContext(contextThemeWrapper);
+
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.ThemeOverlay_AppCompat_Dialog);
-        LayoutInflater inflater = getActivity().getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.gas_dialog, null);
 
         date = dialogView.findViewById(R.id.date);
