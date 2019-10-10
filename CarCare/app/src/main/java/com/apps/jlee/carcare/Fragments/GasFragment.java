@@ -18,6 +18,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.text.Selection;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -88,8 +89,12 @@ public class GasFragment extends Fragment
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState)
+    public View onCreateView(LayoutInflater inflater2, ViewGroup container,Bundle savedInstanceState)
     {
+        // Create ContextThemeWrapper from the original Activity Context
+        ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(getActivity(), R.style.Material_Dark);
+        LayoutInflater inflater = getActivity().getLayoutInflater().cloneInContext(contextThemeWrapper);
+
        View view = inflater.inflate(R.layout.fragment_gas, container, false);
        fab = view.findViewById(R.id.fab2);
 

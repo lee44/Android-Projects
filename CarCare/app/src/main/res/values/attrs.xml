@@ -1,9 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+<!--Applies styles to GasDialogFragment-->
     <attr name="cardViewBackground" format="reference" />
     <attr name="textViewRegular" format="reference" />
     <attr name="textViewLarge" format="reference" />
     <attr name="cardViewEditText" format="reference" />
+
+<!--Applies styles to GasFragment-->
+    <attr name="layout_background" format="reference" />
+    <attr name="floating_action_button" format="reference" />
+
+<!--Applies styles to Gas Entries-->
+    <attr name="cardViewBackground_gas_entry" format="reference" />
+    <attr name="textView_gas_entry" format="reference" />
+    <attr name="textView_gas_entry_date" format="reference" />
+    <attr name="textView_gas_entry_MPG" format="reference" />
 
 </resources>

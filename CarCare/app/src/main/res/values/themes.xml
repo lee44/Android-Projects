@@ -2,10 +2,37 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <style name="Material_Dark">
+        <!--Applies styles to GasDialogFragment-->
         <item name="cardViewBackground">@style/cardView_background_dark</item>
         <item name="textViewRegular">@style/textView_regular_dark</item>
         <item name="textViewLarge">@style/textView_large_dark</item>
         <item name="cardViewEditText">@style/cardViewEditText_dark</item>
+
+        <!--Applies styles to GasFragment-->
+        <item name="layout_background">@style/layout_background_dark</item>
+        <item name="floating_action_button">@style/floating_action_button_dark</item>
+
+        <!--Applies styles to Gas Entries-->
+        <item name="cardViewBackground_gas_entry">@style/cardViewBackground_gas_entry_dark</item>
+        <item name="textView_gas_entry">@style/textView_regular_gas_entry_dark</item>
+        <item name="textView_gas_entry_date">@style/textView_gas_entry_date_dark</item>
+        <item name="textView_gas_entry_MPG">@style/textView_gas_entry_MPG_dark</item>
+    </style>
+
+    <style name="Material_Light">
+        <!--Applies styles to GasDialogFragment-->
+        <item name="cardViewBackground">@style/cardView_background_dark</item>
+        <item name="textViewRegular">@style/textView_regular_dark</item>
+        <item name="textViewLarge">@style/textView_large_dark</item>
+        <item name="cardViewEditText">@style/cardViewEditText_dark</item>
+
+        <!--Applies styles to GasFragment-->
+        <item name="layout_background">@style/layout_background_dark</item>
+        <item name="floating_action_button">@style/floating_action_button_dark</item>
+
+        <!--Applies styles to Gas Entries-->
+        <item name="cardViewBackground_gas_entry">@style/cardViewBackground_gas_entry_dark</item>
+        <item name="textView_gas_entry">@style/textView_regular_gas_entry_dark</item>
     </style>
 
 </resources>

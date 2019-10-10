@@ -73,6 +73,9 @@ public class MainActivity extends AppCompatActivity
                         toggleToolbarSelection();
                         toggleBottomNavBarButtons();
                         gas.cancel();
+                        gas.toggleFloatingActionButton();
+                        bottomNavBar.findViewById(R.id.Home).setSelected(false);
+                        bottomNavBar.findViewById(R.id.Gas).setSelected(true);
                         break;
 
                     case R.id.delete:

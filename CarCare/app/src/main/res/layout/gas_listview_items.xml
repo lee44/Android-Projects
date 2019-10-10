@@ -9,8 +9,8 @@
     android:layout_marginLeft="2.5dp"
     android:layout_marginRight="2.5dp"
     android:elevation="10dp"
-    app:cardBackgroundColor="@color/black"
-    app:cardCornerRadius="6dp">
+    app:cardCornerRadius="6dp"
+    style="?cardViewBackground">
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/gasFragment"
@@ -26,13 +26,11 @@
             android:layout_marginStart="2dp"
             android:text="10/24/2018"
             android:textAlignment="center"
-            android:textColor="@color/white"
-            android:textSize="@dimen/Date"
-            android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/guideline13"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            style="?textView_gas_entry_date"/>
 
         <CheckBox
             android:id="@+id/gas_listview_checkbox"
@@ -69,13 +67,12 @@
             android:layout_marginStart="2dp"
             android:layout_marginTop="1dp"
             android:text="Cost"
-            android:textColor="@color/white"
-            android:textSize="@dimen/Default"
             app:layout_constraintBottom_toTopOf="@+id/guideline14"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/cash_icon"
-            app:layout_constraintTop_toTopOf="@+id/guideline13" />
+            app:layout_constraintTop_toTopOf="@+id/guideline13"
+            style="?textView_gas_entry"/>/>
 
         <ImageView
             android:id="@+id/miles_icon"
@@ -101,13 +98,12 @@
             android:layout_marginStart="2dp"
             android:layout_marginTop="1dp"
             android:text="Miles"
-            android:textColor="@color/white"
-            android:textSize="@dimen/Default"
             app:layout_constraintBottom_toTopOf="@+id/guideline15"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/miles_icon"
-            app:layout_constraintTop_toTopOf="@+id/guideline14" />
+            app:layout_constraintTop_toTopOf="@+id/guideline14"
+            style="?textView_gas_entry"/>/>
 
         <ImageView
             android:id="@+id/gallons_icon"
@@ -133,13 +129,12 @@
             android:layout_marginStart="2dp"
             android:layout_marginTop="1dp"
             android:text="Gallons"
-            android:textColor="@color/white"
-            android:textSize="@dimen/Default"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/gallons_icon"
-            app:layout_constraintTop_toTopOf="@+id/guideline15" />
+            app:layout_constraintTop_toTopOf="@+id/guideline15"
+            style="?textView_gas_entry"/>/>
 
         <TextView
             android:id="@+id/MPG"
@@ -149,12 +144,10 @@
             android:layout_marginEnd="4dp"
             android:layout_marginTop="1dp"
             android:text="34.30 MPG"
-            android:textColor="@color/red"
-            android:textSize="@dimen/MPGorMiles"
-            android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/guideline15"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline14" />
+            app:layout_constraintTop_toTopOf="@+id/guideline14"
+            style="?textView_gas_entry_MPG"/>
 
         <android.support.constraint.Guideline
             android:id="@+id/guideline13"

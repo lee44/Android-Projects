@@ -40,14 +40,6 @@
         <item name="android:textStyle">bold</item>
     </style>
 
-    <!--<style name="cardViewEditText_dark">-->
-        <!--<item name="android:textColor">@color/white</item>-->
-        <!--<item name="android:textSize">@dimen/edittext</item>-->
-        <!--<item name="android:textColorHint">@color/white</item>-->
-        <!--<item name="android:backgroundTint">@color/white</item>-->
-        <!--<item name="android:textCursorDrawable">@drawable/edit_text_color_cursor</item>-->
-    <!--</style>-->
-
     <style name="cardViewEditText_dark">
         <item name="android:textColorPrimary">@color/white</item>
         <item name="android:textSize">@dimen/edittext</item>
@@ -57,4 +49,35 @@
         <item name="android:textColorHint">@color/white</item>
     </style>
 
+    <style name="layout_background_dark">
+        <item name="android:background">@color/dark_background</item>
+    </style>
+
+    <style name="floating_action_button_dark">
+        <item name="colorControlNormal">@color/neon</item>
+        <item name="colorAccent">@color/neon</item>
+        <item name="colorControlActivated">@color/neon</item>
+    </style>
+
+    <style name="cardViewBackground_gas_entry_dark">
+        <item name="cardBackgroundColor">@color/cardView_background</item>
+    </style>
+
+    <style name="textView_regular_gas_entry_dark">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/Default</item>
+    </style>
+
+    <style name="textView_gas_entry_date_dark">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/Date</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="textView_gas_entry_MPG_dark">
+        <item name="android:textColor">@color/red</item>
+        <item name="android:textSize">@dimen/MPGorMiles</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    
 </resources>
