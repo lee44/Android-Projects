@@ -4,6 +4,6 @@
     <attr name="cardViewBackground" format="reference" />
     <attr name="textViewRegular" format="reference" />
     <attr name="textViewLarge" format="reference" />
-    <attr name="button" format="reference" />
+    <attr name="cardViewEditText" format="reference" />
 
 </resources>

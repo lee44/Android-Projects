@@ -64,7 +64,7 @@ public class GasDialogFragment extends DialogFragment
         super.onResume();
         //Gets the window of the Dialog
         Window window = getDialog().getWindow();
-        window.setLayout((int)(Resources.getSystem().getDisplayMetrics().widthPixels *.95), (int)(Resources.getSystem().getDisplayMetrics().heightPixels * .60));
+        window.setLayout((int)(Resources.getSystem().getDisplayMetrics().widthPixels *.95), (int)(Resources.getSystem().getDisplayMetrics().heightPixels * .80));
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         //window.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.TOP);
         getDialog().setCanceledOnTouchOutside(false);
@@ -95,7 +95,7 @@ public class GasDialogFragment extends DialogFragment
         OK = dialogView.findViewById(R.id.OK);
         Cancel = dialogView.findViewById(R.id.Cancel);
 
-        cost.requestFocus();
+        //cost.requestFocus();
 
         //Sets the text for all edit text views when user wants to edit the gas entry
         if(getArguments().size() != 0)

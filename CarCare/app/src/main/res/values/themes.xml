@@ -5,7 +5,7 @@
         <item name="cardViewBackground">@style/cardView_background_dark</item>
         <item name="textViewRegular">@style/textView_regular_dark</item>
         <item name="textViewLarge">@style/textView_large_dark</item>
-        <item name="button">@style/button_dark</item>
+        <item name="cardViewEditText">@style/cardViewEditText_dark</item>
     </style>
 
 </resources>
