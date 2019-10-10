@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.apps.jlee.carcare.Fragments.GasFragment;
 import com.apps.jlee.carcare.Fragments.HomeFragment;
 import com.apps.jlee.carcare.R;
+import com.apps.jlee.carcare.util.Utils;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -35,6 +36,9 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
+        Utils.onActivityCreateSetTheme(this);
+
         setContentView(R.layout.activity_main);
 
         toolbar = findViewById(R.id.toolbar);
@@ -72,8 +76,8 @@ public class MainActivity extends AppCompatActivity
                         countSelected(-count);
                         toggleToolbarSelection();
                         toggleBottomNavBarButtons();
-                        gas.cancel();
                         gas.toggleFloatingActionButton();
+                        gas.cancel();
                         bottomNavBar.findViewById(R.id.Home).setSelected(false);
                         bottomNavBar.findViewById(R.id.Gas).setSelected(true);
                         break;

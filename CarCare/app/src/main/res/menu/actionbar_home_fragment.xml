@@ -16,4 +16,9 @@
         android:id="@+id/GraphByMPG"
         android:title="Graph By MPG">
     </item>
+
+    <item
+        android:id="@+id/Settings"
+        android:title="Settings">
+    </item>
 </menu>
