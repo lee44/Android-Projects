@@ -40,12 +40,21 @@
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="cardViewEditText_dark">
-        <item name="android:textColor">@color/white</item>
-        <item name="android:textSize">@dimen/edittext</item>
-        <item name="android:textColorHint">@color/white</item>
-        <item name="android:backgroundTint">@color/white</item>
+    <!--<style name="cardViewEditText_dark">-->
+        <!--<item name="android:textColor">@color/white</item>-->
+        <!--<item name="android:textSize">@dimen/edittext</item>-->
+        <!--<item name="android:textColorHint">@color/white</item>-->
+        <!--<item name="android:backgroundTint">@color/white</item>-->
         <!--<item name="android:textCursorDrawable">@drawable/edit_text_color_cursor</item>-->
+    <!--</style>-->
+
+    <style name="cardViewEditText_dark">
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:textSize">@dimen/edittext</item>
+        <item name="colorControlNormal">@color/white</item>
+        <item name="colorControlActivated">@color/neon</item>
+        <item name="colorAccent">@color/neon</item>
+        <item name="android:textColorHint">@color/white</item>
     </style>
 
 </resources>

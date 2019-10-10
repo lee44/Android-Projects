@@ -12,5 +12,5 @@
 
     <color name="cardView_background">#424242</color>
     <color name="cardView_button_background">#878787</color>
-    <color name="editText_focus_color">#74ee15</color>
+    <color name="neon">#74ee15</color>
 </resources>
