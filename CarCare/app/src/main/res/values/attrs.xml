@@ -16,4 +16,11 @@
     <attr name="textView_gas_entry_date" format="reference" />
     <attr name="textView_gas_entry_MPG" format="reference" />
 
+<!--Applies styles to MainActivity-->
+    <attr name="status_bar" format="reference"/>
+    <attr name="tool_bar" format="reference"/>
+    <attr name="bot_nav_bar" format="reference"/>
+    <attr name="tool_bar_title" format="reference"/>
+    <attr name="tab_layout" format="reference"/>
+
 </resources>

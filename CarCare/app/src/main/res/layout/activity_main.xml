@@ -9,11 +9,9 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
         android:minHeight="?attr/actionBarSize"
-        android:theme="@style/LightOverflow"
         app:layout_constraintTop_toTopOf="parent"
-        app:popupTheme="@style/Theme.AppCompat.Light.NoActionBar">
+        android:theme="?tool_bar">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="wrap_content"
@@ -24,14 +22,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="CarCare"
-                android:textColor="@android:color/white"
-                android:textSize="@dimen/title"
-                android:textStyle="bold"
                 android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                style="?tool_bar_title"/>
 
         </android.support.constraint.ConstraintLayout>
 
@@ -52,11 +48,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/colorPrimary"
-        app:itemBackground="@color/colorPrimary"
-        app:itemIconTint="@drawable/bot_nav_item_color_state_home_delete"
-        app:itemTextColor="@drawable/bot_nav_item_color_state_home_delete"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:menu="@menu/bot_nav_home_gas"/>
+        app:menu="@menu/bot_nav_home_gas"
+        style="?bot_nav_bar"/>
 
 </android.support.constraint.ConstraintLayout>

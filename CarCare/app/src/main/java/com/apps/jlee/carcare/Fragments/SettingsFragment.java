@@ -24,6 +24,7 @@ public class SettingsFragment extends Fragment
         View view = inflater.inflate(R.layout.settings, container, false);
         spThemes = view.findViewById(R.id.spThemes);
 
+        spThemes.setSelection(0,false);
         spThemes.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
         {
             @Override

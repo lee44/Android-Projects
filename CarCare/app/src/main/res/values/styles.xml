@@ -79,5 +79,48 @@
         <item name="android:textSize">@dimen/MPGorMiles</item>
         <item name="android:textStyle">bold</item>
     </style>
+
+    <style name="status_bar_dark">
+        <item name="android:statusBarColor">@color/black</item>
+    </style>
+
+    <style name="tool_bar_dark">
+        <item name="android:background">@color/dark_app_bar</item>
+        <!-- android:textColorPrimary is the color of the title text in the Toolbar  -->
+        <item name="android:textColorPrimary">@android:color/white</item>
+        <!-- actionMenuTextColor is the color of the text of action (menu) items  -->
+        <item name="actionMenuTextColor">@color/dark_app_bar</item>
+        <!-- Tints the input fields like checkboxes and text fields -->
+        <!--<item name="colorAccent">@color/white</item>-->
+        <!-- Applies to views in their normal state. -->
+        <item name="colorControlNormal">@color/white</item>
+        <!-- Applies to views in their activated state (i.e checked or switches) -->
+        <!--<item name="colorControlActivated">@color/neon</item>-->
+        <!-- Applied to framework control highlights (i.e ripples or list selectors) -->
+        <!--<item name="colorControlHighlight">@color/neon</item>-->
+    </style>
+
+    <style name="bot_nav_bar_dark">
+        <!--Colors the background that is not covered by the nav bar-->
+        <item name="android:background">@color/dark_app_bar</item>
+        <!--Colors the background of each item in the nav bar-->
+        <item name="itemBackground">@color/dark_app_bar</item>
+        <!--Colors the icons-->
+        <item name="itemIconTint">@drawable/bot_nav_color_home_delete</item>
+        <item name="itemTextColor">@drawable/bot_nav_color_home_delete</item>
+    </style>
+
+    <style name="tool_bar_title_dark">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/title</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="tab_layout_dark" parent="Widget.Design.TabLayout">
+        <!--<item name="tabIndicatorColor">@color/neon</item>-->
+        <item name="tabBackground">@color/dark_cards_dialog</item>
+        <item name="tabTextColor">@color/white</item>
+        <item name="tabSelectedTextColor">@color/neon</item>
+    </style>
     
 </resources>

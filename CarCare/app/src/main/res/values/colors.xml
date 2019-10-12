@@ -3,6 +3,7 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
     <color name="red">#ff0000</color>
     <color name="green">#008000</color>
     <color name="black">#000000</color>
@@ -12,5 +13,9 @@
     <color name="cardView_background">#424242</color>
     <color name="cardView_button_background">#878787</color>
     <color name="neon">#74ee15</color>
+
+    <color name="dark_status_bar">#000000</color>
+    <color name="dark_app_bar">#212121</color>
     <color name="dark_background">#303030</color>
+    <color name="dark_cards_dialog">#424242</color>
 </resources>
