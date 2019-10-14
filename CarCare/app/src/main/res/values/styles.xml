@@ -117,7 +117,7 @@
     </style>
 
     <style name="tab_layout_dark" parent="Widget.Design.TabLayout">
-        <!--<item name="tabIndicatorColor">@color/neon</item>-->
+        <item name="tabIndicatorColor">@color/neon</item>
         <item name="tabBackground">@color/dark_cards_dialog</item>
         <item name="tabTextColor">@color/white</item>
         <item name="tabSelectedTextColor">@color/neon</item>
