@@ -30,7 +30,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            style="?textView_gas_entry_date"/>
+            style="?textViewMedium"/>
 
         <CheckBox
             android:id="@+id/gas_listview_checkbox"
@@ -72,7 +72,7 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/cash_icon"
             app:layout_constraintTop_toTopOf="@+id/guideline13"
-            style="?textView_gas_entry"/>/>
+            style="?textViewSmall"/>/>
 
         <ImageView
             android:id="@+id/miles_icon"
@@ -103,7 +103,7 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/miles_icon"
             app:layout_constraintTop_toTopOf="@+id/guideline14"
-            style="?textView_gas_entry"/>/>
+            style="?textViewSmall"/>/>
 
         <ImageView
             android:id="@+id/gallons_icon"
@@ -134,7 +134,7 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/gallons_icon"
             app:layout_constraintTop_toTopOf="@+id/guideline15"
-            style="?textView_gas_entry"/>/>
+            style="?textViewSmall"/>/>
 
         <TextView
             android:id="@+id/MPG"

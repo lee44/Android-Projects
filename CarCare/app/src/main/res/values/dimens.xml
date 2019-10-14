@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <dimen name="title">24sp</dimen>
-    <dimen name="progressbar">20sp</dimen>
 
     <dimen name="Default">18sp</dimen>
+
+    <dimen name="title">24sp</dimen>
+    <dimen name="progressbar">20sp</dimen>
     <dimen name="MPGorMiles">22sp</dimen>
     <dimen name="Date">20sp</dimen>
-    <dimen name="textview">22sp</dimen>
+
+    <dimen name="small_textview">18sp</dimen>
+    <dimen name="medium_textview">22sp</dimen>
+    <dimen name="spinnertextview">20sp</dimen>
     <dimen name="edittext">21sp</dimen>
 
     <dimen name="design_bottom_navigation_text_size" tools:override="true">12sp</dimen>

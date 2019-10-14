@@ -7,7 +7,8 @@
     android:layout_height="wrap_content"
     android:layout_margin="2.5dp"
     android:elevation="10dp"
-    app:cardCornerRadius="6dp">
+    app:cardCornerRadius="6dp"
+    style="?cardViewBackground">
 
 <android.support.constraint.ConstraintLayout
     android:id="@+id/gasFragment"
@@ -22,13 +23,11 @@
         android:layout_marginStart="4dp"
         android:layout_marginTop="4dp"
         android:text="Starting Date"
-        android:textColor="@android:color/background_dark"
-        android:textSize="@dimen/textview"
-        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/guideline5"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        style="?textViewMedium"/>
 
     <EditText
         android:id="@+id/startingdate"
@@ -46,7 +45,8 @@
         app:layout_constraintBottom_toTopOf="@+id/guideline5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline2"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:theme="?attr/editText"/>
 
     <TextView
         android:layout_width="0dp"
@@ -56,13 +56,11 @@
         android:layout_marginStart="4dp"
         android:layout_marginTop="4dp"
         android:text="Ending Date"
-        android:textColor="@android:color/background_dark"
-        android:textSize="@dimen/textview"
-        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/guideline6"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline5" />
+        app:layout_constraintTop_toTopOf="@+id/guideline5"
+        style="?textViewMedium"/>
 
     <EditText
         android:id="@+id/endingdate"
@@ -80,7 +78,8 @@
         app:layout_constraintBottom_toTopOf="@+id/guideline6"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline2"
-        app:layout_constraintTop_toTopOf="@+id/guideline5" />
+        app:layout_constraintTop_toTopOf="@+id/guideline5"
+        android:theme="?attr/editText"/>
 
     <TextView
         android:layout_width="0dp"
@@ -90,13 +89,11 @@
         android:layout_marginStart="4dp"
         android:layout_marginTop="4dp"
         android:text="Sort"
-        android:textColor="@android:color/background_dark"
-        android:textSize="@dimen/textview"
-        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/guideline7"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline6" />
+        app:layout_constraintTop_toTopOf="@+id/guideline6"
+        style="?textViewMedium"/>
 
     <Spinner
         android:id="@+id/spinner"

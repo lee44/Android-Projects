@@ -4,7 +4,7 @@
         <!-- colorPrimary is used, for instance, for the default ActionBar(but not Toolbar) background.We specify the same color for the toolbar background in toolbar.xml.. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <!-- colorPrimaryDark is used for the status bar (with the battery, clock, etc). -->
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimaryDark">@color/dark_status_bar</item>
         <!-- colorAccent is used as the default value for colorControlActivated which is used to tint widgets(floating action buttong). -->
         <item name="colorAccent">@color/colorAccent</item>
     </style>
@@ -28,9 +28,14 @@
         <item name="cardBackgroundColor">@color/cardView_background</item>
     </style>
 
-    <style name="textView_regular_dark">
+    <style name="textView_small_dark">
         <item name="android:textColor">@color/white</item>
-        <item name="android:textSize">@dimen/textview</item>
+        <item name="android:textSize">@dimen/small_textview</item>
+    </style>
+
+    <style name="textView_medium_dark">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/medium_textview</item>
         <item name="android:textStyle">bold</item>
     </style>
 
@@ -40,7 +45,7 @@
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="cardViewEditText_dark">
+    <style name="editText_dark">
         <item name="android:textColorPrimary">@color/white</item>
         <item name="android:textSize">@dimen/edittext</item>
         <item name="colorControlNormal">@color/white</item>
@@ -61,17 +66,6 @@
 
     <style name="cardViewBackground_gas_entry_dark">
         <item name="cardBackgroundColor">@color/cardView_background</item>
-    </style>
-
-    <style name="textView_regular_gas_entry_dark">
-        <item name="android:textColor">@color/white</item>
-        <item name="android:textSize">@dimen/Default</item>
-    </style>
-
-    <style name="textView_gas_entry_date_dark">
-        <item name="android:textColor">@color/white</item>
-        <item name="android:textSize">@dimen/Date</item>
-        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="textView_gas_entry_MPG_dark">
@@ -121,6 +115,12 @@
         <item name="tabBackground">@color/dark_cards_dialog</item>
         <item name="tabTextColor">@color/white</item>
         <item name="tabSelectedTextColor">@color/neon</item>
+    </style>
+
+    <style name="spinner_textview_dark">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/spinnertextview</item>
+        <item name="android:background">@color/dark_cards_dialog</item>
     </style>
     
 </resources>

@@ -29,7 +29,7 @@
             app:layout_constraintEnd_toStartOf="@+id/guideline2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            style="?textViewRegular"/>
+            style="?textViewMedium"/>
 
         <EditText
             android:id="@+id/date"
@@ -47,7 +47,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guideline2"
             app:layout_constraintTop_toTopOf="parent"
-            android:theme="?cardViewEditText"/>
+            android:theme="?attr/editText"/>
 
         <TextView
             android:id="@+id/textView2"
@@ -64,7 +64,7 @@
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/guideline5"
-            style="?textViewRegular"/>
+            style="?textViewMedium"/>
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/cost_error"
@@ -89,7 +89,7 @@
                 android:inputType="numberDecimal|numberSigned"
                 android:maxLength="8"
                 android:textAlignment="center"
-                android:theme="?cardViewEditText" />
+                android:theme="?attr/editText" />
         </android.support.design.widget.TextInputLayout>
 
         <TextView
@@ -106,7 +106,7 @@
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/guideline6"
-            style="?textViewRegular"/>
+            style="?textViewMedium"/>
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/miles_error"
@@ -132,7 +132,7 @@
                 android:inputType="numberDecimal|numberSigned"
                 android:maxLength="6"
                 android:textAlignment="center"
-                android:theme="?cardViewEditText" />
+                android:theme="?attr/editText" />
         </android.support.design.widget.TextInputLayout>
 
         <TextView
@@ -150,7 +150,7 @@
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/guideline7"
-            style="?textViewRegular"/>
+            style="?textViewMedium"/>
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/gallons_error"
@@ -176,7 +176,7 @@
                 android:inputType="numberDecimal|numberSigned"
                 android:maxLength="6"
                 android:textAlignment="center"
-                android:theme="?cardViewEditText" />
+                android:theme="?attr/editText" />
         </android.support.design.widget.TextInputLayout>
 
         <TextView
