@@ -37,11 +37,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
-            android:buttonTint="@android:color/white"
-            android:textColor="@android:color/white"
             android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline14" />
+            app:layout_constraintTop_toTopOf="@+id/guideline14"
+            style="?checkbox"/>
 
         <ImageView
             android:id="@+id/cash_icon"

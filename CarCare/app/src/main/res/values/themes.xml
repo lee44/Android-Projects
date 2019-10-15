@@ -28,6 +28,8 @@
         <!--FilterDialogFragment-->
         <item name="spinner_textview">@style/dark_spinner_textview</item>
 
+        <item name="checkbox">@style/dark_checkbox</item>
+
     </style>
 
     <style name="Material_Light">
@@ -56,6 +58,8 @@
 
         <!--FilterDialogFragment-->
         <item name="spinner_textview">@style/light_spinner_textview</item>
+
+        <item name="checkbox">@style/light_checkbox</item>
     </style>
 
 </resources>

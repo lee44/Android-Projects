@@ -27,6 +27,8 @@
     <color name="dark_graph_xaxis">#ffffff</color>
     <color name="dark_graph_yaxis">#ffffff</color>
 
+    <color name="dark_checkbox">#ffffff</color>
+
 <!--Material Light Colors-->
     <color name="light_status_bar">#E0E0E0</color>
     <color name="light_app_bar">#F5F5F5</color>
@@ -46,5 +48,7 @@
     <color name="light_graph_dots">#ff0000ff</color>
     <color name="light_graph_xaxis">#000000</color>
     <color name="light_graph_yaxis">#000000</color>
+
+    <color name="light_checkbox">#000000</color>
 
 </resources>

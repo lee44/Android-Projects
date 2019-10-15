@@ -25,4 +25,6 @@
 
 <!--FilterDialogFragment-->
     <attr name="spinner_textview" format="reference"/>
+
+    <attr name="checkbox" format="reference"/>
 </resources>
