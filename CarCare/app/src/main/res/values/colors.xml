@@ -19,11 +19,14 @@
     <color name="dark_app_bar">#212121</color>
     <color name="dark_background">#303030</color>
     <color name="dark_cards_dialog">#424242</color>
+    <color name="dark_textview">#ffffff</color>
 
     <color name="light_status_bar">#E0E0E0</color>
     <color name="light_app_bar">#F5F5F5</color>
     <color name="light_background">#FAFAFA</color>
     <color name="light_cards_dialog">#FFFFFF</color>
-
     <color name="light_app_bar_text">#c4c4c4</color>
+    <color name="light_textview">#000000</color>
+    <color name="light_edit_textview">#000000</color>
+
 </resources>

@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
@@ -34,6 +36,7 @@ import com.apps.jlee.carcare.Dialog_Fragments.GasDialogFragment;
 import com.apps.jlee.carcare.R;
 import com.apps.jlee.carcare.Data.SQLiteDatabaseHandler;
 import com.apps.jlee.carcare.UI.SwipeCallback;
+import com.apps.jlee.carcare.util.Utils;
 
 import java.io.File;
 import java.io.IOException;
@@ -207,6 +210,28 @@ public class GasFragment extends Fragment
         });
 
        return view;
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu)
+    {
+        super.onPrepareOptionsMenu(menu);
+
+        if(Utils.sTheme == 1)
+        {
+            MenuItem item = menu.findItem(R.id.Filter);
+            Drawable icon = getResources().getDrawable(R.drawable.filter);
+            icon.setColorFilter(getResources().getColor(R.color.black), PorterDuff.Mode.SRC_IN);
+            item.setIcon(icon);
+        }
+        else
+        {
+            MenuItem item = menu.findItem(R.id.Filter);
+            Drawable icon = getResources().getDrawable(R.drawable.filter);
+            icon.setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.SRC_IN);
+            item.setIcon(icon);
+        }
+
     }
 
     @Override

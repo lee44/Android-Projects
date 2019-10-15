@@ -3,57 +3,57 @@
 
     <style name="Material_Dark">
         <!--GasDialogFragment,FilterDialogFragment-->
-        <item name="cardViewBackground">@style/cardView_background_dark</item>
-        <item name="textViewSmall">@style/textView_small_dark</item>
-        <item name="textViewMedium">@style/textView_medium_dark</item>
-        <item name="textViewLarge">@style/textView_large_dark</item>
-        <item name="editText">@style/editText_dark</item>
+        <item name="cardViewBackground">@style/dark_cardView_background</item>
+        <item name="textViewSmall">@style/dark_textView_small</item>
+        <item name="textViewMedium">@style/dark_textView_medium</item>
+        <item name="textViewLarge">@style/dark_textView_large</item>
+        <item name="editText">@style/dark_editText</item>
 
         <!--GasFragment-->
-        <item name="layout_background">@style/layout_background_dark</item>
-        <item name="floating_action_button">@style/floating_action_button_dark</item>
+        <item name="layout_background">@style/dark_layout_background</item>
+        <item name="floating_action_button">@style/dark_floating_action_button</item>
 
         <!--Gas Entries-->
-        <item name="cardViewBackground_gas_entry">@style/cardViewBackground_gas_entry_dark</item>
-        <item name="textView_gas_entry_MPG">@style/textView_gas_entry_MPG_dark</item>
+        <item name="cardViewBackground_gas_entry">@style/dark_cardViewBackground_gas_entry</item>
+        <item name="textView_gas_entry_MPG">@style/dark_textView_gas_entry_MPG</item>
 
         <!--Main Activity-->
-        <item name="status_bar">@style/status_bar_dark</item>
-        <item name="tool_bar">@style/tool_bar_dark</item>
-        <item name="bot_nav_bar">@style/bot_nav_bar_dark</item>
-        <item name="tool_bar_title">@style/tool_bar_title_dark</item>
-        <item name="tab_layout">@style/tab_layout_dark</item>
+        <item name="status_bar">@style/dark_status_bar</item>
+        <item name="tool_bar">@style/dark_tool_bar</item>
+        <item name="bot_nav_bar">@style/dark_bot_nav_bar</item>
+        <item name="tool_bar_title">@style/dark_tool_bar_title</item>
+        <item name="tab_layout">@style/dark_tab_layout</item>
 
         <!--FilterDialogFragment-->
-        <item name="spinner_textview">@style/spinner_textview_dark</item>
+        <item name="spinner_textview">@style/dark_spinner_textview</item>
 
     </style>
 
     <style name="Material_Light">
         <!--GasDialogFragment,FilterDialogFragment-->
-        <item name="cardViewBackground">@style/cardView_background_light</item>
-        <item name="textViewSmall">@style/textView_small_light</item>
-        <item name="textViewMedium">@style/textView_medium_light</item>
-        <item name="textViewLarge">@style/textView_large_light</item>
-        <item name="editText">@style/editText_light</item>
+        <item name="cardViewBackground">@style/light_cardView_background</item>
+        <item name="textViewSmall">@style/light_textView_small</item>
+        <item name="textViewMedium">@style/light_textView_medium</item>
+        <item name="textViewLarge">@style/light_textView_large</item>
+        <item name="editText">@style/light_editText</item>
 
         <!--GasFragment-->
-        <item name="layout_background">@style/layout_background_light</item>
-        <item name="floating_action_button">@style/floating_action_button_light</item>
+        <item name="layout_background">@style/light_layout_background</item>
+        <item name="floating_action_button">@style/light_floating_action_button</item>
 
         <!--Gas Entries-->
-        <item name="cardViewBackground_gas_entry">@style/cardViewBackground_gas_entry_light</item>
-        <item name="textView_gas_entry_MPG">@style/textView_gas_entry_MPG_light</item>
+        <item name="cardViewBackground_gas_entry">@style/light_cardViewBackground_gas_entry</item>
+        <item name="textView_gas_entry_MPG">@style/light_textView_gas_entry_MPG</item>
 
         <!--Main Activity-->
-        <item name="status_bar">@style/status_bar_light</item>
-        <item name="tool_bar">@style/tool_bar_light</item>
-        <item name="bot_nav_bar">@style/bot_nav_bar_light</item>
-        <item name="tool_bar_title">@style/tool_bar_title_light</item>
-        <item name="tab_layout">@style/tab_layout_light</item>
+        <item name="status_bar">@style/light_status_bar</item>
+        <item name="tool_bar">@style/light_tool_bar</item>
+        <item name="bot_nav_bar">@style/light_bot_nav_bar</item>
+        <item name="tool_bar_title">@style/light_tool_bar_title</item>
+        <item name="tab_layout">@style/light_tab_layout</item>
 
         <!--FilterDialogFragment-->
-        <item name="spinner_textview">@style/spinner_textview_light</item>
+        <item name="spinner_textview">@style/light_spinner_textview</item>
     </style>
 
 </resources>
