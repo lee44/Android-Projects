@@ -170,7 +170,7 @@ public class MainActivity extends AppCompatActivity
     public void toggleBottomNavBarButtons()
     {
         int[] bot_nav_home_gas_colors = new int[2];
-        int[] bot_nav_selectall_delete_colors = new int[2];
+        int[] bot_nav_selectall_delete_colors = new int[1];
         int[][] states = new int[][]
         {
             new int[] {android.R.attr.state_selected},
@@ -180,18 +180,17 @@ public class MainActivity extends AppCompatActivity
         if(Utils.sTheme == 1)
         {
             bot_nav_home_gas_colors[0] = Color.BLACK;
-            bot_nav_home_gas_colors[1] = R.color.red;
+            /*For some reason, using colors defined in colors.xml doesn't work*/
+            bot_nav_home_gas_colors[1] = Color.parseColor("#c4c4c4");
 
             bot_nav_selectall_delete_colors[0] = Color.BLACK;
-            bot_nav_selectall_delete_colors[1] = Color.BLACK;
         }
         else
         {
             bot_nav_home_gas_colors[0] = Color.WHITE;
-            bot_nav_home_gas_colors[1] = Color.BLACK;
+            bot_nav_home_gas_colors[1] = Color.parseColor("#c4c4c4");
 
             bot_nav_selectall_delete_colors[0] = Color.WHITE;
-            bot_nav_selectall_delete_colors[1] = Color.WHITE;
         }
 
         if(bottomNavBar.getMenu().getItem(0).getItemId() == R.id.Home)
@@ -207,7 +206,6 @@ public class MainActivity extends AppCompatActivity
             bottomNavBar.inflateMenu(R.menu.bot_nav_home_gas);
             bottomNavBar.setItemIconTintList(new ColorStateList(states,bot_nav_home_gas_colors));
             bottomNavBar.setItemTextColor(new ColorStateList(states,bot_nav_home_gas_colors));
-            bottomNavBar.findViewById(R.id.Gas).setSelected(true);
         }
     }
 
