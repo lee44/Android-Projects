@@ -23,4 +23,6 @@
     <color name="light_app_bar">#F5F5F5</color>
     <color name="light_background">#FAFAFA</color>
     <color name="light_cards_dialog">#FFFFFF</color>
+
+    <color name="light_app_bar_text">#c4c4c4</color>
 </resources>

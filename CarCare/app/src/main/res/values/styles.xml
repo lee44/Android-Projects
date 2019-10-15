@@ -100,8 +100,8 @@
         <!--Colors the background of each item in the nav bar-->
         <item name="itemBackground">@color/dark_app_bar</item>
         <!--Colors the icons-->
-        <item name="itemIconTint">@drawable/bot_nav_color_home_delete</item>
-        <item name="itemTextColor">@drawable/bot_nav_color_home_delete</item>
+        <item name="itemIconTint">@drawable/bot_nav_dark</item>
+        <item name="itemTextColor">@drawable/bot_nav_dark</item>
     </style>
 
     <style name="tool_bar_title_dark">
@@ -121,6 +121,108 @@
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">@dimen/spinnertextview</item>
         <item name="android:background">@color/dark_cards_dialog</item>
+    </style>
+
+    <!-- =============================================================== -->
+    <!-- Material_Light styles -->
+    <!-- =============================================================== -->
+    <style name="cardView_background_light">
+        <item name="cardBackgroundColor">@color/light_cards_dialog</item>
+    </style>
+
+    <style name="textView_small_light">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">@dimen/small_textview</item>
+    </style>
+
+    <style name="textView_medium_light">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">@dimen/medium_textview</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="textView_large_light">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">38sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="editText_light">
+        <item name="android:textColorPrimary">@color/black</item>
+        <item name="android:textSize">@dimen/edittext</item>
+        <item name="colorControlNormal">@color/black</item>
+        <item name="colorControlActivated">@color/red</item>
+        <item name="colorAccent">@color/red</item>
+        <item name="android:textColorHint">@color/black</item>
+    </style>
+
+    <style name="layout_background_light">
+        <item name="android:background">@color/light_background</item>
+    </style>
+
+    <style name="floating_action_button_light">
+        <item name="colorControlNormal">@color/red</item>
+        <item name="colorAccent">@color/red</item>
+        <item name="colorControlActivated">@color/red</item>
+    </style>
+
+    <style name="cardViewBackground_gas_entry_light">
+        <item name="cardBackgroundColor">@color/light_background</item>
+    </style>
+
+    <style name="textView_gas_entry_MPG_light">
+        <item name="android:textColor">@color/red</item>
+        <item name="android:textSize">@dimen/MPGorMiles</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="status_bar_light">
+        <item name="android:statusBarColor">@color/light_status_bar</item>
+    </style>
+
+    <style name="tool_bar_light">
+        <item name="android:background">@color/light_app_bar</item>
+        <!-- android:textColorPrimary is the color of the title text in the Toolbar  -->
+        <item name="android:textColorPrimary">@color/black</item>
+        <!-- actionMenuTextColor is the color of the text of action (menu) items  -->
+        <item name="actionMenuTextColor">@color/light_app_bar</item>
+        <!-- Tints the input fields like checkboxes and text fields -->
+        <!--<item name="colorAccent">@color/white</item>-->
+        <!-- Applies to views in their normal state. -->
+        <item name="colorControlNormal">@color/black</item>
+        <!-- Applies to views in their activated state (i.e checked or switches) -->
+        <!--<item name="colorControlActivated">@color/neon</item>-->
+        <!-- Applied to framework control highlights (i.e ripples or list selectors) -->
+        <!--<item name="colorControlHighlight">@color/neon</item>-->
+    </style>
+
+    <style name="bot_nav_bar_light">
+        <!--Colors the background that is not covered by the nav bar-->
+        <item name="android:background">@color/light_app_bar</item>
+        <!--Colors the background of each item in the nav bar-->
+        <item name="itemBackground">@color/light_app_bar</item>
+        <!--Colors the icons-->
+        <item name="itemIconTint">@drawable/bot_nav_light</item>
+        <item name="itemTextColor">@drawable/bot_nav_light</item>
+    </style>
+
+    <style name="tool_bar_title_light">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">@dimen/title</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="tab_layout_light" parent="Widget.Design.TabLayout">
+        <item name="tabIndicatorColor">@color/red</item>
+        <item name="tabBackground">@color/light_cards_dialog</item>
+        <item name="tabTextColor">@color/light_app_bar_text</item>
+        <item name="tabSelectedTextColor">@color/black</item>
+    </style>
+
+    <style name="spinner_textview_light">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">@dimen/spinnertextview</item>
+        <item name="android:background">@color/light_cards_dialog</item>
     </style>
     
 </resources>

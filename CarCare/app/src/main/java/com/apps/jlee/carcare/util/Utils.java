@@ -6,7 +6,7 @@ import com.apps.jlee.carcare.R;
 
 public class Utils
 {
-    private static int sTheme = -1;
+    public static int sTheme = 1;
     public final static int THEME_DEFAULT = 0;
     public final static int THEME_MATERIAL_LIGHT = 1;
     public final static int THEME_MATERIAL_DARK = 2;

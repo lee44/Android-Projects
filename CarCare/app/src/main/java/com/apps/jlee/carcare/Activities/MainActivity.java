@@ -12,6 +12,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -168,32 +169,44 @@ public class MainActivity extends AppCompatActivity
      */
     public void toggleBottomNavBarButtons()
     {
-        if(bottomNavBar.getMenu().getItem(0).getItemId() == R.id.Home)
+        int[] bot_nav_home_gas_colors = new int[2];
+        int[] bot_nav_selectall_delete_colors = new int[2];
+        int[][] states = new int[][]
         {
-           bottomNavBar.getMenu().clear();
-           bottomNavBar.inflateMenu(R.menu.bot_nav_selectall_delete_cancel);
-           bottomNavBar.setItemIconTintList(new ColorStateList(new int[][]{new int[]{-android.R.attr.checked}},new int[]{Color.WHITE}));
-           bottomNavBar.setItemTextColor(new ColorStateList(new int[][]{new int[]{-android.R.attr.checked}},new int[]{Color.WHITE}));
+            new int[] {android.R.attr.state_selected},
+            new int[] {-android.R.attr.state_selected}
+        };
+
+        if(Utils.sTheme == 1)
+        {
+            bot_nav_home_gas_colors[0] = Color.BLACK;
+            bot_nav_home_gas_colors[1] = R.color.red;
+
+            bot_nav_selectall_delete_colors[0] = Color.BLACK;
+            bot_nav_selectall_delete_colors[1] = Color.BLACK;
         }
         else
         {
-            int[][] states = new int[][]
-            {
-                new int[] {android.R.attr.state_selected},
-                new int[] {-android.R.attr.state_selected}
-            };
+            bot_nav_home_gas_colors[0] = Color.WHITE;
+            bot_nav_home_gas_colors[1] = Color.BLACK;
 
-            int[] colors = new int[]
-            {
-                Color.WHITE,
-                Color.parseColor("#32000000")
-            };
+            bot_nav_selectall_delete_colors[0] = Color.WHITE;
+            bot_nav_selectall_delete_colors[1] = Color.WHITE;
+        }
 
+        if(bottomNavBar.getMenu().getItem(0).getItemId() == R.id.Home)
+        {
+            bottomNavBar.getMenu().clear();
+            bottomNavBar.inflateMenu(R.menu.bot_nav_selectall_delete_cancel);
+            bottomNavBar.setItemIconTintList(new ColorStateList(new int[][]{new int[]{-android.R.attr.checked}},bot_nav_selectall_delete_colors));
+            bottomNavBar.setItemTextColor(new ColorStateList(new int[][]{new int[]{-android.R.attr.checked}},bot_nav_selectall_delete_colors));
+        }
+        else
+        {
             bottomNavBar.getMenu().clear();
             bottomNavBar.inflateMenu(R.menu.bot_nav_home_gas);
-            bottomNavBar.setItemIconTintList(new ColorStateList(states,colors));
-            bottomNavBar.setItemTextColor(new ColorStateList(states,colors));
-
+            bottomNavBar.setItemIconTintList(new ColorStateList(states,bot_nav_home_gas_colors));
+            bottomNavBar.setItemTextColor(new ColorStateList(states,bot_nav_home_gas_colors));
             bottomNavBar.findViewById(R.id.Gas).setSelected(true);
         }
     }

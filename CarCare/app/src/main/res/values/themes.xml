@@ -30,7 +30,30 @@
     </style>
 
     <style name="Material_Light">
+        <!--GasDialogFragment,FilterDialogFragment-->
+        <item name="cardViewBackground">@style/cardView_background_light</item>
+        <item name="textViewSmall">@style/textView_small_light</item>
+        <item name="textViewMedium">@style/textView_medium_light</item>
+        <item name="textViewLarge">@style/textView_large_light</item>
+        <item name="editText">@style/editText_light</item>
 
+        <!--GasFragment-->
+        <item name="layout_background">@style/layout_background_light</item>
+        <item name="floating_action_button">@style/floating_action_button_light</item>
+
+        <!--Gas Entries-->
+        <item name="cardViewBackground_gas_entry">@style/cardViewBackground_gas_entry_light</item>
+        <item name="textView_gas_entry_MPG">@style/textView_gas_entry_MPG_light</item>
+
+        <!--Main Activity-->
+        <item name="status_bar">@style/status_bar_light</item>
+        <item name="tool_bar">@style/tool_bar_light</item>
+        <item name="bot_nav_bar">@style/bot_nav_bar_light</item>
+        <item name="tool_bar_title">@style/tool_bar_title_light</item>
+        <item name="tab_layout">@style/tab_layout_light</item>
+
+        <!--FilterDialogFragment-->
+        <item name="spinner_textview">@style/spinner_textview_light</item>
     </style>
 
 </resources>
