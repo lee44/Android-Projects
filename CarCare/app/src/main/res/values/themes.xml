@@ -4,6 +4,7 @@
     <style name="Material_Dark">
         <!--GasDialogFragment,FilterDialogFragment-->
         <item name="cardViewBackground">@style/dark_cardView_background</item>
+        <item name="textViewDefault">@style/dark_textView_default</item>
         <item name="textViewSmall">@style/dark_textView_small</item>
         <item name="textViewMedium">@style/dark_textView_medium</item>
         <item name="textViewLarge">@style/dark_textView_large</item>
@@ -32,6 +33,7 @@
     <style name="Material_Light">
         <!--GasDialogFragment,FilterDialogFragment-->
         <item name="cardViewBackground">@style/light_cardView_background</item>
+        <item name="textViewDefault">@style/light_textView_default</item>
         <item name="textViewSmall">@style/light_textView_small</item>
         <item name="textViewMedium">@style/light_textView_medium</item>
         <item name="textViewLarge">@style/light_textView_large</item>

@@ -2,6 +2,7 @@
 <resources>
 <!--GasDialogFragment,FilterDialogFragment-->
     <attr name="cardViewBackground" format="reference" />
+    <attr name="textViewDefault" format="reference" />
     <attr name="textViewSmall" format="reference" />
     <attr name="textViewMedium" format="reference" />
     <attr name="textViewLarge" format="reference" />

@@ -8,7 +8,7 @@
     <dimen name="MPGorMiles">22sp</dimen>
     <dimen name="Date">20sp</dimen>
 
-    <dimen name="small_textview">18sp</dimen>
+    <dimen name="small_textview">20sp</dimen>
     <dimen name="medium_textview">22sp</dimen>
     <dimen name="spinnertextview">20sp</dimen>
     <dimen name="edittext">21sp</dimen>

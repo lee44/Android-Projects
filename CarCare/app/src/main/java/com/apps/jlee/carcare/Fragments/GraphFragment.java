@@ -24,6 +24,7 @@ import com.apps.jlee.carcare.Broadcast_Receivers.AlarmReceiver;
 import com.apps.jlee.carcare.Objects.Gas;
 import com.apps.jlee.carcare.R;
 import com.apps.jlee.carcare.Data.SQLiteDatabaseHandler;
+import com.apps.jlee.carcare.util.Utils;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.XAxis;
@@ -177,9 +178,6 @@ public class GraphFragment extends Fragment
         LineDataSet dataSet = new LineDataSet(entries, "Label");
         dataSet.setLineWidth(3);
         dataSet.setDrawValues(false);
-        dataSet.setColor(Color.rgb(0,255,47));
-        dataSet.setCircleHoleColor(Color.BLUE);
-        dataSet.setCircleColor(Color.BLUE);
         dataSet.setCircleHoleRadius(5f);
         dataSet.setCircleRadius(5f);
 
@@ -188,7 +186,6 @@ public class GraphFragment extends Fragment
         XAxis xAxis = chart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setTextSize(15f);
-        xAxis.setTextColor(Color.WHITE);
         xAxis.setDrawAxisLine(true);
         xAxis.setDrawGridLines(true);
         xAxis.setValueFormatter(new IndexAxisValueFormatter()
@@ -213,7 +210,6 @@ public class GraphFragment extends Fragment
 
         YAxis leftAxis = chart.getAxisLeft();
         leftAxis.setTextSize(15f);
-        leftAxis.setTextColor(Color.WHITE);
         leftAxis.setDrawZeroLine(true);
 
         chart.getAxisRight().setEnabled(false);
@@ -224,6 +220,26 @@ public class GraphFragment extends Fragment
         chart.setExtraOffsets(0, 0, 0, 10);
 
         chart.setData(lineData);
+
+        if(Utils.sTheme == 1)
+        {
+            dataSet.setColor(getResources().getColor(R.color.light_graph_line));
+            dataSet.setCircleHoleColor(getResources().getColor(R.color.light_graph_dots));
+            dataSet.setCircleColor(getResources().getColor(R.color.light_graph_dots));
+
+            xAxis.setTextColor(getResources().getColor(R.color.light_graph_xaxis));
+            leftAxis.setTextColor(getResources().getColor(R.color.light_graph_yaxis));
+        }
+        else
+        {
+            dataSet.setColor(getResources().getColor(R.color.dark_graph_line));
+            dataSet.setCircleHoleColor(getResources().getColor(R.color.dark_graph_dots));
+            dataSet.setCircleColor(getResources().getColor(R.color.dark_graph_dots));
+
+            xAxis.setTextColor(getResources().getColor(R.color.dark_graph_xaxis));
+            leftAxis.setTextColor(getResources().getColor(R.color.dark_graph_yaxis));
+        }
+
         chart.invalidate();
 
         chart.setVisibleXRangeMaximum(7);/*Set Maximum x values being displayed*/

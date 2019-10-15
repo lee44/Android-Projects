@@ -15,12 +15,10 @@
         android:layout_marginStart="4dp"
         android:layout_marginTop="4dp"
         android:text="Cost Graph"
-        android:textColor="@android:color/white"
-        android:textSize="@dimen/title"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        style="?textViewMedium"/>
 
     <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/chart"
@@ -45,13 +43,11 @@
         android:layout_marginTop="4dp"
         android:text="Replacement Progress"
         android:textAlignment="center"
-        android:textColor="@android:color/white"
-        android:textSize="@dimen/title"
-        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/guideline4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline" />
+        app:layout_constraintTop_toTopOf="@+id/guideline"
+        style="?textViewMedium"/>
 
     <TextView
         android:id="@+id/oil"
@@ -61,12 +57,11 @@
         android:layout_marginStart="4dp"
         android:layout_marginTop="4dp"
         android:text="Oil"
-        android:textColor="@android:color/white"
-        android:textSize="@dimen/progressbar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline4" />
+        app:layout_constraintTop_toTopOf="@+id/guideline4"
+        style="?textViewSmall"/>
 
     <TextView
         android:id="@+id/oilprogress"
@@ -74,10 +69,9 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="4dp"
         android:layout_marginTop="6dp"
-        android:textColor="@android:color/white"
-        android:textSize="@dimen/Default"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline4" />
+        app:layout_constraintTop_toTopOf="@+id/guideline4"
+        style="?textViewDefault"/>
 
     <ProgressBar
         android:id="@+id/oilPB"
@@ -100,12 +94,11 @@
         android:layout_marginStart="4dp"
         android:layout_marginTop="4dp"
         android:text="Brake"
-        android:textColor="@android:color/white"
-        android:textSize="@dimen/progressbar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline9" />
+        app:layout_constraintTop_toTopOf="@+id/guideline9"
+        style="?textViewSmall"/>
 
     <TextView
         android:id="@+id/brakesprogress"
@@ -113,10 +106,9 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="4dp"
         android:layout_marginTop="6dp"
-        android:textColor="@android:color/white"
-        android:textSize="@dimen/Default"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline9" />
+        app:layout_constraintTop_toTopOf="@+id/guideline9"
+        style="?textViewDefault"/>
 
     <ProgressBar
         android:id="@+id/brakesPB"
@@ -139,12 +131,11 @@
         android:layout_marginStart="4dp"
         android:layout_marginTop="4dp"
         android:text="Wheel"
-        android:textColor="@android:color/white"
-        android:textSize="@dimen/progressbar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline10" />
+        app:layout_constraintTop_toTopOf="@+id/guideline10"
+        style="?textViewSmall"/>
 
     <TextView
         android:id="@+id/wheelsprogress"
@@ -152,10 +143,9 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="4dp"
         android:layout_marginTop="6dp"
-        android:textColor="@android:color/white"
-        android:textSize="@dimen/Default"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline10" />
+        app:layout_constraintTop_toTopOf="@+id/guideline10"
+        style="?textViewDefault"/>
 
     <ProgressBar
         android:id="@+id/wheelsPB"
@@ -179,12 +169,11 @@
         android:layout_marginStart="4dp"
         android:layout_marginTop="4dp"
         android:text="Battery"
-        android:textColor="@android:color/white"
-        android:textSize="@dimen/progressbar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline11" />
+        app:layout_constraintTop_toTopOf="@+id/guideline11"
+        style="?textViewSmall"/>
 
     <TextView
         android:id="@+id/batteryprogress"
@@ -192,10 +181,9 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="4dp"
         android:layout_marginTop="6dp"
-        android:textColor="@android:color/white"
-        android:textSize="@dimen/Default"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline11" />
+        app:layout_constraintTop_toTopOf="@+id/guideline11"
+        style="?textViewDefault"/>
 
     <ProgressBar
         android:id="@+id/batteryPB"
@@ -218,12 +206,11 @@
         android:layout_marginStart="4dp"
         android:layout_marginTop="4dp"
         android:text="Timing Belt"
-        android:textColor="@android:color/white"
-        android:textSize="@dimen/progressbar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline12" />
+        app:layout_constraintTop_toTopOf="@+id/guideline12"
+        style="?textViewSmall"/>
 
     <TextView
         android:id="@+id/timingbeltprogress"
@@ -231,10 +218,9 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="4dp"
         android:layout_marginTop="6dp"
-        android:textColor="@android:color/white"
-        android:textSize="@dimen/Default"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline12" />
+        app:layout_constraintTop_toTopOf="@+id/guideline12"
+        style="?textViewDefault"/>
 
     <ProgressBar
         android:id="@+id/timingBeltPB"

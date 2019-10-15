@@ -180,15 +180,15 @@ public class MainActivity extends AppCompatActivity
         if(Utils.sTheme == 1)
         {
             bot_nav_home_gas_colors[0] = Color.BLACK;
-            /*For some reason, using colors defined in colors.xml doesn't work*/
-            bot_nav_home_gas_colors[1] = Color.parseColor("#c4c4c4");
+            /*Note: Using colors defined in colors.xml is a resource NOT a color. You have to convert it to a color*/
+            bot_nav_home_gas_colors[1] = getResources().getColor(R.color.light_app_bar_text);
 
             bot_nav_selectall_delete_colors[0] = Color.BLACK;
         }
         else
         {
             bot_nav_home_gas_colors[0] = Color.WHITE;
-            bot_nav_home_gas_colors[1] = Color.parseColor("#c4c4c4");
+            bot_nav_home_gas_colors[1] = getResources().getColor(R.color.light_app_bar_text);
 
             bot_nav_selectall_delete_colors[0] = Color.WHITE;
         }

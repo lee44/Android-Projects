@@ -28,6 +28,11 @@
         <item name="cardBackgroundColor">@color/cardView_background</item>
     </style>
 
+    <style name="dark_textView_default">
+        <item name="android:textColor">@color/dark_textview</item>
+        <item name="android:textSize">@dimen/Default</item>
+    </style>
+
     <style name="dark_textView_small">
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">@dimen/small_textview</item>
@@ -130,6 +135,11 @@
         <item name="cardBackgroundColor">@color/light_cards_dialog</item>
     </style>
 
+    <style name="light_textView_default">
+        <item name="android:textColor">@color/light_textview</item>
+        <item name="android:textSize">@dimen/Default</item>
+    </style>
+
     <style name="light_textView_small">
         <item name="android:textColor">@color/light_textview</item>
         <item name="android:textSize">@dimen/small_textview</item>
@@ -151,9 +161,9 @@
         <item name="android:textColorPrimary">@color/light_edit_textview</item>
         <item name="android:textSize">@dimen/edittext</item>
         <item name="colorControlNormal">@color/light_edit_textview</item>
-        <item name="colorControlActivated">@color/red</item>
-        <item name="colorAccent">@color/red</item>
-        <item name="android:textColorHint">@color/black</item>
+        <item name="colorControlActivated">@color/light_edit_textview_underline_color</item>
+        <item name="colorAccent">@color/light_edit_textview_cursor_color</item>
+        <item name="android:textColorHint">@color/light_textview</item>
     </style>
 
     <style name="light_layout_background">
@@ -161,9 +171,9 @@
     </style>
 
     <style name="light_floating_action_button">
-        <item name="colorControlNormal">@color/red</item>
-        <item name="colorAccent">@color/red</item>
-        <item name="colorControlActivated">@color/red</item>
+        <item name="colorControlNormal">@color/light_floating_action_button</item>
+        <item name="colorAccent">@color/light_floating_action_button</item>
+        <item name="colorControlActivated">@color/light_floating_action_button</item>
     </style>
 
     <style name="light_cardViewBackground_gas_entry">
@@ -204,7 +214,6 @@
         <!--Colors the icons-->
         <item name="itemIconTint">@drawable/bot_nav_light</item>
         <item name="itemTextColor">@drawable/bot_nav_light</item>
-
     </style>
 
     <style name="light_tool_bar_title">
