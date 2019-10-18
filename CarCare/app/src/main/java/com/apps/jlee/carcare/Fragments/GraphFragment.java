@@ -221,7 +221,7 @@ public class GraphFragment extends Fragment
 
         chart.setData(lineData);
 
-        if(getContext().getSharedPreferences("Preferences",0).getInt("Theme",0) == 1)
+        if(getContext().getSharedPreferences("Preferences",0).getInt("Theme",0) == 0)
         {
             dataSet.setColor(getResources().getColor(R.color.light_graph_line));
             dataSet.setCircleHoleColor(getResources().getColor(R.color.light_graph_dots));

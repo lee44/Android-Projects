@@ -179,7 +179,7 @@ public class MainActivity extends AppCompatActivity
             new int[] {-android.R.attr.state_selected}
         };
 
-        if(this.getSharedPreferences("Preferences",0).getInt("Theme",0) == 1)
+        if(this.getSharedPreferences("Preferences",0).getInt("Theme",0) == 0)
         {
             bot_nav_home_gas_colors[0] = Color.BLACK;
             /*Note: Using colors defined in colors.xml is a resource NOT a color. You have to convert it to a color*/
