@@ -209,6 +209,20 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    public void toggleToolbarItems()
+    {
+        if(toolbar.getMenu().getItem(0).isVisible())
+            for(int i = 0; i < toolbar.getMenu().size(); i++)
+            {
+                toolbar.getMenu().getItem(i).setVisible(false);
+            }
+        else
+            for(int i = 0; i < toolbar.getMenu().size(); i++)
+            {
+                toolbar.getMenu().getItem(i).setVisible(true);
+            }
+    }
+
     public void countSelected(int n)
     {
         count += n;

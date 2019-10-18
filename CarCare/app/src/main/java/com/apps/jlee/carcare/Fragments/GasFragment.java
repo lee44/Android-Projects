@@ -64,6 +64,7 @@ public class GasFragment extends Fragment
 {
     private GasDialogFragment d;
     private FilterDialogFragment f;
+    private SettingsFragment sf;
     private ArrayList<HashMap<String,String>> arrayList;
     private List<Object> gasList;
     private Gas mRecentlyDeletedItem;
@@ -88,6 +89,7 @@ public class GasFragment extends Fragment
         gasList = new LinkedList<>();
         d = new GasDialogFragment();
         f = new FilterDialogFragment();
+        sf = new SettingsFragment();
         db = SQLiteDatabaseHandler.getInstance(getContext());
     }
 
@@ -245,40 +247,34 @@ public class GasFragment extends Fragment
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
-        int id = item.getItemId();
-
-        if(id == R.id.Filter)
+        switch(item.getItemId())
         {
-            f.show(getFragmentManager(), "fragment_filter");
+            case R.id.Filter: f.show(getFragmentManager(), "fragment_filter");break;
+            case R.id.Email:
+                new AsyncExcel(db).execute();
+                //email();
+
+                //For s9, we are saving excel files on the interal storage but this storage has internal and external partitions. Internal partitions are invisible while external are not.
+
+                //Internal Storage:
+                // Files saved to the internal storage are private to your application and other applications cannot access them. When the user uninstalls your application,
+                // these files are removed/deleted. Your app user also can't access them using file manager; even after enabling "show hidden files" option in file manager. To access files in
+                // Internal Storage, you have to root your Android phone.
+
+                //External Storage:
+                //This can be a removable storage media (such as an SD card) or an internal (non-removable) storage
+
+                //The following methods give paths to the external paritition of the internal storage
+                //Log.v("Dodgers",Environment.getExternalStorageDirectory().getAbsolutePath());
+                //Log.v("Dodgers",Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS).getAbsolutePath());
+
+                //Following two will give you the directory paths under the package name: Android/data/com.apps.jlee.carcare
+                //Log.v("Dodgers",getContext().getExternalCacheDir().getAbsolutePath());
+                //Log.v("Dodgers",getContext().getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS).getAbsolutePath());
+                break;
+            case R.id.Settings: ((MainActivity)getActivity()).setFragment(sf);((MainActivity)getActivity()).toggleToolbarItems();break;
+            case R.id.generateDummyData: generateGasEntries();break;
         }
-        else if (id == R.id.Email)
-        {
-            new AsyncExcel(db).execute();
-            //email();
-
-            //For s9, we are saving excel files on the interal storage but this storage has internal and external partitions. Internal partitions are invisible while external are not.
-
-            //Internal Storage:
-            // Files saved to the internal storage are private to your application and other applications cannot access them. When the user uninstalls your application,
-            // these files are removed/deleted. Your app user also can't access them using file manager; even after enabling "show hidden files" option in file manager. To access files in
-            // Internal Storage, you have to root your Android phone.
-
-            //External Storage:
-            //This can be a removable storage media (such as an SD card) or an internal (non-removable) storage
-
-            //The following methods give paths to the external paritition of the internal storage
-            //Log.v("Dodgers",Environment.getExternalStorageDirectory().getAbsolutePath());
-            //Log.v("Dodgers",Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS).getAbsolutePath());
-
-            //Following two will give you the directory paths under the package name: Android/data/com.apps.jlee.carcare
-            //Log.v("Dodgers",getContext().getExternalCacheDir().getAbsolutePath());
-            //Log.v("Dodgers",getContext().getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS).getAbsolutePath());
-        }
-        else
-        {
-            generateGasEntries();
-        }
-
         return super.onOptionsItemSelected(item);
     }
 

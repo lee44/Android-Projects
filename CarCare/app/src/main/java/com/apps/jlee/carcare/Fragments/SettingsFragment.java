@@ -9,12 +9,15 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Spinner;
 
+import com.apps.jlee.carcare.Adapters.SpinnerCustomAdapter;
 import com.apps.jlee.carcare.R;
 import com.apps.jlee.carcare.util.Utils;
 
 public class SettingsFragment extends Fragment
 {
-    private Spinner spThemes;
+    private Spinner spThemes, spDefaultTab;
+    private String[] themes = {"Default","Material Light","Material Dark"};
+    private String[] tabs = {"Home","Gas"};
 
     public SettingsFragment() {}
 
@@ -23,8 +26,17 @@ public class SettingsFragment extends Fragment
     {
         View view = inflater.inflate(R.layout.settings, container, false);
         spThemes = view.findViewById(R.id.spThemes);
+        spDefaultTab = view.findViewById(R.id.spdefaulttab);
+
+        SpinnerCustomAdapter theme_adapter = new SpinnerCustomAdapter(getContext(), themes);
+        spThemes.setAdapter(theme_adapter);
+
+        SpinnerCustomAdapter tab_adapter = new SpinnerCustomAdapter(getContext(), tabs);
+        spDefaultTab.setAdapter(tab_adapter);
 
         spThemes.setSelection(0,false);
+        spDefaultTab.setSelection(0,false);
+
         spThemes.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
         {
             @Override
@@ -39,6 +51,22 @@ public class SettingsFragment extends Fragment
 
             }
         });
+
+        spDefaultTab.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l)
+            {
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView)
+            {
+
+            }
+        });
+
         return view;
     }
 }

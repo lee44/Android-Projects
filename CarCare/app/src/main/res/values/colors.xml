@@ -21,6 +21,7 @@
     <color name="dark_background">#303030</color>
     <color name="dark_cards_dialog">#424242</color>
     <color name="dark_textview">#ffffff</color>
+    <color name="dark_app_bar_text">#64c4c4c4</color>
 
     <color name="dark_graph_line">#74ee15</color>
     <color name="dark_graph_dots">#ff0000ff</color>

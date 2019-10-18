@@ -120,7 +120,7 @@ public class GraphFragment extends Fragment
             case R.id.GraphByGallons: t.setText("Gallons Graph");loadGraphData(2);break;
             case R.id.GraphByMiles: t.setText("Miles Graph");loadGraphData(3);break;
             case R.id.GraphByMPG: t.setText("MPG Graph");loadGraphData(4);break;
-            case R.id.Settings: ((MainActivity)getActivity()).setFragment(sf); break;
+            case R.id.Settings: ((MainActivity)getActivity()).setFragment(sf); ((MainActivity)getActivity()).toggleToolbarItems(); break;
         }
         return super.onOptionsItemSelected(item);
     }
