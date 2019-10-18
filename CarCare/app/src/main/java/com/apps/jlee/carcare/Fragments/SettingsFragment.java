@@ -1,6 +1,7 @@
 package com.apps.jlee.carcare.Fragments;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -16,7 +17,7 @@ import com.apps.jlee.carcare.util.Utils;
 public class SettingsFragment extends Fragment
 {
     private Spinner spThemes, spDefaultTab;
-    private String[] themes = {"Default","Material Light","Material Dark"};
+    private String[] themes = {"Material Light","Material Dark"};
     private String[] tabs = {"Home","Gas"};
 
     public SettingsFragment() {}
@@ -34,8 +35,8 @@ public class SettingsFragment extends Fragment
         SpinnerCustomAdapter tab_adapter = new SpinnerCustomAdapter(getContext(), tabs);
         spDefaultTab.setAdapter(tab_adapter);
 
-        spThemes.setSelection(0,false);
-        spDefaultTab.setSelection(0,false);
+        spThemes.setSelection(getContext().getSharedPreferences("Preferences",0).getInt("Theme",0),false);
+        spDefaultTab.setSelection(getContext().getSharedPreferences("Preferences",0).getInt("Tab",0),false);
 
         spThemes.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
         {
@@ -46,10 +47,7 @@ public class SettingsFragment extends Fragment
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> adapterView)
-            {
-
-            }
+            public void onNothingSelected(AdapterView<?> adapterView) {}
         });
 
         spDefaultTab.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
@@ -57,14 +55,14 @@ public class SettingsFragment extends Fragment
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l)
             {
-
+                SharedPreferences pref = getContext().getSharedPreferences("Preferences", 0); // 0 - for private mode
+                SharedPreferences.Editor editor = pref.edit();
+                editor.putInt("Tab",adapterView.getSelectedItemPosition());
+                editor.commit();
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> adapterView)
-            {
-
-            }
+            public void onNothingSelected(AdapterView<?> adapterView) {}
         });
 
         return view;

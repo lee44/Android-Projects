@@ -219,7 +219,7 @@ public class GasFragment extends Fragment
     {
         super.onPrepareOptionsMenu(menu);
 
-        if(Utils.sTheme == 1)
+        if(getContext().getSharedPreferences("Preferences",0).getInt("Theme",0) == 0)
         {
             MenuItem item = menu.findItem(R.id.Filter);
             Drawable icon = getResources().getDrawable(R.drawable.filter);

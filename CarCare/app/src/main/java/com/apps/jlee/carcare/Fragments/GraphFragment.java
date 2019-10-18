@@ -93,8 +93,8 @@ public class GraphFragment extends Fragment
         if(list.size() != 0)
         {
             loadGraphData(1);
-            //updateProgressBar();
-            //loadProgressBar();
+            updateProgressBar();
+            loadProgressBar();
         }
 
         return v;
@@ -221,7 +221,7 @@ public class GraphFragment extends Fragment
 
         chart.setData(lineData);
 
-        if(Utils.sTheme == 1)
+        if(getContext().getSharedPreferences("Preferences",0).getInt("Theme",0) == 1)
         {
             dataSet.setColor(getResources().getColor(R.color.light_graph_line));
             dataSet.setCircleHoleColor(getResources().getColor(R.color.light_graph_dots));

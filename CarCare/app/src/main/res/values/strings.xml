@@ -6,7 +6,6 @@
     <string name="channel_description">Channel is for reminding user to replace car parts based on mileage</string>
 
     <string-array name="theme_array">
-        <item>Default</item>
         <item>Material-Light</item>
         <item>Material-Dark</item>
     </string-array>

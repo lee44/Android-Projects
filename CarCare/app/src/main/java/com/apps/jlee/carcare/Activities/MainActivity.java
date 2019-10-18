@@ -52,8 +52,6 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        bottomNavBar.setSelectedItemId(R.id.Home);
-
         bottomNavBar.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener()
         {
             @Override
@@ -98,10 +96,14 @@ public class MainActivity extends AppCompatActivity
         if (ContextCompat.checkSelfPermission(this,Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
         {
             ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},REQUEST);
+            bottomNavBar.setSelectedItemId(R.id.Home);
         }
         else
         {
-            setFragment(home);
+            if(this.getSharedPreferences("Preferences",0).getInt("Tab",0) == 0)
+                bottomNavBar.setSelectedItemId(R.id.Home);
+            else
+                bottomNavBar.setSelectedItemId(R.id.Gas);
         }
     }
 
@@ -177,7 +179,7 @@ public class MainActivity extends AppCompatActivity
             new int[] {-android.R.attr.state_selected}
         };
 
-        if(Utils.sTheme == 1)
+        if(this.getSharedPreferences("Preferences",0).getInt("Theme",0) == 1)
         {
             bot_nav_home_gas_colors[0] = Color.BLACK;
             /*Note: Using colors defined in colors.xml is a resource NOT a color. You have to convert it to a color*/
