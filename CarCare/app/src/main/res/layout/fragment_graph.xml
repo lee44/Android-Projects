@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="?layout_background"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    style="?layout_background">
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/title"
+        style="?textViewMedium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="4dp"
@@ -17,8 +17,7 @@
         android:text="Cost Graph"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        style="?textViewMedium"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/chart"
@@ -33,8 +32,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title" />
 
+    <ImageButton
+        android:id="@+id/graphButton"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginEnd="4dp"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/filter"
+        app:layout_constraintBottom_toTopOf="@+id/chart"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline22"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/replacementTitle"
+        style="?textViewMedium"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="4dp"
@@ -46,11 +59,11 @@
         app:layout_constraintBottom_toTopOf="@+id/guideline4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline"
-        style="?textViewMedium"/>
+        app:layout_constraintTop_toTopOf="@+id/guideline" />
 
     <TextView
         android:id="@+id/oil"
+        style="?textViewSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="4dp"
@@ -60,18 +73,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline4"
-        style="?textViewSmall"/>
+        app:layout_constraintTop_toTopOf="@+id/guideline4" />
 
     <TextView
         android:id="@+id/oilprogress"
+        style="?textViewDefault"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="4dp"
         android:layout_marginTop="6dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline4"
-        style="?textViewDefault"/>
+        app:layout_constraintTop_toTopOf="@+id/guideline4" />
 
     <ProgressBar
         android:id="@+id/oilPB"
@@ -88,6 +100,7 @@
 
     <TextView
         android:id="@+id/brakes"
+        style="?textViewSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="4dp"
@@ -97,18 +110,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline9"
-        style="?textViewSmall"/>
+        app:layout_constraintTop_toTopOf="@+id/guideline9" />
 
     <TextView
         android:id="@+id/brakesprogress"
+        style="?textViewDefault"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="4dp"
         android:layout_marginTop="6dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline9"
-        style="?textViewDefault"/>
+        app:layout_constraintTop_toTopOf="@+id/guideline9" />
 
     <ProgressBar
         android:id="@+id/brakesPB"
@@ -125,6 +137,7 @@
 
     <TextView
         android:id="@+id/wheels"
+        style="?textViewSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="4dp"
@@ -134,18 +147,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline10"
-        style="?textViewSmall"/>
+        app:layout_constraintTop_toTopOf="@+id/guideline10" />
 
     <TextView
         android:id="@+id/wheelsprogress"
+        style="?textViewDefault"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="4dp"
         android:layout_marginTop="6dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline10"
-        style="?textViewDefault"/>
+        app:layout_constraintTop_toTopOf="@+id/guideline10" />
 
     <ProgressBar
         android:id="@+id/wheelsPB"
@@ -163,6 +175,7 @@
 
     <TextView
         android:id="@+id/battery"
+        style="?textViewSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="4dp"
@@ -172,18 +185,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline11"
-        style="?textViewSmall"/>
+        app:layout_constraintTop_toTopOf="@+id/guideline11" />
 
     <TextView
         android:id="@+id/batteryprogress"
+        style="?textViewDefault"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="4dp"
         android:layout_marginTop="6dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline11"
-        style="?textViewDefault"/>
+        app:layout_constraintTop_toTopOf="@+id/guideline11" />
 
     <ProgressBar
         android:id="@+id/batteryPB"
@@ -200,6 +212,7 @@
 
     <TextView
         android:id="@+id/timingBelt"
+        style="?textViewSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="4dp"
@@ -209,18 +222,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline12"
-        style="?textViewSmall"/>
+        app:layout_constraintTop_toTopOf="@+id/guideline12" />
 
     <TextView
         android:id="@+id/timingbeltprogress"
+        style="?textViewDefault"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="4dp"
         android:layout_marginTop="6dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline12"
-        style="?textViewDefault"/>
+        app:layout_constraintTop_toTopOf="@+id/guideline12" />
 
     <ProgressBar
         android:id="@+id/timingBeltPB"
@@ -279,5 +291,12 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent=".92" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline22"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent=".8" />
 
 </android.support.constraint.ConstraintLayout>

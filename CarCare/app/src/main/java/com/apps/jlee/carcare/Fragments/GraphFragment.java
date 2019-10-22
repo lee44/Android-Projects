@@ -16,6 +16,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -49,8 +50,9 @@ public class GraphFragment extends Fragment
     private LineChart chart;
     private String[] values;
     private ProgressBar oilPB, brakesPB, wheelsPB, batteryPB, timingBeltPB;
-    private String dbDateFormat = "yyyy-MM-dd HH:mm:ss";
+    private ImageButton ib;
     private TextView t, oilProgress, brakesProgress, wheelsProgress, batteryProgress, timeingBeltProgress;
+    private String dbDateFormat = "yyyy-MM-dd HH:mm:ss";
     private double previous_oil_total = 0, previous_brakes_total = 0, previous_wheels_total = 0, previous_battery_total = 0, previous_timingbelt_total = 0;
 
     public GraphFragment(){}
@@ -81,6 +83,7 @@ public class GraphFragment extends Fragment
         timingBeltPB = v.findViewById(R.id.timingBeltPB);
         timeingBeltProgress = v.findViewById(R.id.timingbeltprogress);
         t = v.findViewById(R.id.title);
+        ib = v.findViewById(R.id.graphButton);
 
         oilPB.setMax(3000);
         brakesPB.setMax(50000);

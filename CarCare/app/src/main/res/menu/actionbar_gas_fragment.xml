@@ -5,7 +5,7 @@
         android:id="@+id/Filter"
         android:title="Filter"
         app:showAsAction="ifRoom"
-        android:icon="@drawable/filter">
+        android:icon="@drawable/sort">
     </item>
 
     <item

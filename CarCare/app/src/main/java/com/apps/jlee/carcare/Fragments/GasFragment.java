@@ -222,14 +222,14 @@ public class GasFragment extends Fragment
         if(getContext().getSharedPreferences("Preferences",0).getInt("Theme",0) == 0)
         {
             MenuItem item = menu.findItem(R.id.Filter);
-            Drawable icon = getResources().getDrawable(R.drawable.filter);
+            Drawable icon = getResources().getDrawable(R.drawable.sort);
             icon.setColorFilter(getResources().getColor(R.color.black), PorterDuff.Mode.SRC_IN);
             item.setIcon(icon);
         }
         else
         {
             MenuItem item = menu.findItem(R.id.Filter);
-            Drawable icon = getResources().getDrawable(R.drawable.filter);
+            Drawable icon = getResources().getDrawable(R.drawable.sort);
             icon.setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.SRC_IN);
             item.setIcon(icon);
         }
