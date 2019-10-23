@@ -2,7 +2,7 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <style name="Material_Dark">
-        <!--GasDialogFragment,FilterDialogFragment-->
+        <!--GasDialogFragment,SortDialogFragment-->
         <item name="cardViewBackground">@style/dark_cardView_background</item>
         <item name="textViewDefault">@style/dark_textView_default</item>
         <item name="textViewSmall">@style/dark_textView_small</item>
@@ -25,15 +25,17 @@
         <item name="tool_bar_title">@style/dark_tool_bar_title</item>
         <item name="tab_layout">@style/dark_tab_layout</item>
 
-        <!--FilterDialogFragment-->
+        <!--SortDialogFragment-->
         <item name="spinner_textview">@style/dark_spinner_textview</item>
 
         <item name="checkbox">@style/dark_checkbox</item>
 
+        <item name="radio_button">@style/dark_radio_button</item>
+
     </style>
 
     <style name="Material_Light">
-        <!--GasDialogFragment,FilterDialogFragment-->
+        <!--GasDialogFragment,SortDialogFragment-->
         <item name="cardViewBackground">@style/light_cardView_background</item>
         <item name="textViewDefault">@style/light_textView_default</item>
         <item name="textViewSmall">@style/light_textView_small</item>
@@ -56,10 +58,11 @@
         <item name="tool_bar_title">@style/light_tool_bar_title</item>
         <item name="tab_layout">@style/light_tab_layout</item>
 
-        <!--FilterDialogFragment-->
+        <!--SortDialogFragment-->
         <item name="spinner_textview">@style/light_spinner_textview</item>
 
         <item name="checkbox">@style/light_checkbox</item>
+        <item name="radio_button">@style/light_radio_button</item>
     </style>
 
 </resources>

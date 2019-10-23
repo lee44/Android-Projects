@@ -18,9 +18,6 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.text.Selection;
-import android.util.Log;
-import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -30,13 +27,12 @@ import android.view.ViewGroup;
 
 import com.apps.jlee.carcare.Activities.MainActivity;
 import com.apps.jlee.carcare.Adapters.GasAdapter;
-import com.apps.jlee.carcare.Dialog_Fragments.FilterDialogFragment;
+import com.apps.jlee.carcare.Dialog_Fragments.SortDialogFragment;
 import com.apps.jlee.carcare.Objects.Gas;
 import com.apps.jlee.carcare.Dialog_Fragments.GasDialogFragment;
 import com.apps.jlee.carcare.R;
 import com.apps.jlee.carcare.Data.SQLiteDatabaseHandler;
 import com.apps.jlee.carcare.UI.SwipeCallback;
-import com.apps.jlee.carcare.util.Utils;
 
 import java.io.File;
 import java.io.IOException;
@@ -63,7 +59,7 @@ import jxl.write.biff.RowsExceededException;
 public class GasFragment extends Fragment
 {
     private GasDialogFragment d;
-    private FilterDialogFragment f;
+    private SortDialogFragment f;
     private SettingsFragment sf;
     private ArrayList<HashMap<String,String>> arrayList;
     private List<Object> gasList;
@@ -88,7 +84,7 @@ public class GasFragment extends Fragment
         arrayList = new ArrayList<>();
         gasList = new LinkedList<>();
         d = new GasDialogFragment();
-        f = new FilterDialogFragment();
+        f = new SortDialogFragment();
         sf = new SettingsFragment();
         db = SQLiteDatabaseHandler.getInstance(getContext());
     }
@@ -159,7 +155,7 @@ public class GasFragment extends Fragment
            }
        });
 
-       f.setListener(new FilterDialogFragment.FilterInterface()
+       f.setListener(new SortDialogFragment.FilterInterface()
        {
            @Override
            public void onClick(Date starting_date, Date ending_date, String sortBy)

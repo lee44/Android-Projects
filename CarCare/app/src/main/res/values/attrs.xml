@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-<!--GasDialogFragment,FilterDialogFragment-->
+<!--GasDialogFragment,SortDialogFragment-->
     <attr name="cardViewBackground" format="reference" />
     <attr name="textViewDefault" format="reference" />
     <attr name="textViewSmall" format="reference" />
@@ -23,8 +23,13 @@
     <attr name="tool_bar_title" format="reference"/>
     <attr name="tab_layout" format="reference"/>
 
-<!--FilterDialogFragment-->
+<!--SortDialogFragment-->
     <attr name="spinner_textview" format="reference"/>
 
+<!--GasListView-->
     <attr name="checkbox" format="reference"/>
+
+<!--RadioButton-->
+    <attr name="radio_button" format="reference"/>
+
 </resources>

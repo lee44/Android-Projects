@@ -29,6 +29,7 @@
     <color name="dark_graph_yaxis">#ffffff</color>
 
     <color name="dark_checkbox">#ffffff</color>
+    <color name="dark_radiobutton">#74ee15</color>
 
 <!--Material Light Colors-->
     <color name="light_status_bar">#E0E0E0</color>
@@ -51,5 +52,5 @@
     <color name="light_graph_yaxis">#000000</color>
 
     <color name="light_checkbox">#000000</color>
-
+    <color name="light_radiobutton">#ff0000</color>
 </resources>

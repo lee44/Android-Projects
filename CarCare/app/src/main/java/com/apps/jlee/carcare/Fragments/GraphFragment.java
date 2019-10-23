@@ -22,6 +22,7 @@ import android.widget.TextView;
 
 import com.apps.jlee.carcare.Activities.MainActivity;
 import com.apps.jlee.carcare.Broadcast_Receivers.AlarmReceiver;
+import com.apps.jlee.carcare.Dialog_Fragments.FilterDialogFragment;
 import com.apps.jlee.carcare.Objects.Gas;
 import com.apps.jlee.carcare.R;
 import com.apps.jlee.carcare.Data.SQLiteDatabaseHandler;
@@ -45,6 +46,7 @@ public class GraphFragment extends Fragment
 {
     private SQLiteDatabaseHandler db;
     private SettingsFragment sf;
+    private FilterDialogFragment fd;
     private List<Entry> entries;
     private List<Object> list;
     private LineChart chart;
@@ -65,6 +67,7 @@ public class GraphFragment extends Fragment
         db = SQLiteDatabaseHandler.getInstance(getContext());
         sf = new SettingsFragment();
         entries = new ArrayList<Entry>();
+        fd = new FilterDialogFragment();
     }
 
     @Override
@@ -100,6 +103,28 @@ public class GraphFragment extends Fragment
             loadProgressBar();
         }
 
+        ib.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                fd.show(getFragmentManager(),"fragment_graph");
+            }
+        });
+
+        fd.setListener(new FilterDialogFragment.RadioGroupInput()
+        {
+            @Override
+            public void onClick(int i)
+            {
+                String[] graphType = new String[]{"Cost Graph","Gallons Graph","Miles Graph","MPG Graph"};
+                entries.clear();
+                chart.clear();
+                t.setText(graphType[i-1]);
+                loadGraphData(i);
+            }
+        });
+
         return v;
     }
 
@@ -114,15 +139,8 @@ public class GraphFragment extends Fragment
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
-        entries.clear();
-        chart.clear();
-
         switch(item.getItemId())
         {
-            case R.id.GraphByCost: t.setText("Cost Graph");loadGraphData(1);break;
-            case R.id.GraphByGallons: t.setText("Gallons Graph");loadGraphData(2);break;
-            case R.id.GraphByMiles: t.setText("Miles Graph");loadGraphData(3);break;
-            case R.id.GraphByMPG: t.setText("MPG Graph");loadGraphData(4);break;
             case R.id.Settings: ((MainActivity)getActivity()).setFragment(sf); ((MainActivity)getActivity()).toggleToolbarItems(); break;
         }
         return super.onOptionsItemSelected(item);

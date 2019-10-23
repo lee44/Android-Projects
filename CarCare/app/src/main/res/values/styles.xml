@@ -132,6 +132,13 @@
         <item name="android:buttonTint">@color/dark_checkbox</item>
     </style>
 
+    <style name="dark_radio_button" parent="Widget.AppCompat.CompoundButton.RadioButton">>
+        <item name="android:textSize">@dimen/small_textview</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/dark_textview</item>
+        <item name="buttonTint">@drawable/radio_button_selector_dark</item>
+    </style>
+
     <!-- =============================================================== -->
     <!-- Material_Light styles -->
     <!-- =============================================================== -->
@@ -241,6 +248,13 @@
 
     <style name="light_checkbox">
         <item name="android:buttonTint">@color/light_checkbox</item>
+    </style>
+
+    <style name="light_radio_button" parent="Widget.AppCompat.CompoundButton.RadioButton">>
+        <item name="android:textSize">@dimen/small_textview</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/light_textview</item>
+        <item name="buttonTint">@drawable/radio_button_selector_light</item>
     </style>
     
 </resources>

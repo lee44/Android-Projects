@@ -1,23 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/GraphByCost"
-        android:title="Graph By Cost (Default)">
-    </item>
-    <item
-        android:id="@+id/GraphByGallons"
-        android:title="Graph By Gallons">
-    </item>
-    <item
-        android:id="@+id/GraphByMiles"
-        android:title="Graph By Miles">
-    </item>
-    <item
-        android:id="@+id/GraphByMPG"
-        android:title="Graph By MPG">
-    </item>
-
-    <item
         android:id="@+id/Settings"
         android:title="Settings">
     </item>
