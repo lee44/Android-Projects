@@ -24,6 +24,7 @@
         <item name="bot_nav_bar">@style/dark_bot_nav_bar</item>
         <item name="tool_bar_title">@style/dark_tool_bar_title</item>
         <item name="tab_layout">@style/dark_tab_layout</item>
+        <item name="action_menu">@style/dark_action_menu</item>
 
         <!--SortDialogFragment-->
         <item name="spinner_textview">@style/dark_spinner_textview</item>
@@ -57,6 +58,7 @@
         <item name="bot_nav_bar">@style/light_bot_nav_bar</item>
         <item name="tool_bar_title">@style/light_tool_bar_title</item>
         <item name="tab_layout">@style/light_tab_layout</item>
+        <item name="action_menu">@style/light_action_menu</item>
 
         <!--SortDialogFragment-->
         <item name="spinner_textview">@style/light_spinner_textview</item>

@@ -32,4 +32,6 @@
 <!--RadioButton-->
     <attr name="radio_button" format="reference"/>
 
+    <attr name="action_menu" format="reference"/>
+
 </resources>

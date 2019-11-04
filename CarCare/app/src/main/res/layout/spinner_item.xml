@@ -2,11 +2,9 @@
 
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/Filters"
+    style="?spinner_textview"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:gravity="left"
-    android:padding="5dp"
+    android:padding="10dp"
     android:text="Text"
-    android:textAlignment="center"
-    style="?spinner_textview"
-/>
+    android:textAlignment="center" />
