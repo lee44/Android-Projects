@@ -101,7 +101,7 @@
         <!--<item name="colorControlActivated">@color/neon</item>-->
 
         <!-- Applied to framework control highlights (i.e ripples or list selectors) -->
-        <!--<item name="colorControlHighlight">@color/neon</item>-->
+        <item name="colorControlHighlight">@color/neon</item>
     </style>
 
     <style name="dark_action_menu">
@@ -113,7 +113,7 @@
         <!--Colors the background that is not covered by the nav bar-->
         <item name="android:background">@color/dark_app_bar</item>
         <!--Colors the background of each item in the nav bar-->
-        <item name="itemBackground">@color/dark_app_bar</item>
+        <item name="itemBackground">@drawable/bot_nav_bar_selector</item>
         <!--Colors the icons-->
         <item name="itemIconTint">@drawable/bot_nav_dark</item>
         <item name="itemTextColor">@drawable/bot_nav_dark</item>
