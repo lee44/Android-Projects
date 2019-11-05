@@ -189,14 +189,13 @@ public class GasFragment extends Fragment
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy)
             {
-                if (dy > 0 && gasList.size() != 5)
+                if (dy > 0)
                 {
                     ((MainActivity)getActivity()).toggleBottomNavBarVisibility(false);
                 }
                 else if (dy < 0 )
                 {
                     ((MainActivity)getActivity()).toggleBottomNavBarVisibility(true);
-
                 }
             }
 
