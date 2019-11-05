@@ -102,12 +102,11 @@
 
         <!-- Applied to framework control highlights (i.e ripples or list selectors) -->
         <!--<item name="colorControlHighlight">@color/neon</item>-->
-
-        <!--<item name="android:itemBackground">@color/dark_background</item>-->
     </style>
 
     <style name="dark_action_menu">
-        <item name="android:background">@color/dark_background</item>
+        <item name="android:background">@drawable/action_menu_selector</item>
+        <item name="android:itemBackground">@drawable/action_menu_selector</item>
     </style>
 
     <style name="dark_bot_nav_bar">
