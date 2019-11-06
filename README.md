@@ -11,7 +11,7 @@ CareCare is an Android app that helps users maintain the health of their car. Wi
 * Light and Dark Theme
 
 ## Installation
-https://play.google.com/store/apps/details?id=com.apps.jlee.carcare&hl=en_US
+Download app at https://play.google.com/store/apps/details?id=com.apps.jlee.carcare&hl=en_US
 
 ## Built With
 * Android SDK 26 (Only Android Phones running 8.0 and greater can install)
