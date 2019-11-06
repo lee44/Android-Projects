@@ -9,3 +9,7 @@ CareCare is an Android app that helps users maintain the health of their car. Wi
 * Generates an excel file for user to email all recorded data 
 * User can sort and choose what data to graph
 * Light and Dark Theme
+
+## Installation
+http://github.com - automatic!
+[GitHub](http://github.com)
