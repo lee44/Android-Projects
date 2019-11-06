@@ -14,7 +14,7 @@
 <!--Material Dark Colors-->
     <color name="cardView_background">#424242</color>
     <color name="cardView_button_background">#878787</color>
-    <color name="neon">#74ee15</color>
+    <color name="dark_highlight_color">#74ee15</color>
 
     <color name="dark_status_bar">#000000</color>
     <color name="dark_app_bar">#212121</color>
@@ -33,10 +33,10 @@
 
 <!--Material Light Colors-->
     <color name="light_status_bar">#E0E0E0</color>
-    <color name="light_app_bar">#F5F5F5</color>
+    <color name="light_app_bar">#dcdcdc</color>
     <color name="light_background">#FAFAFA</color>
     <color name="light_cards_dialog">#FFFFFF</color>
-    <color name="light_app_bar_text">#c4c4c4</color>
+    <color name="light_app_bar_text">#ffffff</color>
 
     <color name="light_textview">#000000</color>
 
@@ -53,4 +53,5 @@
 
     <color name="light_checkbox">#000000</color>
     <color name="light_radiobutton">#ff0000</color>
+    <color name="light_highlight_color">#ff0000</color>
 </resources>

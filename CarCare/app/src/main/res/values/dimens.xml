@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
 
+    <dimen name="bot_nav_bar">16sp</dimen>
     <dimen name="Default">18sp</dimen>
 
     <dimen name="title">24sp</dimen>
@@ -13,6 +14,7 @@
     <dimen name="spinnertextview">20sp</dimen>
     <dimen name="edittext">21sp</dimen>
 
-    <dimen name="design_bottom_navigation_text_size" tools:override="true">12sp</dimen>
-    <dimen name="design_bottom_navigation_active_text_size" tools:override="true">12sp</dimen>
+    <dimen name="design_bottom_navigation_text_size" tools:override="true">15sp</dimen>
+    <dimen name="design_bottom_navigation_active_text_size" tools:override="true">15sp</dimen>
+
 </resources>

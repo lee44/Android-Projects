@@ -12,10 +12,8 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.AccelerateInterpolator;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,6 +31,7 @@ public class MainActivity extends AppCompatActivity
     private Toolbar toolbar;
     private static final int REQUEST = 112;
     private int count = 0;
+    private boolean isSelectMode = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -62,19 +61,23 @@ public class MainActivity extends AppCompatActivity
                 {
                     case R.id.Home:
                         setFragment(home);
+                        bottomNavBar.getMenu().getItem(0).setCheckable(true);
+                        bottomNavBar.getMenu().getItem(1).setCheckable(true);
                         bottomNavBar.findViewById(R.id.Home).setSelected(true);
                         bottomNavBar.findViewById(R.id.Gas).setSelected(false);
                         break;
 
                     case R.id.Gas:
                         setFragment(gas);
+                        bottomNavBar.getMenu().getItem(0).setCheckable(true);
+                        bottomNavBar.getMenu().getItem(1).setCheckable(true);
                         bottomNavBar.findViewById(R.id.Home).setSelected(false);
                         bottomNavBar.findViewById(R.id.Gas).setSelected(true);
                         break;
 
                     case R.id.cancel:
-                        countSelected(-count);
-                        toggleToolbarSelection();
+                        increaseSelected(-count);
+                        toggleToolbarSelectedDisplay();
                         toggleBottomNavBarButtons();
                         gas.toggleFloatingActionButton();
                         gas.cancel();
@@ -83,7 +86,7 @@ public class MainActivity extends AppCompatActivity
                         break;
 
                     case R.id.delete:
-                        countSelected(-count);
+                        increaseSelected(-count);
                         gas.deleteSelectedItems();
                         break;
 
@@ -136,7 +139,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     /**
-     * Hides Bottom Nav Bar when scrolling Recyclerview
+     * Reveals or hides Bottom Nav Bar when scrolling Recyclerview
      */
     public void toggleBottomNavBarVisibility(boolean visible)
     {
@@ -151,9 +154,9 @@ public class MainActivity extends AppCompatActivity
     }
 
     /**
-     * Reveals or hides checkbox inside the Toolbar
+     * Reveals or hides the number selected inside the Toolbar
      */
-    public void toggleToolbarSelection()
+    public void toggleToolbarSelectedDisplay()
     {
         if(toolbar_title.getText().equals("CarCare"))
         {
@@ -162,6 +165,7 @@ public class MainActivity extends AppCompatActivity
         }
         else
         {
+            count = 0;
             toolbar_title.setText("CarCare");
             toolbar_title.setTextSize(24);
         }
@@ -172,6 +176,8 @@ public class MainActivity extends AppCompatActivity
      */
     public void toggleBottomNavBarButtons()
     {
+        isSelectMode = isSelectMode ? false : true;
+
         int[] bot_nav_home_gas_colors = new int[2];
         int[] bot_nav_selectall_delete_colors = new int[1];
         int[][] states = new int[][]
@@ -191,7 +197,7 @@ public class MainActivity extends AppCompatActivity
         else
         {
             bot_nav_home_gas_colors[0] = Color.WHITE;
-            bot_nav_home_gas_colors[1] = getResources().getColor(R.color.light_app_bar_text);
+            bot_nav_home_gas_colors[1] = getResources().getColor(R.color.dark_app_bar_text);
 
             bot_nav_selectall_delete_colors[0] = Color.WHITE;
         }
@@ -212,6 +218,9 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    /**
+     * Reveals or hides the Action Menu in the toolbar
+     */
     public void toggleToolbarItems()
     {
         if(toolbar.getMenu().getItem(0).isVisible())
@@ -226,7 +235,21 @@ public class MainActivity extends AppCompatActivity
             }
     }
 
-    public void countSelected(int n)
+    public void deSelectBotNavBar()
+    {
+        bottomNavBar.getMenu().getItem(0).setCheckable(false);
+        bottomNavBar.getMenu().getItem(1).setCheckable(false);
+
+        bottomNavBar.findViewById(R.id.Home).setSelected(false);
+        bottomNavBar.findViewById(R.id.Gas).setSelected(false);
+    }
+
+    public boolean getSelectMode()
+    {
+        return isSelectMode;
+    }
+
+    public void increaseSelected(int n)
     {
         count += n;
         toolbar_title.setText(count+" selected");

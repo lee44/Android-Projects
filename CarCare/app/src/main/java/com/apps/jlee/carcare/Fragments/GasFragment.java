@@ -267,7 +267,19 @@ public class GasFragment extends Fragment
                 //Log.v("Dodgers",getContext().getExternalCacheDir().getAbsolutePath());
                 //Log.v("Dodgers",getContext().getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS).getAbsolutePath());
                 break;
-            case R.id.Settings: ((MainActivity)getActivity()).setFragment(sf);((MainActivity)getActivity()).toggleToolbarItems();break;
+            case R.id.Settings:
+            ((MainActivity)getActivity()).setFragment(sf);
+            ((MainActivity)getActivity()).toggleToolbarItems();
+            ((MainActivity)getActivity()).toggleBottomNavBarVisibility(true);
+
+            if(((MainActivity)getActivity()).getSelectMode())
+            {
+                ((MainActivity)getActivity()).toggleToolbarSelectedDisplay();
+                ((MainActivity)getActivity()).toggleBottomNavBarButtons();
+            }
+
+            ((MainActivity)getActivity()).deSelectBotNavBar();
+            break;
             case R.id.generateDummyData: generateGasEntries();break;
         }
         return super.onOptionsItemSelected(item);

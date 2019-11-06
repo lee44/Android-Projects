@@ -85,7 +85,7 @@ public class GasAdapter extends RecyclerView.Adapter<GasAdapter.ViewHolder>
             ((Gas)(gasList.get(i))).showCheckbox = true;
             notifyItemChanged(i);
         }
-        ((MainActivity)c).toggleToolbarSelection();
+        ((MainActivity)c).toggleToolbarSelectedDisplay();
     }
 
     private void hideAllCheckBoxes()
@@ -96,7 +96,7 @@ public class GasAdapter extends RecyclerView.Adapter<GasAdapter.ViewHolder>
             ((Gas)gasList.get(i)).showChecked = false;
             notifyItemChanged(i);
         }
-        ((MainActivity)c).toggleToolbarSelection();
+        ((MainActivity)c).toggleToolbarSelectedDisplay();
     }
 
     //Provides a direct reference to each of the views within a data item. Used to cache the views within the item layout for fast access
@@ -136,7 +136,7 @@ public class GasAdapter extends RecyclerView.Adapter<GasAdapter.ViewHolder>
                         revealAllCheckBoxes();
                         g.toggleFloatingActionButton();
                         ((MainActivity)c).toggleBottomNavBarButtons();
-                        ((MainActivity)c).countSelected(1);
+                        ((MainActivity)c).setSelected(1);
                         Vibrator v = (Vibrator) c.getSystemService(Context.VIBRATOR_SERVICE);
                         // Vibrate for 500 milliseconds
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -161,12 +161,12 @@ public class GasAdapter extends RecyclerView.Adapter<GasAdapter.ViewHolder>
                         if(((Gas)(gasList.get(i))).showChecked)
                         {
                             ((Gas)(gasList.get(i))).showChecked = false;
-                            ((MainActivity)c).countSelected(-1);
+                            ((MainActivity)c).increaseSelected(-1);
                         }
                         else
                         {
                             ((Gas)(gasList.get(i))).showChecked = true;
-                            ((MainActivity)c).countSelected(1);
+                            ((MainActivity)c).increaseSelected(1);
                         }
                         notifyItemChanged(i);
                     }

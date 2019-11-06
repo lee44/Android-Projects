@@ -141,7 +141,11 @@ public class GraphFragment extends Fragment
     {
         switch(item.getItemId())
         {
-            case R.id.Settings: ((MainActivity)getActivity()).setFragment(sf); ((MainActivity)getActivity()).toggleToolbarItems(); break;
+            case R.id.Settings:
+            ((MainActivity)getActivity()).setFragment(sf);
+            ((MainActivity)getActivity()).toggleToolbarItems();
+            ((MainActivity)getActivity()).deSelectBotNavBar();
+            break;
         }
         return super.onOptionsItemSelected(item);
     }
