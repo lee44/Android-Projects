@@ -9,6 +9,10 @@ CareCare is an Android app that helps users maintain the health of their car. Wi
 ![Screenshot_20191106-155136_CarCare2](https://user-images.githubusercontent.com/13184429/68348566-1338fc80-00af-11ea-8d77-ff1f95cdf03a.jpg)
 ![Screenshot_20191106-161522_CarCare](https://user-images.githubusercontent.com/13184429/68349156-01585900-00b1-11ea-9c95-861bf29b9315.jpg)
 
+![Screenshot_20191107-112048_CarCare](https://user-images.githubusercontent.com/13184429/68420693-bc383380-0151-11ea-9b39-bfb844aa4608.jpg)
+![Screenshot_20191107-112159_CarCare](https://user-images.githubusercontent.com/13184429/68420695-bc383380-0151-11ea-8e46-bee43459406e.jpg)
+![Screenshot_20191107-112218_CarCare](https://user-images.githubusercontent.com/13184429/68420696-bcd0ca00-0151-11ea-9468-9054a96ac032.jpg)
+
 ## Features
 * Graphs mileage, gas cost, gas amount, and mpg
 * Progress bar showing when car parts need maintenance
