@@ -15,7 +15,9 @@ CareCare is an Android app that helps users maintain the health of their car. Wi
 * Offers statistics and predictions of cars status
 * Records mileage, gas cost, gas amount, and calculates mpg
 * Generates an excel file for user to email all recorded data 
-* User can sort and choose what data to graph
+* Sort and select data to graph
+* Swipe left to edit or swipe right to delete records
+* Long Press to select multiple records
 * Light and Dark Theme
 
 ## Installation
