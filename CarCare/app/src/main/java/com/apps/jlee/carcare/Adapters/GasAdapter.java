@@ -60,6 +60,19 @@ public class GasAdapter extends RecyclerView.Adapter<GasAdapter.ViewHolder>
         holder.gallons.setText(number.format(entry.getAmount()));
         holder.mpg.setText(String.format("%.2f", entry.getMiles() / entry.getAmount())+" MPG");
 
+        if(c.getSharedPreferences("Preferences",0).getInt("Theme",0) == 0)
+        {
+            holder.cash_icon.setBackgroundResource(R.drawable.light_dollar_sign);
+            holder.miles_icon.setBackgroundResource(R.drawable.light_road);
+            holder.gallons_icon.setBackgroundResource(R.drawable.light_gallon);
+        }
+        else
+        {
+            holder.cash_icon.setBackgroundResource(R.drawable.dark_dollar_sign);
+            holder.miles_icon.setBackgroundResource(R.drawable.dark_road);
+            holder.gallons_icon.setBackgroundResource(R.drawable.dark_gallon);
+        }
+
         if(entry.showCheckbox)
             holder.cb.setVisibility(View.VISIBLE);
         else
