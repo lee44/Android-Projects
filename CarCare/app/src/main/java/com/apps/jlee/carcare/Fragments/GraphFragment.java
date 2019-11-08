@@ -450,7 +450,7 @@ public class GraphFragment extends Fragment
         calendar.set(Calendar.MINUTE, 00);
 
         //Schedule a repeating alarm that runs every 24 hours
-        //alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),1000 * 60 * 60 * 24, alarmIntent);
+        alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),1000 * 60 * 60 * 24, alarmIntent);
         // Schedule a repeating alarm that runs every minute
         // alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),1000 * 60 * 1, alarmIntent);
         // Schedule alarm that runs once at the given time
