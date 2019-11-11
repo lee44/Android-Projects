@@ -27,7 +27,7 @@ public class Utils
     {
         SharedPreferences pref = activity.getSharedPreferences("Preferences", 0);
 
-        switch (pref.getInt("Theme",0))
+        switch (pref.getInt("Theme",1))
         {
             case THEME_MATERIAL_LIGHT:
                 activity.setTheme(R.style.Material_Light);

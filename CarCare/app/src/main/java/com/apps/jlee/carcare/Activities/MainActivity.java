@@ -104,10 +104,10 @@ public class MainActivity extends AppCompatActivity
         }
         else
         {
-            if(this.getSharedPreferences("Preferences",0).getInt("Tab",0) == 0)
-                bottomNavBar.setSelectedItemId(R.id.Home);
-            else
+            if(this.getSharedPreferences("Preferences",0).getInt("Tab",1) == 1)
                 bottomNavBar.setSelectedItemId(R.id.Gas);
+            else
+                bottomNavBar.setSelectedItemId(R.id.Home);
         }
     }
 
